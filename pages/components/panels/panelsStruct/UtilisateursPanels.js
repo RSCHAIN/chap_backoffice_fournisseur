@@ -6,19 +6,30 @@ import UserCorps from '../tableUser/UserCorps';
 const ListEntete = [
     {
         id: 1,
-        label: 'ID'
+        label: 'E-mail'
     },
     {
         id: 2,
-        label: 'GENRE'
+        label: 'Nom'
     },
     {
         id: 3,
-        label: 'E-mail'
+        label: 'Prenom'
     },
     {
         id: 4,
         label: 'NUMERO TELEPHONE'
+    },
+    {
+        id: 5,
+        label: 'Adresse'
+    },  {
+        id: 6,
+        label: 'Etat'
+    },
+    {
+        id: 7,
+        label: 'Action'
     },
 ]
 // le corps des entetes 
@@ -56,7 +67,7 @@ const UtilisateursPanels = () => {
                 <Box>
                     <Text
                         fontWeight={'medium'} fontSize={['sm', 'md', 'lg', 'xl']}
-                    >Table des produits</Text>
+                    >Table des Utilisateurs</Text>
                 </Box>
 
                 <Stack

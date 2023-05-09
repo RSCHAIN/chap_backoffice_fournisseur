@@ -1,207 +1,248 @@
-import { Avatar, Button, Center, Flex, Input, InputGroup, InputRightElement, Link, Menu, MenuButton, MenuItem, MenuList, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
-import React from 'react';
-import { ChevronDownIcon, EmailIcon, Search2Icon } from '@chakra-ui/icons';
-import { faBell, faHomeLgAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DashBoardPanels from './panels/panelsStruct/DashBoardPanels';
-import ProduitsPanels from './panels/panelsStruct/ProduitsPanels';
-import CommandesPanels from './panels/panelsStruct/CommandesPanels';
-import UtilisateursPanels from './panels/panelsStruct/UtilisateursPanels';
-import EmployePanels from './panels/panelsStruct/EmployePanels';
-import AdminProfilePanels from './panels/panelsStruct/AdminProfilePanels';
+import {
+  Avatar,
+  Button,
+  Center,
+  Flex,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  Image
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { ChevronDownIcon, EmailIcon, Search2Icon } from "@chakra-ui/icons";
+import { faBell, faHomeLgAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DashBoardPanels from "./panels/panelsStruct/DashBoardPanels";
+import ProduitsPanels from "./panels/panelsStruct/ProduitsPanels";
+import CommandesPanels from "./panels/panelsStruct/CommandesPanels";
+import UtilisateursPanels from "./panels/panelsStruct/UtilisateursPanels";
+import EmployePanels from "./panels/panelsStruct/EmployePanels";
+import AdminProfilePanels from "./panels/panelsStruct/AdminProfilePanels";
+import { deleteCookie, getCookie, hasCookie } from "cookies-next";
+import { useRouter } from "next/router";
+import { database } from "@/Firebase/Connexion";
+
 
 const DesktopNav = () => {
-    return (
-        <>
-            <Stack
-                w={'100%'} h={'auto'} direction={'column'} spacing={'0'}
+  const router = useRouter();
+  const [data, setData] = useState([]);
+  const [user, setUser] = useState()
+  const [org,setOrg]= useState()
+  const [cat,setCat] = useState()
+  const [email,setEmail] = useState()
+
+  useEffect(() => {
+    const exist =  localStorage.getItem("user");
+    if (exist) {
+       setData(JSON.parse(exist))
+       const all = JSON.parse(exist)
+        
+        setCat(all.categorie)
+        setOrg(all.organisation)
+        setUser(all.name)
+        setEmail(all.email)
+       router.push("/Dashboard")
+    }else{
+      router.push("/Connexion")
+    }
+    
+  });
+  const logout = () => {
+    localStorage.clear("user")
+  };
+
+  
+
+
+
+
+
+
+
+
+
+  return (
+    <>
+    
+      <Stack w={"100%"} h={"auto"} direction={"column"} spacing={"0"}>
+        {/* le logo et la nav laterale  */}
+        <Stack w={"100%"} direction={"row"} spacing={"0"}>
+          {/* la box du logo  */}
+          <Center w={"14.5%"} h={"5em"}>
+            <Center
+              h={"4.5em"}
+              w={"8em"}
+              borderRadius={"70%"}
+              // bg={"#0077b6"}
+              color={"#fff"}
+              mt={".5em"}
             >
-                {/* le logo et la nav laterale  */}
-                <Stack
-                    w={'100%'} direction={'row'} spacing={'0'}
-                >
+              
+              <Image src={"./logo1.png"} />
+            </Center>
+          </Center>
 
-                    {/* la box du logo  */}
-                    <Center
-                        w={'14.5%'} h={'5em'}
-                    >
-                        <Center
-                            h={'4.5em'} w={'8em'} borderRadius={'70%'} bg={'#0077b6'}
-                            color={'#fff'} mt={'.5em'}
-                        >
-                            <Text>Chap</Text>
-                        </Center>
-                    </Center>
+          {/* la box de l'input  */}
+          <Flex
+            alignItems={"center"}
+            justifyContent={"space-between"}
+            w={"85.5%"}
+          >
+            <InputGroup w={"20em"} ml={"1em"}>
+              <Input
+                type="tel"
+                placeholder="Recherche..."
+                bg={"#dee2e6"}
+                borderRadius={"5px"}
+                _placeholder={{ fontWeight: "bold" }}
+              />
+              <InputRightElement
+                bg={"#0077b6"}
+                color={"#fff"}
+                borderTopRightRadius={"5px"}
+                borderBottomRightRadius={"5px"}
+              >
+                <Search2Icon />
+              </InputRightElement>
+            </InputGroup>
 
-                    {/* la box de l'input  */}
-                    <Flex
-                        alignItems={'center'} justifyContent={'space-between'}
-                        w={'85.5%'}
-                    >
-                        <InputGroup
-                            w={'20em'} ml={'1em'}
-                        >
-                            <Input
-                                type='tel' placeholder='Recherche...'
-                                bg={'#dee2e6'} borderRadius={'5px'}
-                                _placeholder={{ fontWeight: 'bold' }}
-                            />
-                            <InputRightElement
-                                bg={'#0077b6'} color={'#fff'}
-                                borderTopRightRadius={'5px'}
-                                borderBottomRightRadius={'5px'}
-                            >
-                                <Search2Icon />
-                            </InputRightElement>
-                        </InputGroup>
+            {/* icone button's */}
+            <Flex
+              w={"20em"}
+              alignItems={"center"}
+              justifyContent={"space-around"}
+            >
+              <Link href="/Dashboard">
+                <FontAwesomeIcon
+                  icon={faHomeLgAlt}
+                  color="#6c757d"
+                ></FontAwesomeIcon>
+              </Link>
 
-                        {/* icone button's */}
-                        <Flex
-                            w={'20em'} alignItems={'center'} justifyContent={'space-around'}
-                        >
-                            <Link>
-                                <FontAwesomeIcon icon={faHomeLgAlt} color='#6c757d'></FontAwesomeIcon>
-                            </Link>
+              <Link>
+                <FontAwesomeIcon
+                  icon={faBell}
+                  color="#6c757d"
+                ></FontAwesomeIcon>
+              </Link>
+              <Flex alignItems={"center"} justifyContent={"center"}>
+                <Link>
+                  <Avatar
+                   
+                    name={user ? user : ""}
+                  
+                    mr={"1em"}
+                    bgColor={'#08566e'}
+                  />
+                </Link>
 
-                            <Link>
-                                <FontAwesomeIcon icon={faBell} color='#6c757d'></FontAwesomeIcon>
-                            </Link>
-                            <Flex
-                                alignItems={'center'} justifyContent={'center'}
-
-                            >
-                                <Link>
-                                    <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' mr={'1em'} />
-                                </Link>
-
-                                <Menu>
-                                    <MenuButton
-                                        as={Button} 
-                                        // rightIcon={<ChevronDownIcon />}
-                                        variant='outline'
-                                    >
-                                        Admin
-                                    </MenuButton>
-                                    {/* <MenuList>
-                                        <MenuItem>Download</MenuItem>
-                                        <MenuItem>Create a Copy</MenuItem>
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    // rightIcon={<ChevronDownIcon />}
+                    variant="outline"
+                  >
+                    Admin
+                  </MenuButton>
+                  <MenuList>
+                  <Center as={Text}>{email ? email : "vide"}</Center>
+                    <MenuItem as={Button} onClick={() => logout()}>
+                      Deconnexion
+                    </MenuItem>
+                    
+                    {/* <MenuItem>Create a Copy</MenuItem>
                                         <MenuItem>Mark as Draft</MenuItem>
                                         <MenuItem>Delete</MenuItem>
-                                        <MenuItem>Attend a Workshop</MenuItem>
-                                    </MenuList> */}
-                                </Menu>
-                            </Flex>
-                        </Flex>
+                                        <MenuItem>Attend a Workshop</MenuItem> */}
+                  </MenuList>
+                </Menu>
+              </Flex>
+            </Flex>
+          </Flex>
+        </Stack>
 
-                    </Flex>
-                </Stack>
+        <Tabs
+          variant="unstyled"
+          display={"flex"}
+          flexDirection={"row"}
+          w={"100%"}
+          minH={"100vh"}
+        >
+          <TabList w={{ md: "30%", xl: "17%" }} flexDirection={"column"}>
+            <Tab
+              w={{ md: "90%", lg: "80%" }}
+              h={"3em"}
+              ml={{ md: "5%", lg: "10%" }}
+              borderRadius={"10px"}
+              color={"#0077b6"}
+              fontWeight={"bold"}
+              mt={"2em"}
+              _selected={{ color: "#fff", bg: "#0077b6" }}
+            >
+              <EmailIcon />{" "}
+              <Text ml={{ md: "0.5em", lg: "1em" }}>Dashboard</Text>
+            </Tab>
 
+            <Tab _selected={{ color: "blue" }} mt={"3em"}>
+              Table des produits
+            </Tab>
 
+            <Tab _selected={{ color: "blue" }}>Commandes</Tab>
 
+            <Tab _selected={{ color: "blue" }}>Les clients</Tab>
 
-                <Tabs
-                    variant='unstyled' display={'flex'} flexDirection={'row'}
-                    w={'100%'} minH={'100vh'}
-                >
-                    <TabList
-                        w={{ md: '30%', xl: '17%' }}
-                        flexDirection={'column'}
-                    >
+            <Tab _selected={{ color: "blue" }}>Les Employes</Tab>
 
-                        <Tab
-                            w={{ md: '90%', lg: '80%' }} h={'3em'} ml={{ md: '5%', lg: '10%' }} borderRadius={'10px'}
-                            color={'#0077b6'} fontWeight={'bold'} mt={'2em'}
-                            _selected={{ color: '#fff', bg: '#0077b6' }}
-                        >
-                            <EmailIcon /> <Text ml={{ md: '0.5em', lg: '1em' }}>Dashboard</Text>
-                        </Tab>
+            <Tab _selected={{ color: "blue" }}>Profile Admin</Tab>
+          </TabList>
 
-                        <Tab
-                            _selected={{ color: 'blue' }} mt={'3em'}
-                        >
-                            Table des produits
-                        </Tab>
+          <TabPanels bg={"#e9ecef"} w={{ md: "70%", xl: "83%" }} h={"100%"}>
+            {/* dashboard  */}
+            <TabPanel w={"100%"} h={"100%"}>
+              <DashBoardPanels></DashBoardPanels>
+            </TabPanel>
 
-                        <Tab
-                            _selected={{ color: 'blue' }}
+            {/* table des produits  */}
+            <TabPanel w={"100%"} h={"100%"}>
+              <ProduitsPanels></ProduitsPanels>
+            </TabPanel>
 
-                        >
-                            Commandes
-                        </Tab>
+            {/* commandes  */}
+            <TabPanel w={"100%"} h={"100%"}>
+              <CommandesPanels></CommandesPanels>
+            </TabPanel>
 
-                         <Tab
-                            _selected={{ color: 'blue' }}
+            {/* utilisateurs   */}
+            <TabPanel w={"100%"} h={"100%"}>
+              <UtilisateursPanels></UtilisateursPanels>
+            </TabPanel>
 
-                        >
-                            Les Utilisateurs
-                        </Tab>
+            {/* employes  */}
+            <TabPanel w={"100%"} h={"100%"}>
+              <EmployePanels></EmployePanels>
+            </TabPanel>
 
-                        <Tab
-                            _selected={{ color: 'blue' }}
-
-                        >
-                            Les Employes
-                        </Tab> 
-
-                        <Tab
-                            _selected={{ color: 'blue' }}
-
-                        >
-                            Profile Admin
-                        </Tab>
-                    </TabList>
-
-                    <TabPanels
-                        bg={'#e9ecef'}
-                        w={{ md: '70%', xl: '83%' }} h={'100%'}
-                    >
-                        {/* dashboard  */}
-                        <TabPanel
-                            w={'100%'} h={'100%'}
-                        >
-                            <DashBoardPanels></DashBoardPanels>
-                        </TabPanel>
-
-                        {/* table des produits  */}
-                        <TabPanel
-                            w={'100%'} h={'100%'}
-                        >
-                            <ProduitsPanels></ProduitsPanels>
-                        </TabPanel>
-
-                        {/* commandes  */}
-                        <TabPanel
-                            w={'100%'} h={'100%'}
-                        >
-                            <CommandesPanels></CommandesPanels>
-                        </TabPanel>
-
-                        {/* utilisateurs   */}
-                        <TabPanel
-                            w={'100%'} h={'100%'}
-                        >
-                            <UtilisateursPanels></UtilisateursPanels>
-                        </TabPanel>
-
-                        {/* employes  */}
-                        <TabPanel
-                            w={'100%'} h={'100%'}
-                        >
-                            <EmployePanels></EmployePanels>
-                        </TabPanel> 
-
-                        {/* profile admin  */}
-                        <TabPanel
-                            w={'100%'} h={'100%'}
-                        >
-                            <AdminProfilePanels></AdminProfilePanels>
-                        </TabPanel>
-
-                    </TabPanels>
-                </Tabs>
-            </Stack>
-        </>
-    );
+            {/* profile admin  */}
+            <TabPanel w={"100%"} h={"100%"}>
+              <AdminProfilePanels></AdminProfilePanels>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Stack>
+    </>
+  );
 };
 
 export default DesktopNav;

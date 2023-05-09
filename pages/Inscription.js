@@ -180,13 +180,33 @@ const Inscription = () => {
                     h={"4em"}
                     bg={"#fff"}
                     borderRadius={"full"}
-                    placeholder="votre e-mail"
+                    placeholder="Le nom de votre structure"
                     _placeholder={{ color: "#000" }}
                     onChange={(e) => setOrganisation(e.target.value)}
                     type="text"
                     isRequired
                   ></Input>
                 </Stack>
+                           {/* input email */}
+                           <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                  <Text fontWeight={"bold"} fontSize={"1.5em"}>
+                    SIRET{" "}
+                  </Text>
+                  <Input
+                    w={"100%"}
+                    h={"4em"}
+                    bg={"#fff"}
+                    borderRadius={"full"}
+                    placeholder="Numero de siret"
+                    _placeholder={{ color: "#000" }}
+                    onChange={(e) => setOrganisation(e.target.value)}
+                    type="text"
+                    maxLength={30}
+                    
+                  ></Input>
+                </Stack>
+                           {/* input email */}
+                         
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     Numero de la structure
@@ -196,7 +216,7 @@ const Inscription = () => {
                     h={"4em"}
                     bg={"#fff"}
                     borderRadius={"full"}
-                    placeholder="votre e-mail"
+                    placeholder="Numero de la structure"
                     _placeholder={{ color: "#000" }}
                     onChange={(e) => setNumber(e.target.value)}
                     type="number"
@@ -229,7 +249,22 @@ const Inscription = () => {
                     isRequired
                   ></Input>
                 </Stack>
-
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                  <Text fontWeight={"bold"} fontSize={"1.5em"}>
+                   IMAGE DU MAGASIN
+                  </Text>
+                  <Input
+                    w={"100%"}
+                    h={"4em"}
+                    bg={"#fff"}
+                    borderRadius={"full"}
+                    placeholder="votre e-mail"
+                    _placeholder={{ color: "#000" }}
+                    accept="image/*"
+                    type="file"
+                    
+                  ></Input>
+                </Stack>
                 {/* input mot de pass */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
