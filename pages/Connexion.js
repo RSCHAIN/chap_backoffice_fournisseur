@@ -56,17 +56,40 @@ const Connexion = () => {
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data().password);
+      
       if (docSnap.data().password == pass ) {
-        console.log(docSnap.data().password);
-        localStorage.setItem("user",JSON.stringify(docSnap.data()));
+       
+        localStorage.setItem("user",JSON.stringify(docSnap.data().email));
+        localStorage.setItem("cat",JSON.stringify(docSnap.data().categorie))
+        localStorage.setItem("org",JSON.stringify(docSnap.data().organisation))
+        localStorage.setItem("name",JSON.stringify(docSnap.data().name))
         router.reload()
+        
+          toast({
+            title: "ACCES APPROUVÉ",
+            description: "NOUS VOUS REDIRIGEONS",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          })
+      
       }else{
-        console.log("mdp incorrect")
+        toast({
+          title: "VERIFIER VOS INFORMATIONS",
+          description: "Erreur dans l'un des champs",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        })
       }
     } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
+      toast({
+        title: "VERIFIER VOS INFORMATIONS",
+        description: "Erreur dans l'un des champs",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      })
     }
   };
   if (typeof window !== "undefined") {

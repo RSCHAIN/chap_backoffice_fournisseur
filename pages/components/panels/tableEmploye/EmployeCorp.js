@@ -9,32 +9,27 @@ const EmplyeCorps = ({items}) => {
                 borderBottom={'2px'} borderColor={'#e9ecef'}
             >
                 <Flex
-                    w={'25%'} h={'100%'} bg={'#fff'}
+                    w={'100%'} h={'100%'} bg={'#fff'}
                     alignItems={'center'} justifyContent={'center'}
                 >
-                    {items.idEmp}
+                    {items.data().lieu}
                 </Flex>
 
                 <Flex
-                    w={'25%'} h={'100%'} bg={'#fff'}
+                    w={'100%'} h={'100%'} bg={'#fff'}
                     alignItems={'center'} justifyContent={'center'}
                 >
-                    {items.nom}
+                    {items.data().lieu}
                 </Flex>
 
                 <Flex
-                    w={'25%'} h={'100%'} bg={'#fff'}
+                    w={'100%'} h={'100%'} bg={'#fff'}
                     alignItems={'center'} justifyContent={'center'}
                 >
-                    {items.etat}
+                    {items.data().time}
                 </Flex>
 
-                <Flex
-                    w={'25%'} h={'100%'} bg={'#fff'}
-                    alignItems={'center'} justifyContent={'center'}
-                >
-                    {items.phoneNumber}
-                </Flex>
+              
             </Flex>
         </>
     );

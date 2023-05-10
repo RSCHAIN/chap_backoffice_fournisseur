@@ -70,21 +70,20 @@ const ProduitsPanels = () => {
   const [cat, setCat] = useState();
 
   useEffect(() => {
-    const exist = localStorage.getItem("user");
+    const exist = localStorage.getItem("cat");
+    const exist2 = localStorage.getItem("org");
     if (exist) {
-      const all = JSON.parse(exist);
+     
 
-      setCat(all.categorie);
-      setOrg(all.organisation);
+      setCat(JSON.parse(exist));
+      setOrg(JSON.parse(exist2));
     }
     const dbRef = ref(getDatabase());
     get(child(dbRef, cat + "/" + org))
       .then((snapshot) => {
         if (snapshot.exists()) {
           setLast(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
+        } 
       })
       .catch((error) => {
         console.error(error);

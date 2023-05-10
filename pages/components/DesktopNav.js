@@ -45,14 +45,17 @@ const DesktopNav = () => {
 
   useEffect(() => {
     const exist =  localStorage.getItem("user");
+    const exist2 =  localStorage.getItem("cat");
+    const exist3 =  localStorage.getItem("org");
+    const exist4 =  localStorage.getItem("name");
     if (exist) {
        setData(JSON.parse(exist))
        const all = JSON.parse(exist)
         
-        setCat(all.categorie)
-        setOrg(all.organisation)
-        setUser(all.name)
-        setEmail(all.email)
+        setCat(JSON.parse(exist2))
+        setOrg(JSON.parse(exist3))
+        setUser(JSON.parse(exist4))
+        setEmail(JSON.parse(exist))
        router.push("/Dashboard")
     }else{
       router.push("/Connexion")
@@ -157,7 +160,7 @@ const DesktopNav = () => {
                     Admin
                   </MenuButton>
                   <MenuList>
-                  <Center as={Text}>{email ? email : "vide"}</Center>
+                  <Center as={Text}>{email ? email : ""}</Center>
                     <MenuItem as={Button} onClick={() => logout()}>
                       Deconnexion
                     </MenuItem>
@@ -203,9 +206,9 @@ const DesktopNav = () => {
 
             <Tab _selected={{ color: "blue" }}>Les clients</Tab>
 
-            <Tab _selected={{ color: "blue" }}>Les Employes</Tab>
+            <Tab _selected={{ color: "blue" }}>Liste Des Magasins</Tab>
 
-            <Tab _selected={{ color: "blue" }}>Profile Admin</Tab>
+            {/* <Tab _selected={{ color: "blue" }}>Profile Admin</Tab> */}
           </TabList>
 
           <TabPanels bg={"#e9ecef"} w={{ md: "70%", xl: "83%" }} h={"100%"}>
