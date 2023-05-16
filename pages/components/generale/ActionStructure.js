@@ -1,22 +1,47 @@
-import { DownloadIcon, ViewIcon } from '@chakra-ui/icons';
-import { Flex } from '@chakra-ui/react';
-import { faPrint } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import { Flex } from "@chakra-ui/react";
+import {TbChecks} from 'react-icons/tb'
+import React from "react";
+import { MdCancel } from "react-icons/md";
+import { database } from "@/Firebase/Connexion";
+import { ref, update } from "firebase/database";
+import { useRouter } from "next/router";
 
-const ActionStructure = () => {
-    return (
-        <>
-            <Flex
-                flexDirection={'row'} w={'100%'} h={'100%'}
-                alignItems={'center'} justifyContent={'space-around'}
-            >
-                <ViewIcon color={'#0077b6'}></ViewIcon>
-                <DownloadIcon color={'#faa307'}></DownloadIcon>
-                <FontAwesomeIcon icon={faPrint} color='#9d0208' />
-            </Flex>
-        </>
-    );
+
+function Validate(id,state) {
+    
+    update(ref(database,  "Commandes/" +String(id.ident)), {
+        
+        Status: state,
+      });
+}
+
+
+function Cancel(id,state) {
+    
+    update(ref(database,  "Commandes/" +String(id.ident)), {
+        
+        Status: state,
+      });
+}
+
+
+
+const ActionStructure = (ident) => {
+   const router = useRouter()
+  return (
+    <>
+      <Flex
+        flexDirection={"row"}
+        w={"100%"}
+        h={"100%"}
+        alignItems={"center"}
+        justifyContent={"space-around"}
+      >
+        <TbChecks color="green" cursor={"pointer"} onClick={()=>{Validate(ident,"VALIDE")}}/>
+        <MdCancel color="red" cursor={"pointer"} onClick={()=>Cancel(ident,"ANNULE")}/>
+      </Flex>
+    </>
+  );
 };
 
 export default ActionStructure;

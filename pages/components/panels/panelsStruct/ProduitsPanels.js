@@ -45,6 +45,7 @@ function writeData(cat, org, name, image, prix, description, quantite) {
       description: description,
       quantity: quantite,
       imageUrl: image,
+      organisation: org, 
       etat: "disponible",
       note: "nouveau",
     });
@@ -182,6 +183,7 @@ const ProduitsPanels = () => {
                         onChange={(e) => setDesc(e.target.value)}
                       />
                     </FormControl>
+                    <Input type="hidden" value={org} />
                   </Box>
                 </Flex>
               </ModalBody>

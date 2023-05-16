@@ -43,6 +43,7 @@ const DesktopNav = () => {
   const [cat,setCat] = useState()
   const [email,setEmail] = useState()
 
+
   useEffect(() => {
     const exist =  localStorage.getItem("user");
     const exist2 =  localStorage.getItem("cat");
@@ -56,6 +57,7 @@ const DesktopNav = () => {
         setOrg(JSON.parse(exist3))
         setUser(JSON.parse(exist4))
         setEmail(JSON.parse(exist))
+       
        router.push("/Dashboard")
     }else{
       router.push("/Connexion")
@@ -206,7 +208,7 @@ const DesktopNav = () => {
 
             <Tab _selected={{ color: "blue" }}>Les clients</Tab>
 
-            <Tab _selected={{ color: "blue" }}>Liste Des Magasins</Tab>
+            {/* <Tab _selected={{ color: "blue" }}>Liste Des Magasins</Tab> */}
 
             {/* <Tab _selected={{ color: "blue" }}>Profile Admin</Tab> */}
           </TabList>
@@ -233,9 +235,9 @@ const DesktopNav = () => {
             </TabPanel>
 
             {/* employes  */}
-            <TabPanel w={"100%"} h={"100%"}>
-              <EmployePanels></EmployePanels>
-            </TabPanel>
+            {/* <TabPanel w={"100%"} h={"100%"}> */}
+              {/* <EmployePanels></EmployePanels>
+            </TabPanel> */}
 
             {/* profile admin  */}
             <TabPanel w={"100%"} h={"100%"}>
