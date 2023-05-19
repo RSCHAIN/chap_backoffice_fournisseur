@@ -13,7 +13,7 @@ const CommandeCorps = ({ items,org,idex,lol }) => {
     
     if (status == "En Cours") {
         return (
-            <>
+            <>      
                 <Flex
                     w={'100%'} h={'3em'}
                     borderBottom={'2px'} borderColor={'#e9ecef'}
