@@ -5,7 +5,7 @@ import ActionStructure from '../../generale/ActionStructure';
 
 
 const CommandeCorps = ({ items,org,idex,lol }) => {
-
+ 
    
   if(items.organisation == org){
     
