@@ -14,9 +14,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Logo from "./components/generale/Logo";
-import { app, db } from "@/Firebase/Connexion";
+import { app, db, storage } from "@/Firebase/Connexion";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 
 const Inscription = () => {
   const [show, setShow] = useState(false);
@@ -26,15 +27,17 @@ const Inscription = () => {
   const [number, setNumber] = useState();
   const [password, setPassword] = useState();
   const [password2, setPassword2] = useState();
+  const [siret, setSiret] = useState();
   const [organisation, setOrganisation] = useState();
   const [categorie, setCategorie] = useState();
   const [name, setName] = useState();
-
+  const [adresse, setAdresse] = useState();
+  const [tva, setTva] = useState();
+  const [image, setImage] = useState();
+  const [uri, setUri] = useState();
   const toast = useToast();
-  const router= useRouter()
+  const router = useRouter();
   const createUSer = async () => {
-    console.log("password", password);
-    console.log("password2", password2);
     if (password == password2) {
       //hachage ici
 
@@ -45,31 +48,36 @@ const Inscription = () => {
       // structure the todo data
       const Users = {
         categorie,
+        imageUrl: uri,
         name,
         organisation,
         number,
         email,
         password,
+        siret,
+        adresse,
+        tva,
       };
-      await setDoc(_user, Users).then(()=>
-      {
-        toast({
-          title: "INSCRIPTION VALIDEE",
-          description: "veuillez vous connecter",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
+      await setDoc(_user, Users)
+        .then(() => {
+          toast({
+            title: "INSCRIPTION VALIDEE",
+            description: "veuillez vous connecter",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
         })
-      } ).catch(()=>{
-        toast({
-          title: "VERIFIER LES CHAMPS/VOUS AVEZ UN COMPTE",
-          description: "SVP VERIFIER VOS DONNEES ",
-          status: "error",
-          duration: 7000,
-          isClosable: true,
-        })
-      } );
-      router.push("/Connexion")
+        .catch(() => {
+          toast({
+            title: "VERIFIER LES CHAMPS/VOUS AVEZ UN COMPTE",
+            description: "SVP VERIFIER VOS DONNEES ",
+            status: "error",
+            duration: 7000,
+            isClosable: true,
+          });
+        });
+      router.push("/Connexion");
     } else {
       console.log("okay la");
       toast({
@@ -82,6 +90,18 @@ const Inscription = () => {
     }
   };
 
+  ///upload image
+  const handleImageUpload = async (file, cat, org) => {
+    // Upload the image to Firebase Storage
+    const imageRef = ref(storage, cat + "/" + org + "/logo/" + file.name);
+    await uploadBytes(imageRef, file);
+
+    // Get the download URL of the uploaded image
+    const downloadURL = await getDownloadURL(imageRef);
+
+    // Do something with the downloadURL, such as storing it in a database
+    setUri(downloadURL);
+  };
   return (
     <>
       <Box
@@ -135,11 +155,15 @@ const Inscription = () => {
                 </Text>
                 <Select
                   border={"1px solid black"}
-                  defaultValue={'Alimentation'}
+                  defaultValue={"Alimentation"}
+                  value={categorie}
                   onChange={(e) => setCategorie(e.target.value)}
                 >
-                  <option>Alimentation</option>
-                  <option>Restauration</option>
+                  <option value={"Alimentation"} defaultChecked>
+                    Alimentation
+                  </option>
+                  <option value={"Restauration"}>Restauration</option>
+                  <option value={"Esthetique"}>Esthetique</option>
                 </Select>
               </Stack>
             </Flex>
@@ -187,8 +211,8 @@ const Inscription = () => {
                     isRequired
                   ></Input>
                 </Stack>
-                           {/* input email */}
-                           <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                {/* input email */}
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     SIRET{" "}
                   </Text>
@@ -199,14 +223,29 @@ const Inscription = () => {
                     borderRadius={"full"}
                     placeholder="Numero de siret"
                     _placeholder={{ color: "#000" }}
-                    onChange={(e) => setOrganisation(e.target.value)}
+                    onChange={(e) => setSiret(e.target.value)}
                     type="text"
                     maxLength={30}
-                    
                   ></Input>
                 </Stack>
-                           {/* input email */}
-                         
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                  <Text fontWeight={"bold"} fontSize={"1.5em"}>
+                    T.V.A
+                  </Text>
+                  <Input
+                    w={"100%"}
+                    h={"4em"}
+                    bg={"#fff"}
+                    borderRadius={"full"}
+                    placeholder="votre nom"
+                    _placeholder={{ color: "#000" }}
+                    onChange={(e) => setTva(e.target.value)}
+                    type="text"
+                    isRequired
+                  ></Input>
+                </Stack>
+                {/* input email */}
+
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     Numero de la structure
@@ -232,6 +271,22 @@ const Inscription = () => {
                 justifyContent={"center"}
                 flexDirection={"column"}
               >
+                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                  <Text fontWeight={"bold"} fontSize={"1.5em"}>
+                 Adresse
+                  </Text>
+                  <Input
+                    w={"100%"}
+                    h={"4em"}
+                    bg={"#fff"}
+                    borderRadius={"full"}
+                    placeholder="votre nom"
+                    _placeholder={{ color: "#000" }}
+                    onChange={(e) => setAdresse(e.target.value)}
+                    type="text"
+                    isRequired
+                  ></Input>
+                </Stack>
                 {/* input email */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
@@ -249,9 +304,10 @@ const Inscription = () => {
                     isRequired
                   ></Input>
                 </Stack>
+               
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
-                   IMAGE DU MAGASIN
+                    IMAGE DU MAGASIN
                   </Text>
                   <Input
                     w={"100%"}
@@ -262,7 +318,9 @@ const Inscription = () => {
                     _placeholder={{ color: "#000" }}
                     accept="image/*"
                     type="file"
-                    
+                    onChange={(e) => {
+                      setImage(e.target.files[0]), setImage(e.target.files[0]);
+                    }}
                   ></Input>
                 </Stack>
                 {/* input mot de pass */}
@@ -351,7 +409,10 @@ const Inscription = () => {
                   colorScheme="blue"
                   borderRadius={"full"}
                   fontSize={"1.5em"}
-                  onClick={() => createUSer()}
+                  onClick={() => {
+                    handleImageUpload(image, categorie, organisation),
+                      createUSer();
+                  }}
                 >
                   Inscription
                 </Button>

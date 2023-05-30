@@ -36,11 +36,13 @@ import { database, storage } from "@/Firebase/Connexion";
 import { child, get, getDatabase, push, ref } from "firebase/database";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
+import { uid } from "chart.js/dist/helpers/helpers.core";
 
 function writeData(cat, org, name, image, prix, description, quantite) {
   if (image != null) {
     push(ref(database, cat + "/" + org), {
       nom: name,
+      id:id,
       price: prix,
       description: description,
       quantity: quantite,
@@ -142,7 +144,8 @@ const ProduitsPanels = () => {
                 <Text>Image du produit</Text>
                 <Input
                   type="file"
-                  onChange={(e) => setImage(e.target.files[0])}
+                  accept="image/*"
+                  onChange={(e) =>{setImage(e.target.files[0]),setImage(e.target.files[0])} }
                 />
                 <Flex>
                   <Box mr={5}>
@@ -155,7 +158,7 @@ const ProduitsPanels = () => {
                       />
                     </FormControl>
                     <FormControl isRequired>
-                      <FormLabel>Prix de vente</FormLabel>
+                      <FormLabel>Prix de vente/kilo</FormLabel>
                       <Input
                         isRequired
                         placeholder="Prix de vente"
@@ -165,10 +168,10 @@ const ProduitsPanels = () => {
                     </FormControl>
                   </Box>
                   <Box>
-                    <FormControl isRequired>
+                    <FormControl >
                       <FormLabel>Quantité</FormLabel>
                       <Input
-                        isRequired
+                        
                         type="number"
                         placeholder="Quantié"
                         onChange={(e) => setQuantity(e.target.value)}

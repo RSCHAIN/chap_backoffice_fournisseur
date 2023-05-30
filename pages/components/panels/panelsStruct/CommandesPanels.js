@@ -85,8 +85,11 @@ const CommandesPanels = () => {
 
     const starCountRef = ref(database, "Commandes/");
     onValue(starCountRef, (snapshot) => {
-      setCommandeListe(snapshot.val());
+      if (snapshot.val() != null && snapshot.val() != undefined) {
+        setCommandeListe(snapshot.val());
      setCommandeId(Object.keys(snapshot.val()));
+      }
+      
     });
   };
   useEffect(() => {
