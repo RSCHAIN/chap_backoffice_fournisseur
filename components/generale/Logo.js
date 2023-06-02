@@ -5,10 +5,10 @@ const Logo = () => {
     return (
         <>
             <Center
-                h={'4em'} w={'7em'} borderRadius={'70%'} bg={'#0077b6'}
+                h={'4em'} w={'7em'} 
                 color={'#fff'} 
             >
-                <Text>Chap</Text>
+                <Image alt={'logo de rschain'} src={'logo1.png'} />
             </Center>
         </>
     );
