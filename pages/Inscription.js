@@ -9,6 +9,7 @@ import {
   Link,
   Select,
   Stack,
+  Switch,
   Text,
   useToast,
 } from "@chakra-ui/react";
@@ -29,7 +30,7 @@ const Inscription = () => {
   const [password2, setPassword2] = useState();
   const [siret, setSiret] = useState();
   const [organisation, setOrganisation] = useState();
-  const [categorie, setCategorie] = useState();
+  const [categorie, setCategorie] = useState('Alimentation');
   const [name, setName] = useState();
   const [adresse, setAdresse] = useState();
   const [tva, setTva] = useState();
@@ -111,6 +112,7 @@ const Inscription = () => {
         bgSize={"cover"}
         height={"fit-content"}
       >
+        <Switch></Switch>
         {/* le main  */}
         <Center width={"100%"} pb={60} pt={-5}>
           {/* la premier box grise  */}
@@ -204,7 +206,7 @@ const Inscription = () => {
                     h={"4em"}
                     bg={"#fff"}
                     borderRadius={"full"}
-                    placeholder="Le nom de votre structure"
+                    placeholder="Le nom de votre Société"
                     _placeholder={{ color: "#000" }}
                     onChange={(e) => setOrganisation(e.target.value)}
                     type="text"
@@ -221,7 +223,7 @@ const Inscription = () => {
                     h={"4em"}
                     bg={"#fff"}
                     borderRadius={"full"}
-                    placeholder="Numero de siret"
+                    placeholder="Numéro de SIRET"
                     _placeholder={{ color: "#000" }}
                     onChange={(e) => setSiret(e.target.value)}
                     type="text"
@@ -237,7 +239,7 @@ const Inscription = () => {
                     h={"4em"}
                     bg={"#fff"}
                     borderRadius={"full"}
-                    placeholder="votre nom"
+                    placeholder="votre numero de TVA"
                     _placeholder={{ color: "#000" }}
                     onChange={(e) => setTva(e.target.value)}
                     type="text"
@@ -280,7 +282,7 @@ const Inscription = () => {
                     h={"4em"}
                     bg={"#fff"}
                     borderRadius={"full"}
-                    placeholder="votre nom"
+                    placeholder="votre Adresse"
                     _placeholder={{ color: "#000" }}
                     onChange={(e) => setAdresse(e.target.value)}
                     type="text"
@@ -311,10 +313,10 @@ const Inscription = () => {
                   </Text>
                   <Input
                     w={"100%"}
-                    h={"4em"}
+                    
                     bg={"#fff"}
                     borderRadius={"full"}
-                    placeholder="votre e-mail"
+                    placeholder=""
                     _placeholder={{ color: "#000" }}
                     accept="image/*"
                     type="file"
@@ -418,6 +420,7 @@ const Inscription = () => {
                 </Button>
               </Link>
             </Center>
+            <Center>
             <Flex alignContent={"center"} textAlign={"center"}>
               <Text
                 color={"#0077b6"}
@@ -428,14 +431,16 @@ const Inscription = () => {
                 VOUS AVEZ DEJA UN COMPTE?{" "}
               </Text>
               <Link
+              href="/Connexion"
                 color={"#0077b6"}
                 fontWeight={"bold"}
                 mt={"1em"}
-                _hover={{ textDecoration: "none" }}
+                _hover={{ textDecoration: "none",color:'messenger.400' }}
               >
                 Connectez-vous
               </Link>
-            </Flex>
+            </Flex></Center>
+            
           </Flex>
         </Center>
       </Box>
