@@ -58,4 +58,4 @@ const ProductCorps = ({ items }) => {
     );
 };
 
-export default ProductCorps;
+export  ProductCorps;
