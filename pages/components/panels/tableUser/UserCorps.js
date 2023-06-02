@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 const UserCorps = ({ items }) => {
-    return (
+    {/* return (
         <>
             <Flex
                 w={'100%'} h={'3em'}
@@ -37,7 +37,7 @@ const UserCorps = ({ items }) => {
                 </Flex>
             </Flex>
         </>
-    );
+    );*/}
 };
 
 export default UserCorps;
