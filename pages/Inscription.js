@@ -14,11 +14,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Logo from "./components/generale/Logo";
+
 import { app, db, storage } from "@/Firebase/Connexion";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
+import Logo from "@/components/generale/Logo";
 
 const Inscription = () => {
   const [show, setShow] = useState(false);
@@ -112,7 +113,7 @@ const Inscription = () => {
         bgSize={"cover"}
         height={"fit-content"}
       >
-        <Switch></Switch>
+        
         {/* le main  */}
         <Center width={"100%"} pb={60} pt={-5}>
           {/* la premier box grise  */}

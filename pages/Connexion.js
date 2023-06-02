@@ -12,11 +12,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Logo from "./components/generale/Logo";
+
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/Firebase/Connexion";
 import { getCookie, hasCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import Logo from "@/components/generale/Logo";
 
 const Connexion = () => {
   const [show, setShow] = useState(false);
