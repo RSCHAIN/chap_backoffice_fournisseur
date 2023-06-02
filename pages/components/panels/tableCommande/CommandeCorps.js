@@ -7,7 +7,7 @@ import ActionStructure from '../../generale/ActionStructure';
 const CommandeCorps = ({ items,org,idex,lol }) => {
  
    
-  if(items.organisat == org){
+  if(items.organisation == org){
     
     const status= items.Status
     
