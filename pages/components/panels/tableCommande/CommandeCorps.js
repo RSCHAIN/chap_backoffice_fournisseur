@@ -29,7 +29,7 @@ const CommandeCorps = ({ items,org,idex,lol }) => {
                         w={'16.66%'} h={'100%'} bg={'#fff'}
                         alignItems={'center'} justifyContent={'center'}
                     >
-                        <Image w={10}src={items.imageUrl}/>
+                        <Image alt={'image'} w={10}src={items.imageUrl}/>
                     </Flex>
     
                     <Flex
@@ -104,7 +104,7 @@ const CommandeCorps = ({ items,org,idex,lol }) => {
                         w={'16.66%'} h={'100%'} bg={'#fff'}
                         alignItems={'center'} justifyContent={'center'}
                     >
-                        <Image w={10}src={items.imageUrl}/>
+                        <Image alt={'image'} w={10}src={items.imageUrl}/>
                     </Flex>
     
                     <Flex
