@@ -63,7 +63,7 @@ const DesktopNav = () => {
       router.push("/Connexion")
     }
     
-  });
+  },[setData,router]);
   const logout = () => {
     localStorage.clear("user")
   };
@@ -95,7 +95,7 @@ const DesktopNav = () => {
               mt={".5em"}
             >
               
-              <Image src={"./logo1.png"} />
+              <Image alt='logo chap' src={"./logo1.png"} />
             </Center>
           </Center>
 
