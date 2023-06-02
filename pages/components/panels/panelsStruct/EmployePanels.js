@@ -114,7 +114,7 @@ const EmployePanels = () => {
     if (exist) {
       setOrg(JSON.parse(exist));
     }
-  });
+  },[Login, fetchMag]);
 
   const createUSer = async () => {
     //hachage ici
