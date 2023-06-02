@@ -1,4 +1,4 @@
-import { Center, Text } from '@chakra-ui/react';
+import { Center, Text,Image} from '@chakra-ui/react';
 import React from 'react';
 
 const Logo = () => {
