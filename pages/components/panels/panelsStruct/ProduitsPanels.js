@@ -37,13 +37,13 @@ import { database, storage } from "@/Firebase/Connexion";
 import { child, get, getDatabase, push, ref } from "firebase/database";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
-import { uid } from "chart.js/dist/helpers/helpers.core";
+
 
 function writeData(cat, org, name, image, prix, description, quantite) {
   if (image != null) {
     push(ref(database, cat + "/" + org), {
       nom: name,
-      id:id,
+      
       price: prix,
       description: description,
       quantity: quantite,
