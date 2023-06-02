@@ -18,6 +18,7 @@ import {
   ModalOverlay,
   Stack,
   Table,
+  Image,
   TableCaption,
   TableContainer,
   Tbody,
@@ -91,7 +92,7 @@ const ProduitsPanels = () => {
       .catch((error) => {
         console.error(error);
       });
-  });
+  },[setCat,cat,org]);
 
   const [image, setImage] = useState();
   const [imageuri, setImageuri] = useState();
@@ -231,10 +232,10 @@ const ProduitsPanels = () => {
               </Thead>
               <Tbody padding={0}>
                 {Object.values(last).map((items) => (
-                  <Tr>
+                  <Tr key={items}>
                     <Td>{items.nom}</Td>
                     <Td>
-                      <img src={items.imageUrl}  width={40} />
+                      <Image alt={'images de produit'} src={items.imageUrl}  width={40} />
                     </Td>
                     <Td ><Text width={300} noOfLines={1} >{items.description}</Text></Td>
                     <Td>{items.price}</Td>
