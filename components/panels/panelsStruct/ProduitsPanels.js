@@ -99,7 +99,7 @@ const ProduitsPanels = () => {
 
   const [name, setName] = useState();
   const [prix, setPrix] = useState();
-  const [quantity, setQuantity] = useState();
+  const [quantity, setQuantity] = useState('non fourni');
   const [desc, setDesc] = useState();
 
   ///upload image
@@ -144,6 +144,7 @@ const ProduitsPanels = () => {
               <ModalBody>
                 <Text>Image du produit</Text>
                 <Input
+                  value={image}
                   type="file"
                   accept="image/*"
                   onChange={(e) =>{setImage(e.target.files[0]),setImage(e.target.files[0])} }
@@ -153,6 +154,7 @@ const ProduitsPanels = () => {
                     <FormControl isRequired>
                       <FormLabel>Intitulé</FormLabel>
                       <Input
+value={name}
                         isRequired
                         placeholder="intitulé du produit"
                         onChange={(e) => setName(e.target.value)}
@@ -162,6 +164,7 @@ const ProduitsPanels = () => {
                       <FormLabel>Prix de vente/kilo</FormLabel>
                       <Input
                         isRequired
+                        value={prix}
                         placeholder="Prix de vente"
                         type="number"
                         onChange={(e) => setPrix(e.target.value)}
@@ -172,9 +175,9 @@ const ProduitsPanels = () => {
                     <FormControl >
                       <FormLabel>Quantité</FormLabel>
                       <Input
-                        
+                        value={quantity}
                         type="number"
-                        placeholder="Quantié"
+                        placeholder="Cet champ n'est point obligatoire"
                         onChange={(e) => setQuantity(e.target.value)}
                       />
                     </FormControl>
@@ -182,6 +185,7 @@ const ProduitsPanels = () => {
                       <FormLabel>description</FormLabel>
                       <Input
                         isRequired
+                        value={desc}
                         as={Textarea}
                         placeholder="Description du produit"
                         onChange={(e) => setDesc(e.target.value)}
