@@ -1,33 +1,48 @@
-import { Flex } from "@chakra-ui/react";
-import {TbChecks} from 'react-icons/tb'
+import {
+  Box,
+  Button,
+  Flex,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { TbChecks } from "react-icons/tb";
 import React from "react";
 import { MdCancel } from "react-icons/md";
-import { database } from "@/Firebase/Connexion";
+import { database, db } from "@/Firebase/Connexion";
 import { ref, update } from "firebase/database";
 import { useRouter } from "next/router";
+import { collection, getDocs } from "firebase/firestore";
 
-
-function Validate(id,state) {
-    
-    update(ref(database,  "Commandes/" +String(id.ident)), {
-        
-        Status: state,
-      });
+function Validate(id, state) {
+  update(ref(database, "Commandes/" + String(id.ident)), {
+    Status: state,
+  });
 }
 
-
-function Cancel(id,state) {
-    
-    update(ref(database,  "Commandes/" +String(id.ident)), {
-        
-        Status: state,
-      });
+function Cancel(id, state) {
+  update(ref(database, "Commandes/" + String(id.ident)), {
+    Status: state,
+  });
 }
-
 
 
 const ActionStructure = (ident) => {
-   const router = useRouter()
+  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const Livreur = async () => {
+    const querySnapshot = await getDocs(collection(db, "Livreur/"));
+    querySnapshot.forEach((doc) => {
+  
+      console.log(doc.id, " => ", doc.data());
+    });
+    
+  };
   return (
     <>
       <Flex
@@ -37,9 +52,39 @@ const ActionStructure = (ident) => {
         alignItems={"center"}
         justifyContent={"space-around"}
       >
-        <TbChecks color="green" cursor={"pointer"} onClick={()=>{Validate(ident,"VALIDE")}}/>
-        <MdCancel color="red" cursor={"pointer"} onClick={()=>Cancel(ident,"ANNULE")}/>
+        <TbChecks color="green" cursor={"pointer"} onClick={onOpen} />
+        <MdCancel
+          color="red"
+          cursor={"pointer"}
+          onClick={() => Cancel(ident, "ANNULE")}
+        />
       </Flex>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>ATTRIBUER A UN LIVREUR</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+              <Box>
+                cli
+              </Box>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              ANNULER
+            </Button>
+            <Button
+              onClick={() => {
+                // Validate(ident, "VALIDE");
+                Livreur()
+              }}
+            >
+              ATTRIBUER
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

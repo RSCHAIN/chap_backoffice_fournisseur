@@ -230,6 +230,16 @@ const Connexion = () => {
           >
             Mot de passe oublié ?
           </Link>
+          <Link
+            color={"#0077b6"}
+            textAlign={"center"}
+            fontWeight={"bold"}
+            mt={"1em"}
+            href="/Inscription"
+            _hover={{ textDecoration: "none" }}
+          >
+            Inscription
+          </Link>
         </Flex>
       </Center>
     </>

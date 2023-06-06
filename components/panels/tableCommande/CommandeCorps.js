@@ -67,7 +67,8 @@ const CommandeCorps = ({ items,org,idex,lol }) => {
                         w={'16.66%'} h={'100%'} bg={'#fff'}
                         alignItems={'center'} justifyContent={'center'}
                     >
-                        {items.date}
+                        {items.jour},
+                        {items.moment}
                     </Flex>
                     <Flex
                         w={'16.66%'} h={'100%'} bg={'#fff'}

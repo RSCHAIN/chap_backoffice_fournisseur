@@ -21,7 +21,7 @@ const ListEntete = [
   },
   {
     id: 4,
-    label: "TOTAL",
+    label: "TOTAL(prix)",
   },
   {
     id: 5,
@@ -54,7 +54,7 @@ export function EntetItemsCorps({ items }) {
   return (
     <>
       <Flex
-        w={"16.66%"}
+        w={"33%"}
         fontWeight={"medium"}
         alignItems={"center"}
         justifyContent={"center"}
