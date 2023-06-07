@@ -38,7 +38,7 @@ const ActionStructure = (ident) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const Livreur = async () => {
-    setDato([''])
+    setDato([])
     const querySnapshot = await getDocs(collection(db, "Livreur/"));
     querySnapshot.forEach((doc) => {
   
