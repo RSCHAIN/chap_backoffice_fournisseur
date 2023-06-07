@@ -394,7 +394,17 @@ const Inscription = () => {
               </Flex>
               {/* input email */}
             </Flex>
-
+            <Box textAlign={'center'}>
+          <Text mt={"1em"}>En vous inscrivant, vous acceptez nos </Text>
+            <Link
+              color={"messenger.400"}
+              fontWeight={"bold"}
+              mt={"1em"}
+              href={"/Terms"}
+              _hover={{ textDecoration: "none" }}>
+              Termes et Conditions
+            </Link>
+          </Box>
             <Center
               mt={"2em"}
               w={"100%"}

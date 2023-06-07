@@ -5,7 +5,7 @@ import React from 'react';
 
 
 const Dashboard = () => {
-    const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+    const [isLargerThan768] = useMediaQuery('(min-width: 420px)')
     return (
         <>
             {isLargerThan768 ? <DesktopNav></DesktopNav> : <></>}

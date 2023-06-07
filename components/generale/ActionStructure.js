@@ -42,7 +42,7 @@ const ActionStructure = (ident) => {
     const querySnapshot = await getDocs(collection(db, "Livreur/"));
     querySnapshot.forEach((doc) => {
   
-      setDato(doc.data())
+      dato.push(doc.data())
     });
     
   };

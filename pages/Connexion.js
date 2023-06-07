@@ -13,7 +13,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "@/Firebase/Connexion";
 import { getCookie, hasCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
@@ -24,21 +31,11 @@ const Connexion = () => {
   const handleClick = () => setShow(!show);
 
   const [userD, setUserD] = useState();
-  
+
   const [email, setEmail] = useState();
   const [pass, setPass] = useState();
   const toast = useToast();
-  const router = useRouter()
-
-
-
-
- 
-
-
-
-
-
+  const router = useRouter();
 
   const Login = async () => {
     // const q = query(collection(db, "Admin/"), where("email", "==", email));
@@ -47,41 +44,41 @@ const Connexion = () => {
 
     // querySnapshot.forEach((doc) => {
     //   // doc.data() is never undefined for query doc snapshots
-      // if (doc.data().password == pass) {
-      //   console.log(doc.data().password);
-      //   localStorage.setItem("user",JSON.stringify(doc.data()));
-      //   router.reload()
-      // }
+    // if (doc.data().password == pass) {
+    //   console.log(doc.data().password);
+    //   localStorage.setItem("user",JSON.stringify(doc.data()));
+    //   router.reload()
+    // }
     // });
     const docRef = doc(db, "Admin/" + email);
     const docSnap = await getDoc(docRef);
-    
+
     if (docSnap.exists()) {
-      
-      if (docSnap.data().password == pass ) {
-       
-        localStorage.setItem("user",JSON.stringify(docSnap.data().email));
-        localStorage.setItem("cat",JSON.stringify(docSnap.data().categorie))
-        localStorage.setItem("org",JSON.stringify(docSnap.data().organisation))
-        localStorage.setItem("name",JSON.stringify(docSnap.data().name))
-        router.reload()
-        
-          toast({
-            title: "ACCES APPROUVÉ",
-            description: "NOUS VOUS REDIRIGEONS",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-          })
-      
-      }else{
+      if (docSnap.data().password == pass) {
+        localStorage.setItem("user", JSON.stringify(docSnap.data().email));
+        localStorage.setItem("cat", JSON.stringify(docSnap.data().categorie));
+        localStorage.setItem(
+          "org",
+          JSON.stringify(docSnap.data().organisation)
+        );
+        localStorage.setItem("name", JSON.stringify(docSnap.data().name));
+        router.reload();
+
+        toast({
+          title: "ACCES APPROUVÉ",
+          description: "NOUS VOUS REDIRIGEONS",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
         toast({
           title: "VERIFIER VOS INFORMATIONS",
           description: "Erreur dans l'un des champs",
           status: "warning",
           duration: 5000,
           isClosable: true,
-        })
+        });
       }
     } else {
       toast({
@@ -90,17 +87,16 @@ const Connexion = () => {
         status: "warning",
         duration: 5000,
         isClosable: true,
-      })
+      });
     }
   };
   if (typeof window !== "undefined") {
-    const exist =  localStorage.getItem("user");
+    const exist = localStorage.getItem("user");
     if (exist) {
-       console.log(exist.toString())
-       router.push("/Dashboard")
+      console.log(exist.toString());
+      router.push("/Dashboard");
     }
-    
-   }
+  }
   return (
     <>
       {/* le main  */}
@@ -196,13 +192,15 @@ const Connexion = () => {
               </InputGroup>
             </Stack>
           </Flex>
-
+         
+          
           <Center
             mt={"2em"}
             w={"100%"}
             h={{ base: "3em" }}
             _hover={{ textDecoration: "none" }}
           >
+             
             <Link
               w={"50%"}
               h={{ base: "3em" }}
@@ -230,18 +228,23 @@ const Connexion = () => {
           >
             Mot de passe oublié ?
           </Link>
+         
           <Link
             color={"#0077b6"}
             textAlign={"center"}
             fontWeight={"bold"}
             mt={"1em"}
             href="/Inscription"
-            _hover={{ textDecoration: "none" }}
-          >
+            _hover={{ textDecoration: "none" }}>
             Inscription
           </Link>
+      
+          
+       
         </Flex>
+        
       </Center>
+   
     </>
   );
 };
