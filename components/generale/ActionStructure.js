@@ -12,12 +12,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { TbChecks } from "react-icons/tb";
-import React from "react";
+import React, { useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { database, db } from "@/Firebase/Connexion";
 import { ref, update } from "firebase/database";
 import { useRouter } from "next/router";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 
 function Validate(id, state) {
   update(ref(database, "Commandes/" + String(id.ident)), {
@@ -33,16 +33,20 @@ function Cancel(id, state) {
 
 
 const ActionStructure = (ident) => {
+  const [dato,setDato]=useState([])
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
   const Livreur = async () => {
+    setDato([''])
     const querySnapshot = await getDocs(collection(db, "Livreur/"));
     querySnapshot.forEach((doc) => {
   
-      console.log(doc.id, " => ", doc.data());
+      setDato(doc.data())
     });
     
   };
+ 
   return (
     <>
       <Flex
@@ -66,7 +70,9 @@ const ActionStructure = (ident) => {
           <ModalCloseButton />
           <ModalBody>
               <Box>
-                cli
+               {
+                console.log(dato)
+               }
               </Box>
           </ModalBody>
 
