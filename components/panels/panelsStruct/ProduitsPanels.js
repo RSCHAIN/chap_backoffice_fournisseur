@@ -147,7 +147,7 @@ const ProduitsPanels = () => {
                   value={image}
                   type="file"
                   accept="image/*"
-                  onChange={(e) =>{setImage(e.target.files[0]))} }
+                  onChange={(e) =>{setImage(e.target.files[0])} }
                 />
                 <Flex>
                   <Box mr={5}>
