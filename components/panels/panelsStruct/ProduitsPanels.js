@@ -40,6 +40,7 @@ import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
 
 
 function writeData(cat, org, name, image, prix, description, quantite) {
+  const toast = useToast()
   if (image != null) {
     push(ref(database, cat + "/" + org), {
       nom: name,
@@ -52,16 +53,23 @@ function writeData(cat, org, name, image, prix, description, quantite) {
       etat: "disponible",
       note: "nouveau",
     });
-    <Alert status="success">
-      <AlertIcon />
-      <AlertTitle>PRODUIT SAUVEGARDER AVEC SUCCES</AlertTitle>
-    </Alert>;
+    toast({
+      title: "SUCCÉS",
+      description: "PRODUIT SAUVEGARDÉ AVEC SUCCES",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    })
+    
   } else {
-    <Alert status="error">
-      <AlertIcon />
-      <AlertTitle>VEUILLEZ RELANCER SVP</AlertTitle>
-      <AlertDescription>Produit pas enregistre</AlertDescription>
-    </Alert>;
+    toast({
+      title: "VEUILLEZ RELANCER SVP",
+      description: "Produit pas enregistre",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    })
+   
   }
 }
 

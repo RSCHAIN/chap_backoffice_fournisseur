@@ -107,7 +107,7 @@ const Connexion = () => {
       <Center width={"100%"} height={"100vh"}>
         {/* la premier box grise  */}
         <Flex
-          width={{ base: "90%", md: "70%", xl: "50%", "2xl": "40%" }}
+          width={{ base: "70%", md: "70%", xl: "50%", "2xl": "40%" }}
           height={{
             base: "90vh",
             md: "90vh",
