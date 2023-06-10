@@ -159,7 +159,7 @@ const ProduitsPanels = () => {
                   
                   type="file"
                   accept="image/*"
-                  onChange={(e) =>{setImage(e.target.files[0]), handleImageUpload(image, cat, org)} }
+                  onChange={(e) =>{setImage(e.target.files[0])} }
                 />
                 <Flex>
                   <Box mr={5}>
@@ -216,7 +216,7 @@ value={name}
                   colorScheme="blue"
                   mr={3}
                   onClick={() => {
-                   
+                      handleImageUpload(image, cat, org),
                       writeData(cat, org, name, imageuri, prix, desc, quantite);
                   }}
                 >
