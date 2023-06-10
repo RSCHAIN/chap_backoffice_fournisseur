@@ -9,14 +9,14 @@ import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC_HoYUjryM6eEB0x5Rs9sn-AU70YfqU4M",
-  authDomain: "emarket-a6858.firebaseapp.com",
-  databaseURL: "https://emarket-a6858-default-rtdb.firebaseio.com",
-  projectId: "emarket-a6858",
-  storageBucket: "emarket-a6858.appspot.com",
-  messagingSenderId: "1083209775253",
-  appId: "1:1083209775253:web:3629b15e8f79a7e2dc439c",
-  measurementId: "G-HNGF5RBC9T",
+  apiKey: "AIzaSyC44N6PsbaBEica4WYf1yarrJ7hscgLmMo",
+  authDomain: "appchapfinal.firebaseapp.com",
+  databaseURL: "https://appchapfinal-default-rtdb.firebaseio.com",
+  projectId: "appchapfinal",
+  storageBucket: "appchapfinal.appspot.com",
+  messagingSenderId: "991388025559",
+  appId: "1:991388025559:web:7778779d2400f23bf22692",
+  measurementId: "G-RFSVQTGJ87"
 };
 
 // Initialize Firebase

@@ -213,7 +213,7 @@ const DesktopNav = () => {
             {/* <Tab _selected={{ color: "blue" }}>Profile Admin</Tab> */}
           </TabList>
 
-          <TabPanels bg={"#e9ecef"} w={{ md: "70%", xl: "83%" }} h={"100%"}>
+          <TabPanels bg={"#e9ecef"} w={{ md: "70%", xl: "83%" }} pb={10} h={"100%"}>
             {/* dashboard  */}
             <TabPanel w={"100%"} h={"100%"}>
               <DashBoardPanels></DashBoardPanels>

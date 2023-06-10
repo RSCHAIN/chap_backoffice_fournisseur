@@ -55,6 +55,7 @@ const Connexion = () => {
 
     if (docSnap.exists()) {
       if (docSnap.data().password == pass) {
+       if (docSnap.data().status == "VERIFIE") {
         localStorage.setItem("user", JSON.stringify(docSnap.data().email));
         localStorage.setItem("cat", JSON.stringify(docSnap.data().categorie));
         localStorage.setItem(
@@ -71,6 +72,15 @@ const Connexion = () => {
           duration: 5000,
           isClosable: true,
         });
+       }else{
+        toast({
+          title: "MAIL NON VERIFIE",
+          description: "MERCI DE BIEN VOULOIR VERIFIER VOTRE MAIL.NOUS VOUS REDIRIGEONS VERS LA PAGE DE VERIFICATION",
+          status: "warning",
+          duration: 10000,
+          isClosable: true,
+        });
+       }
       } else {
         toast({
           title: "VERIFIER VOS INFORMATIONS",

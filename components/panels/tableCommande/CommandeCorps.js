@@ -36,14 +36,14 @@ const CommandeCorps = ({ items,org,idex,lol }) => {
                         w={'16.66%'} h={'100%'} bg={'#fff'}
                         alignItems={'center'} justifyContent={'center'}
                     >
-                        {items.quantity}
+                        {items.quantite}
                     </Flex>
     
                     <Flex
                         w={'16.66%'} h={'100%'} bg={'#fff'}
                         alignItems={'center'} justifyContent={'center'}
                     >
-                        {items.totalPrice}
+                        {items.totalPrix}
                     </Flex>
                     <Flex
                         w={'16.66%'} h={'100%'} bg={'#fff'}
@@ -112,14 +112,14 @@ const CommandeCorps = ({ items,org,idex,lol }) => {
                         w={'16.66%'} h={'100%'} bg={'#fff'}
                         alignItems={'center'} justifyContent={'center'}
                     >
-                        {items.quantity}
+                        {items.quantite}
                     </Flex>
     
                     <Flex
                         w={'16.66%'} h={'100%'} bg={'#fff'}
                         alignItems={'center'} justifyContent={'center'}
                     >
-                        {items.totalPrice}
+                        {items.totalPrix}
                     </Flex>
                     <Flex
                         w={'16.66%'} h={'100%'} bg={'#fff'}

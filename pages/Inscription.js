@@ -21,6 +21,16 @@ import { useRouter } from "next/router";
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 import Logo from "@/components/generale/Logo";
 
+
+
+
+
+
+
+
+
+
+
 const Inscription = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -39,6 +49,28 @@ const Inscription = () => {
   const [uri, setUri] = useState();
   const toast = useToast();
   const router = useRouter();
+
+///envoie de mail pour la verification
+const randomNumb= parseInt(Math.random()*1000000)
+
+const sendEmail = async (email, subject, message) => {
+  return axios({
+    method: 'post',
+    url: '/api/sendmail',
+    data: {
+      email: email,
+      subject: "VOTRE CODE D'ACCES A L'APPCHAP",
+      message: randomNumb,
+    },
+  });
+};
+
+
+
+
+
+
+
   const createUSer = async () => {
     if (password == password2) {
       //hachage ici
@@ -59,6 +91,8 @@ const Inscription = () => {
         siret,
         adresse,
         tva,
+        status:'non verifié',
+        code:randomNumb
       };
       await setDoc(_user, Users)
         .then(() => {

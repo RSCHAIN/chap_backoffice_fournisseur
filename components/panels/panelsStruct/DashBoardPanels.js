@@ -10,7 +10,7 @@ export function RecapItemsCorp({ items }) {
     return (
         <>
             <Flex
-                w={{ md: '40%', xl: '20%' }} h={'10em'} bg={'#fff'}
+                w={{ md: '40%', xl: '20%' }} h={'auto'} bg={'#fff'}
                 mb={{ md: '2em', xl: '0em' }}
                 borderRadius={'10px'} alignItems={'center'}
                 justifyContent={'center'} flexDirection={'row'}
@@ -18,7 +18,7 @@ export function RecapItemsCorp({ items }) {
             >
                 {/* le container  */}
                 <Flex
-                    w={'90%'} h={'90%'}
+                    w={'90%'} h={'100%'}
                 >
                     {/* les stats  */}
                     <Flex

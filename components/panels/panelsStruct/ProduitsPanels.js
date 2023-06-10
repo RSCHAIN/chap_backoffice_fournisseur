@@ -37,41 +37,10 @@ import { database, storage } from "@/Firebase/Connexion";
 import { child, get, getDatabase, push, ref } from "firebase/database";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
+import ActionStructure from "@/components/generale/ActionStructure";
 
 
-function writeData(cat, org, name, image, prix, description, quantite) {
-  const toast = useToast()
-  if (image != null) {
-    push(ref(database, cat + "/" + org), {
-      nom: name,
-      
-      price: prix,
-      description: description,
-      quantity: quantite,
-      imageUrl: image,
-      organisation: org, 
-      etat: "disponible",
-      note: "nouveau",
-    });
-    toast({
-      title: "SUCCÉS",
-      description: "PRODUIT SAUVEGARDÉ AVEC SUCCES",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    })
-    
-  } else {
-    toast({
-      title: "VEUILLEZ RELANCER SVP",
-      description: "Produit pas enregistre",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-    })
-   
-  }
-}
+
 
 const ProduitsPanels = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -80,7 +49,7 @@ const ProduitsPanels = () => {
 
   const [org, setOrg] = useState();
   const [cat, setCat] = useState();
-
+  const toast = useToast()
   useEffect(() => {
     const exist = localStorage.getItem("cat");
     const exist2 = localStorage.getItem("org");
@@ -107,7 +76,7 @@ const ProduitsPanels = () => {
 
   const [name, setName] = useState();
   const [prix, setPrix] = useState();
-  const [quantity, setQuantity] = useState('non fourni');
+  const [quantite, setQuantite] = useState('non fourni');
   const [desc, setDesc] = useState();
 
   ///upload image
@@ -123,9 +92,44 @@ const ProduitsPanels = () => {
     setImageuri(downloadURL);
   };
 
+
+  //enregistrer data
+  function writeData(cat, org, name, image, prix, description, quantite) {
+  
+    if (image != null) {
+      push(ref(database, cat + "/" + org), {
+        nom: name,
+        prix: prix,
+        description: description,
+        quantite: quantite,
+        imageUrl: image,
+        organisation: org, 
+        etat: "disponible",
+        note: "nouveau",
+      });
+      toast({
+        title: "SUCCÉS",
+        description: "PRODUIT SAUVEGARDÉ AVEC SUCCES",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      })
+      
+    } else {
+      toast({
+        title: "VEUILLEZ RELANCER SVP",
+        description: "Produit pas enregistre",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      })
+     
+    }
+  }
+ 
   return (
     <>
-      <Flex w={"100%"} minH={"100vh"} flexDirection={"column"}>
+      <Flex w={"100%"} minH={"100vh"} pb={10} flexDirection={"column"}>
         <Box display={"flex"} justifyContent={"space-between"}>
           <Text fontWeight={"medium"} fontSize={["sm", "md", "lg", "xl"]}>
             Table des produits
@@ -152,10 +156,10 @@ const ProduitsPanels = () => {
               <ModalBody>
                 <Text>Image du produit</Text>
                 <Input
-                  value={image}
+                  
                   type="file"
                   accept="image/*"
-                  onChange={(e) =>{setImage(e.target.files[0])} }
+                  onChange={(e) =>{setImage(e.target.files[0]), handleImageUpload(image, cat, org)} }
                 />
                 <Flex>
                   <Box mr={5}>
@@ -183,10 +187,10 @@ value={name}
                     <FormControl >
                       <FormLabel>Quantité</FormLabel>
                       <Input
-                        value={quantity}
+                        value={quantite}
                         type="number"
                         placeholder="Cet champ n'est point obligatoire"
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantite(e.target.value)}
                       />
                     </FormControl>
                     <FormControl isRequired>
@@ -212,8 +216,8 @@ value={name}
                   colorScheme="blue"
                   mr={3}
                   onClick={() => {
-                    handleImageUpload(image, cat, org),
-                      writeData(cat, org, name, imageuri, prix, desc, quantity);
+                   
+                      writeData(cat, org, name, imageuri, prix, desc, quantite);
                   }}
                 >
                   VALIDER
@@ -222,7 +226,7 @@ value={name}
             </ModalContent>
           </Modal>
         </Box>
-        <Stack w={"100%"} minH={"90vh"} bg={"#fff"} mt={"2em"}>
+        <Stack w={"100%"}  bg={"#fff"} mt={"2em"}>
           <TableContainer>
             <Table variant='simple'>
               {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
@@ -247,14 +251,16 @@ value={name}
                   <Tr key={items}>
                     <Td>{items.nom}</Td>
                     <Td>
-                      <Image alt={'images de produit'} src={items.imageUrl}  width={40} />
+                      <Image alt={'images de produit'} src={items.imageUrl}  width={40} height={40} />
                     </Td>
-                    <Td ><Text width={300} noOfLines={1} >{items.description}</Text></Td>
-                    <Td>{items.price}</Td>
-                    <Td>{items.quantity}</Td>
+                    <Td ><Text width={300} height={20} noOfLines={4} >{items.description}</Text></Td>
+                    <Td>{items.prix}</Td>
+                    <Td>{items.quantite}</Td>
                     <Td>{items.etat}</Td>
                     <Td>{items.note}</Td>
-                    <Td>Actions</Td>
+                    <Td>
+                      <ActionStructure/>
+                    </Td>
                   </Tr>
                 ))}
               </Tbody>
