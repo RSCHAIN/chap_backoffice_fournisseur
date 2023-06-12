@@ -137,6 +137,7 @@ const sendEmail = async (email, subject, message) => {
 
     // Do something with the downloadURL, such as storing it in a database
     setUri(downloadURL);
+     createUSer();
   };
   return (
     <>
@@ -458,7 +459,7 @@ const sendEmail = async (email, subject, message) => {
                   fontSize={"1.5em"}
                   onClick={() => {
                     handleImageUpload(image, categorie, organisation),
-                      createUSer();
+                     
                   }}
                 >
                   Inscription
