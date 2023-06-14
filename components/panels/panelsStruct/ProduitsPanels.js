@@ -74,7 +74,7 @@ const ProduitsPanels = () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, cat + "/" + org))
       .then((snapshot) => {
-        console.log(snapshot.key())
+        console.log(snapshot.
         if (snapshot.exists()) {
           setLast(snapshot.val());
           
@@ -112,6 +112,7 @@ const ProduitsPanels = () => {
   
     if (image != null) {
       push(ref(database, cat + "/" + org), {
+        id:
         nom: name,
         prix: prix,
         description: description,
