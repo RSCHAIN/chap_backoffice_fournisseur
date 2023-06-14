@@ -81,7 +81,7 @@ const DesktopNav = () => {
   return (
     <>
     
-      <Stack w={"100%"} h={"auto"} direction={"column"} spacing={"0"}>
+      <Stack w={"100%"}  direction={"column"} spacing={"0"}>
         {/* le logo et la nav laterale  */}
         <Stack w={"100%"} direction={"row"} spacing={"0"}>
           {/* la box du logo  */}
@@ -107,7 +107,7 @@ const DesktopNav = () => {
           >
             <InputGroup w={"20em"} ml={"1em"}>
               <Input
-                type="tel"
+                type="search"
                 placeholder="Recherche..."
                 bg={"#dee2e6"}
                 borderRadius={"5px"}
@@ -230,9 +230,9 @@ const DesktopNav = () => {
             </TabPanel>
 
             {/* utilisateurs   */}
-            <TabPanel w={"100%"} h={"100%"}>
+            {/* <TabPanel w={"100%"} h={"100%"}>
               <UtilisateursPanels></UtilisateursPanels>
-            </TabPanel>
+            </TabPanel> */}
 
             {/* employes  */}
             {/* <TabPanel w={"100%"} h={"100%"}> */}
@@ -240,9 +240,9 @@ const DesktopNav = () => {
             </TabPanel> */}
 
             {/* profile admin  */}
-            <TabPanel w={"100%"} h={"100%"}>
+            {/* <TabPanel w={"100%"} h={"100%"}>
               <AdminProfilePanels></AdminProfilePanels>
-            </TabPanel>
+            </TabPanel> */}
           </TabPanels>
         </Tabs>
       </Stack>

@@ -30,11 +30,12 @@ import {
   Tr,
   useDisclosure,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ProductCorps from "../tableProducts/ProductCorps";
 import { database, storage } from "@/Firebase/Connexion";
-import { child, get, getDatabase, increment, push, ref } from "firebase/database";
+import { child, get, getDatabase, increment, push, ref, remove } from "firebase/database";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
 import ActionStructure from "@/components/generale/ActionStructure";
@@ -47,6 +48,7 @@ import { deleteDoc } from "firebase/firestore";
 const ProduitsPanels = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [last, setLast] = useState([]);
+  const [id,setId] = useState([])
   const router = useRouter();
 
   const [org, setOrg] = useState();
@@ -74,10 +76,9 @@ const ProduitsPanels = () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, cat + "/" + org))
       .then((snapshot) => {
-        console.log(snapshot)
+       setId(Object.keys(snapshot.val()))
         if (snapshot.exists()) {
           setLast(snapshot.val());
-          
         } 
       })
       .catch((error) => {
@@ -144,7 +145,9 @@ const ProduitsPanels = () => {
   }
  
 
-const deleteData=(cat,org,) =>{}
+const deleteData=(cat,org,id) =>{
+  remove(ref(database,cat+"/"+org+"/"+id))
+}
 
 
 
@@ -249,8 +252,8 @@ value={name}
             </ModalContent>
           </Modal>
         </Box>
-        <Stack w={"100%"}  bg={"#fff"} mt={"2em"}>
-          <TableContainer>
+        <Stack w={"100%"}  bg={"#fff"} mt={"2em"}mb={20}>
+          <TableContainer >
             <Table variant='simple'>
               {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
               <Thead
@@ -270,7 +273,7 @@ value={name}
                 </Tr>
               </Thead>
               <Tbody padding={0}>
-                {Object.values(last).map((items) => (
+                {Object.values(last).map((items,index) => (
                   <Tr key={items}>
                     <Td>{items.nom}</Td>
                     <Td>
@@ -282,8 +285,11 @@ value={name}
                     <Td>{items.etat}</Td>
                     <Td>{items.note}</Td>
                     <Td>
-                      <EditIcon onClick={()=>console.log(items)}/>
-                    <DeleteIcon/>
+                      <Flex justifyContent={"space-around"} w={10}>
+                      <EditIcon  color={"cyan.500"}fontSize={30} cursor={"pointer"} mr={5} href="#modal2"/>
+                    <DeleteIcon color={"red"}fontSize={30} cursor={"pointer"} onClick={()=>deleteData(cat,org,id[index])}/>
+                      </Flex>
+                    
                     </Td>
                   </Tr>
                 ))}
