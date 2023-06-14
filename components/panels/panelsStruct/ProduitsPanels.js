@@ -34,7 +34,7 @@ import {
 import React, { useEffect, useState } from "react";
 import ProductCorps from "../tableProducts/ProductCorps";
 import { database, storage } from "@/Firebase/Connexion";
-import { child, get, getDatabase, push, ref } from "firebase/database";
+import { child, get, getDatabase, increment, push, ref } from "firebase/database";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
 import ActionStructure from "@/components/generale/ActionStructure";
@@ -74,7 +74,7 @@ const ProduitsPanels = () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, cat + "/" + org))
       .then((snapshot) => {
-        console.log(snapshot.
+        console.log(snapshot)
         if (snapshot.exists()) {
           setLast(snapshot.val());
           
@@ -112,7 +112,7 @@ const ProduitsPanels = () => {
   
     if (image != null) {
       push(ref(database, cat + "/" + org), {
-        id:
+        id:increment(),
         nom: name,
         prix: prix,
         description: description,
