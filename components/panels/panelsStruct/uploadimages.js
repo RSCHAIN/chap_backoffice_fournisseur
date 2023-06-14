@@ -13,9 +13,9 @@ export default function Upload() {
     if (files && files[0].size < 10000000) {
       setImageFile(files[0]);
 
-      console.log(files[0]);
+      // console.log(files[0]);
     } else {
-      console.log("File size to large");
+      // console.log("File size to large");
     }
   };
   function handleUploadFile () {
@@ -29,10 +29,10 @@ export default function Upload() {
         (snapshot) => {
           switch (snapshot.state) {
             case "paused":
-              console.log("Upload is paused");
+              // console.log("Upload is paused");
               break;
             case "running":
-              console.log("Upload is running");
+              // console.log("Upload is running");
               break;
           }
         },
@@ -43,12 +43,12 @@ export default function Upload() {
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
             //url is download url of file
             setDownloadURL(url);
-            console.log("url", url);
+            // console.log("url", url);
           });
         }
       );
     } else {
-      console.log("File not found");
+      // console.log("File not found");
     }
   };
   return (

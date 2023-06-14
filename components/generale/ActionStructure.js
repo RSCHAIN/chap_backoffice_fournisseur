@@ -71,7 +71,7 @@ const ActionStructure = (ident) => {
           <ModalBody>
               <Box>
                {
-                console.log(dato)
+                // console.log(dato)
                }
               </Box>
           </ModalBody>

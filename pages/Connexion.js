@@ -103,7 +103,7 @@ const Connexion = () => {
   if (typeof window !== "undefined") {
     const exist = localStorage.getItem("user");
     if (exist) {
-      console.log(exist.toString());
+      // console.log(exist.toString());
       router.push("/Dashboard");
     }
   }

@@ -59,7 +59,7 @@ const recapItems = [
     {
         id: 1,
         tittle: 'Total de Ventes',
-        number: `${10000} XOF`,
+        number: `${10000} €`,
         secondNumber: `${+2.5}%`,
         DaysMonth: "Pour Aujoud'hui",
         colorsDecor: '#b5179e'
@@ -67,7 +67,7 @@ const recapItems = [
     {
         id: 2,
         tittle: 'Total de Commandes',
-        number: `${5000} XOF`,
+        number: `${5000} €`,
         secondNumber: `${+3.0}%`,
         DaysMonth: "Pour Aujoud'hui",
         colorsDecor: '#0077b6'
@@ -75,7 +75,7 @@ const recapItems = [
     {
         id: 3,
         tittle: 'Reduction',
-        number: `${860} XOF`,
+        number: `${860} €`,
         secondNumber: `${+2.5}%`,
         DaysMonth: "Pour Aujoud'hui",
         colorsDecor: '#ffba08'
@@ -83,7 +83,7 @@ const recapItems = [
     {
         id: 4,
         tittle: 'Commandes Annuler',
-        number: `${500} XOF`,
+        number: `${500} €`,
         secondNumber: `${+2.5}%`,
         DaysMonth: "Pour Aujoud'hui",
         colorsDecor: '#4cc9f0'

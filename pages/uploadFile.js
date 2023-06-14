@@ -25,7 +25,7 @@ const UploadImage = () => {
     const downloadURL = await getDownloadURL(imageRef);
 
     // Do something with the downloadURL, such as storing it in a database
-    console.log(downloadURL);
+    // console.log(downloadURL);
   };
 
   return (

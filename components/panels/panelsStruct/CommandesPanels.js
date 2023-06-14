@@ -25,7 +25,7 @@ const ListEntete = [
   },
   {
     id: 5,
-    label: "RECEVEUR",
+    label: "CLIENT",
   },
   {
     id: 6,

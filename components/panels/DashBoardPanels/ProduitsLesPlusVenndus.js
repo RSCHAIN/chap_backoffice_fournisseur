@@ -79,8 +79,8 @@ const ProduitsLesPlusVenndus = () => {
                 </Flex>
 
                 {
-                    produitsListeItems.map((item) => (
-                        <ProduitsCorp key={item.id} item={item}></ProduitsCorp>
+                    produitsListeItems.map((items) => (
+                        <ProduitsCorp key={items.id} item={items}></ProduitsCorp>
                     ))
                 }
             </Flex>

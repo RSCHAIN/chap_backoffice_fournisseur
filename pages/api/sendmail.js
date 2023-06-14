@@ -16,7 +16,7 @@ export default function handler(req, res) {
     req.body.message,);
 
   let transporter = nodemailer.createTransport({
-    service: "Office365",
+    service: "gmail",
     auth: {
       user: email,
       pass,

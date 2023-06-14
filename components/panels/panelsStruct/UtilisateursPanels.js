@@ -80,8 +80,8 @@ const UtilisateursPanels = () => {
                         w={'100%'}
                     >
                         {
-                            ListEntete.map((items) => (
-                                <EntetItemsCorps key={items.id} items={items}></EntetItemsCorps>
+                            ListEntete.map((item) => (
+                                <EntetItemsCorps key={item.id} items={item}></EntetItemsCorps>
                             ))
                         }
                     </Flex>

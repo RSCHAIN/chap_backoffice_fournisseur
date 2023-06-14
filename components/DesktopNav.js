@@ -206,7 +206,7 @@ const DesktopNav = () => {
 
             <Tab _selected={{ color: "blue" }}>Commandes</Tab>
 
-            <Tab _selected={{ color: "blue" }}>Les clients</Tab>
+            <Tab _selected={{ color: "blue" }}>Demander Livraison</Tab>
 
             {/* <Tab _selected={{ color: "blue" }}>Liste Des Magasins</Tab> */}
 

@@ -38,6 +38,8 @@ import { child, get, getDatabase, push, ref } from "firebase/database";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
 import ActionStructure from "@/components/generale/ActionStructure";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { deleteDoc } from "firebase/firestore";
 
 
 
@@ -50,6 +52,13 @@ const ProduitsPanels = () => {
   const [org, setOrg] = useState();
   const [cat, setCat] = useState();
   const toast = useToast()
+
+
+
+
+
+
+
   useEffect(() => {
     const exist = localStorage.getItem("cat");
     const exist2 = localStorage.getItem("org");
@@ -58,16 +67,21 @@ const ProduitsPanels = () => {
 
       setCat(JSON.parse(exist));
       setOrg(JSON.parse(exist2));
+    }else{
+      localStorage.clear()
+      router.push("/")
     }
     const dbRef = ref(getDatabase());
     get(child(dbRef, cat + "/" + org))
       .then((snapshot) => {
+        console.log(snapshot.key())
         if (snapshot.exists()) {
           setLast(snapshot.val());
+          
         } 
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       });
   },[setCat,cat,org]);
 
@@ -114,6 +128,7 @@ const ProduitsPanels = () => {
         duration: 5000,
         isClosable: true,
       })
+      router.reload()
       
     } else {
       toast({
@@ -127,6 +142,13 @@ const ProduitsPanels = () => {
     }
   }
  
+
+const deleteData=(cat,org,) =>{}
+
+
+
+
+
   return (
     <>
       <Flex w={"100%"} minH={"100vh"} pb={10} flexDirection={"column"}>
@@ -259,7 +281,8 @@ value={name}
                     <Td>{items.etat}</Td>
                     <Td>{items.note}</Td>
                     <Td>
-                      <ActionStructure/>
+                      <EditIcon onClick={()=>console.log(items)}/>
+                    <DeleteIcon/>
                     </Td>
                   </Tr>
                 ))}
