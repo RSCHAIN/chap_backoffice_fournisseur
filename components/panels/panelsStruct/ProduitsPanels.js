@@ -83,7 +83,7 @@ const ProduitsPanels = () => {
       .catch((error) => {
         console.log(error);
       });
-  },[setCat,cat,org]);
+  },[setCat,cat,org,router]);
 
   const [image, setImage] = useState();
   const [imageuri, setImageuri] = useState();
