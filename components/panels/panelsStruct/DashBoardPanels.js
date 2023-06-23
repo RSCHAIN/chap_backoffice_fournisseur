@@ -96,14 +96,14 @@ const DashBoardPanels = () => {
         <>
 
             <Flex
-                w={'100%'} minH={'100vh'}
+                w={'100%'} 
                 flexDirection={'column'}
             >
                 {/* première partie  */}
                 <Flex
                     w={'100%'}
                     flexDirection={'row'} justifyContent={'space-between'}
-                    flexWrap={{ md: 'wrap', xl: 'nowrap' }}
+                    // flexWrap={{ md: 'wrap', xl: 'nowrap' }}
                 >
                     {
                         recapItems.map((items) => (
@@ -133,7 +133,7 @@ const DashBoardPanels = () => {
                             <ProduitsLesPlusVenndus></ProduitsLesPlusVenndus>
 
                             {/* courbes de ventes  */}
-                            <CourbesVentes></CourbesVentes>
+                            {/* <CourbesVentes></CourbesVentes> */}
                         </Flex>
 
                         {/* partie 2 */}

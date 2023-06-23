@@ -113,7 +113,7 @@ const ProduitsPanels = () => {
   
     if (image != null) {
       push(ref(database, cat + "/" + org), {
-        id:increment(),
+        
         nom: name,
         prix: prix,
         description: description,
@@ -257,9 +257,9 @@ value={name}
             <Table variant='simple'>
               {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
               <Thead
-                bgColor={"#90e0ef"}
+                bgColor={"#fff"}
                 borderColor={"#e9ecef"}
-                borderBottom={"2px"}
+             
               >
                 <Tr>
                   <Th> Nom</Th>
@@ -272,7 +272,7 @@ value={name}
                   <Th>Actions </Th>
                 </Tr>
               </Thead>
-              <Tbody padding={0}>
+              <Tbody padding={0} id="tb14">
                 {Object.values(last).map((items,index) => (
                   <Tr key={items}>
                     <Td>{items.nom}</Td>

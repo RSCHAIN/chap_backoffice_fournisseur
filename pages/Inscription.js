@@ -2,7 +2,10 @@ import {
   Box,
   Button,
   Center,
+  Checkbox,
   Flex,
+  FormControl,
+  FormLabel,
   Input,
   InputGroup,
   InputRightElement,
@@ -11,6 +14,7 @@ import {
   Stack,
   Switch,
   Text,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
@@ -47,6 +51,7 @@ const Inscription = () => {
   const [tva, setTva] = useState();
   const [image, setImage] = useState();
   const [uri, setUri] = useState();
+  const [bool, setBool] = useState(true);
   const toast = useToast();
   const router = useRouter();
 
@@ -139,6 +144,8 @@ const sendEmail = async (email, subject, message) => {
     setUri(downloadURL);
      createUSer();
   };
+  const { isOpen, onToggle } = useDisclosure()
+
   return (
     <>
       <Box
@@ -181,6 +188,7 @@ const sendEmail = async (email, subject, message) => {
                 </Text>
               </Center>
             </Stack>
+            <FormControl isRequired>
             <Flex
               w={"90%"}
               alignItems={"center"}
@@ -188,10 +196,11 @@ const sendEmail = async (email, subject, message) => {
               flexDirection={"column"}
             >
               <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
-                <Text fontWeight={"bold"} fontSize={"1.5em"}>
-                  Catégorie
-                </Text>
+               
+                <FormLabel fontWeight={"bold"} fontSize={"1.5em"} >Catégorie</FormLabel>
                 <Select
+                isRequired
+               
                   border={"1px solid black"}
                   defaultValue={"Alimentation"}
                   value={categorie}
@@ -214,13 +223,14 @@ const sendEmail = async (email, subject, message) => {
                 flexDirection={"column"}
               >
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
-                  <Text fontWeight={"bold"} fontSize={"1.5em"}>
-                    Nom Du Gérant{" "}
-                  </Text>
+                 
+                  <FormLabel fontWeight={"bold"} fontSize={"1.5em"} htmlFor="input1">Nom Du Gérant</FormLabel>
+                  
                   <Input
                     w={"100%"}
                     h={"4em"}
                     bg={"#fff"}
+                    id="input1"
                     borderRadius={"full"}
                     placeholder="votre nom"
                     _placeholder={{ color: "#000" }}
@@ -251,10 +261,12 @@ const sendEmail = async (email, subject, message) => {
                 </Stack>
                 {/* input email */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+             
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     SIRET{" "}
                   </Text>
                   <Input
+                  isRequired
                     w={"100%"}
                     h={"4em"}
                     bg={"#fff"}
@@ -265,6 +277,7 @@ const sendEmail = async (email, subject, message) => {
                     type="text"
                     maxLength={30}
                   ></Input>
+                 
                 </Stack>
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
@@ -357,7 +370,7 @@ const sendEmail = async (email, subject, message) => {
                     accept="image/*"
                     type="file"
                     onChange={(e) => {
-                      setImage(e.target.files[0]), setImage(e.target.files[0]);
+                      setImage(e.target.files[0])
                     }}
                   ></Input>
                 </Stack>
@@ -414,6 +427,7 @@ const sendEmail = async (email, subject, message) => {
 
                     <InputRightElement width="4.5rem">
                       <Button
+                     
                         h="1.75rem"
                         w={"fit-content"}
                         size="sm"
@@ -429,8 +443,13 @@ const sendEmail = async (email, subject, message) => {
               </Flex>
               {/* input email */}
             </Flex>
-            <Box textAlign={'center'}>
-          <Text mt={"1em"}>En vous inscrivant, vous acceptez nos </Text>
+            <Box textAlign={'center'} alignContent={"center"} justifyContent={"center"} alignItems={"center"} >
+              <Box display={'flex'}  textAlign={'center'} marginX={"35%"}>
+                <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/>
+              <Text mt={"1em"}>En cochant cette case, vous acceptez nos </Text>
+              
+              </Box>
+       
             <Link
               color={"messenger.400"}
               fontWeight={"bold"}
@@ -452,6 +471,7 @@ const sendEmail = async (email, subject, message) => {
                 _hover={{ textDecoration: "none" }}
               >
                 <Button
+                //  isDisabled={bool}
                   w={"full"}
                   h={"full"}
                   colorScheme="blue"
@@ -466,6 +486,7 @@ const sendEmail = async (email, subject, message) => {
                 </Button>
               </Link>
             </Center>
+            </FormControl>
             <Center>
             <Flex alignContent={"center"} textAlign={"center"}>
               <Text

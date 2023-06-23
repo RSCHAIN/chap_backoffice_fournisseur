@@ -18,7 +18,8 @@ import {
   TabPanels,
   Tabs,
   Text,
-  Image
+  Image,
+  Heading
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { ChevronDownIcon, EmailIcon, Search2Icon } from "@chakra-ui/icons";
@@ -85,7 +86,14 @@ const DesktopNav = () => {
         {/* le logo et la nav laterale  */}
         <Stack w={"100%"} direction={"row"} spacing={"0"}>
           {/* la box du logo  */}
-          <Center w={"14.5%"} h={"5em"}>
+          
+          {/* la box de l'input  */}
+          <Flex
+            alignItems={"center"}
+            justifyContent={"space-between"}
+            w={"85.5%"}
+          >
+            <Center w={"14.5%"} h={"5em"}>
             <Center
               h={"4.5em"}
               w={"8em"}
@@ -99,13 +107,7 @@ const DesktopNav = () => {
             </Center>
           </Center>
 
-          {/* la box de l'input  */}
-          <Flex
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            w={"85.5%"}
-          >
-            <InputGroup w={"20em"} ml={"1em"}>
+            {/* <InputGroup w={"20em"} ml={"1em"}>
               <Input
                 type="search"
                 placeholder="Recherche..."
@@ -121,7 +123,7 @@ const DesktopNav = () => {
               >
                 <Search2Icon />
               </InputRightElement>
-            </InputGroup>
+            </InputGroup> */}
 
             {/* icone button's */}
             <Flex
@@ -136,14 +138,14 @@ const DesktopNav = () => {
                 ></FontAwesomeIcon>
               </Link>
 
-              <Link>
+              {/* <Link>
                 <FontAwesomeIcon
                   icon={faBell}
                   color="#6c757d"
                 ></FontAwesomeIcon>
-              </Link>
+              </Link> */}
               <Flex alignItems={"center"} justifyContent={"center"}>
-                <Link>
+                {/* <Link>
                   <Avatar
                    
                     name={user ? user : ""}
@@ -151,7 +153,7 @@ const DesktopNav = () => {
                     mr={"1em"}
                     bgColor={'#08566e'}
                   />
-                </Link>
+                </Link> */}
 
                 <Menu>
                   <MenuButton
@@ -159,7 +161,7 @@ const DesktopNav = () => {
                     // rightIcon={<ChevronDownIcon />}
                     variant="outline"
                   >
-                    Admin
+                    {user ? user : ""}
                   </MenuButton>
                   <MenuList>
                   <Center as={Text}>{email ? email : ""}</Center>
@@ -179,16 +181,16 @@ const DesktopNav = () => {
         </Stack>
 
         <Tabs
-          variant="unstyled"
-          display={"flex"}
-          flexDirection={"row"}
-          w={"100%"}
-          minH={"100vh"}
+          // variant="unstyled"
+         
+         
+         
+          orientation="vertical"
         >
-          <TabList w={{ md: "30%", xl: "17%" }} flexDirection={"column"}>
+          <TabList w={{ md: "30%", xl: "17%" }} >
             <Tab
               w={{ md: "90%", lg: "80%" }}
-              h={"3em"}
+            
               ml={{ md: "5%", lg: "10%" }}
               borderRadius={"10px"}
               color={"#0077b6"}
@@ -207,25 +209,26 @@ const DesktopNav = () => {
             <Tab _selected={{ color: "blue" }}>Commandes</Tab>
 
             <Tab _selected={{ color: "blue" }}>Demander Livraison</Tab>
+            <Tab _selected={{ color: "blue" }}>Profils</Tab>
 
             {/* <Tab _selected={{ color: "blue" }}>Liste Des Magasins</Tab> */}
 
             {/* <Tab _selected={{ color: "blue" }}>Profile Admin</Tab> */}
           </TabList>
 
-          <TabPanels bg={"#e9ecef"} w={{ md: "70%", xl: "83%" }} pb={10} h={"100%"}>
+          <TabPanels bg={"#e9ecef"} w={{ md: "70%", xl: "83%" }} >
             {/* dashboard  */}
-            <TabPanel w={"100%"} h={"100%"}>
+            <TabPanel >
               <DashBoardPanels></DashBoardPanels>
             </TabPanel>
 
             {/* table des produits  */}
-            <TabPanel w={"100%"} h={"100%"}>
+            <TabPanel  >
               <ProduitsPanels></ProduitsPanels>
             </TabPanel>
 
             {/* commandes  */}
-            <TabPanel w={"100%"} h={"100%"}>
+            <TabPanel  >
               <CommandesPanels></CommandesPanels>
             </TabPanel>
 
@@ -235,14 +238,17 @@ const DesktopNav = () => {
             </TabPanel> */}
 
             {/* employes  */}
-            {/* <TabPanel w={"100%"} h={"100%"}> */}
-              {/* <EmployePanels></EmployePanels>
-            </TabPanel> */}
+            <TabPanel w={"100%"} > 
+               {/* <EmployePanels></EmployePanels> */}
+               <Center>
+                <Heading>Page Indisponible</Heading>
+               </Center>
+            </TabPanel>
 
             {/* profile admin  */}
-            {/* <TabPanel w={"100%"} h={"100%"}>
-              <AdminProfilePanels></AdminProfilePanels>
-            </TabPanel> */}
+            <TabPanel  >
+              <AdminProfilePanels/>
+            </TabPanel>
           </TabPanels>
         </Tabs>
       </Stack>

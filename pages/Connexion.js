@@ -114,13 +114,7 @@ const Connexion = () => {
         {/* la premier box grise  */}
         <Flex
           width={{ base: "70%", md: "70%", xl: "50%", "2xl": "40%" }}
-          height={{
-            base: "90vh",
-            md: "90vh",
-            lg: "70vh",
-            xl: "65vh",
-            "2xl": "70vh",
-          }}
+          height={"fit-conte"}
           bg={"#dee2e6"}
           borderRadius={"2em"}
           direction={"column"}
