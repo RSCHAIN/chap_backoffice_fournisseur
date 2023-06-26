@@ -24,12 +24,13 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import CommandeCorps from "../tableCommande/CommandeCorps";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, and } from "firebase/firestore";
 import { db } from "@/Firebase/Connexion";
 import { onValue, ref, update } from "firebase/database";
 import { database } from "@/Firebase/Connexion";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import axios from "axios";
 // liste des entetes
 const ListEntete = [
   {
@@ -100,6 +101,7 @@ const CommandesPanels = () => {
   const [CommandeListe, setCommandeListe] = useState([]);
   const [CommandeId, setCommandeId] = useState([]);
   const [livreur, setLivreur] = useState([]);
+  const [page, setPage] = useState(0);
   const router = useRouter()
   const [org, setOrg] = useState();
   const Getall = async () => {
@@ -117,6 +119,8 @@ const CommandesPanels = () => {
       if (snapshot.val() != null && snapshot.val() != undefined) {
         setCommandeListe(snapshot.val());
         setCommandeId(Object.keys(snapshot.val()));
+      
+        
       }
     });
   };
@@ -140,10 +144,23 @@ const CommandesPanels = () => {
   //     );
   //   });
   // }
+  const sendmail = async (items) =>{
+    await axios.post('/api/sendmail', {
+      message:items.description ,
+      email: items.initiateur,
+      subject: `Validation de Commande ${items.nom}`,
+      nom:items.nom,
+      image:items.imageUrl,
+      price:items.totalPrix,
+      quantity:items.quantite,
+    }).then((response)=>{alert("okay")})
+  }
   useEffect(() => {
     Getall();
     setOrg(JSON.parse(localStorage.getItem("org")));
+    console.log(CommandeListe.length)
   }, []);
+  
   return (
     <>
       <Flex w={"100%"} flexDirection={"column"}>
@@ -173,7 +190,8 @@ const CommandesPanels = () => {
               </Thead>
               <Tbody padding={0} id="tb12">
                 {Object.values(CommandeListe).map((items, index) => {
-                  if (items.Status == "En Cours") {
+                 
+                  if (items.Status == "En Cours" && items.organisation == org ) {
                     return (
                       <Tr key={items}>
                         <Td>{items.nom}</Td>
@@ -200,68 +218,67 @@ const CommandesPanels = () => {
                               color={"cyan.600"}
                               fontSize={30}
                               mr={5}
-                              cursor={"pointer"}
-                              onClick={() =>
-                                Cancel(CommandeId[index], "VALIDÉE")
-                              }
+                              cursor={"pointer"} 
+                              onClick= {()=>{Cancel(CommandeId[index], "VALIDÉE"),sendmail(items)}}
+                                
+                              
                             />
                             <CloseIcon
                               color={"red"}
                               fontSize={30}
                               cursor={"pointer"}
-                              onClick={() =>
-                                Cancel(CommandeId[index], "ANNULE")
-                              }
+                              onClick= {()=>{Cancel(CommandeId[index], "ANNULÉE"),sendmail(items)}}
                             />
                           </Flex>
                         </Td>
-                      </Tr>
-                    );
-                  }else{
-                    return (
-                      <Tr key={items}>
-                        <Td>{items.nom}</Td>
-                        <Td>
-                          <Image
-                            alt={"images de produit"}
-                            src={items.imageUrl}
-                            width={20}
-                            height={10}
-                          />
-                        </Td>
-                        <Td>{items.quantite}</Td>
-                        <Td>{items.totalPrix}</Td>
-                        <Td>{items.jour + " " + items.moment}</Td>
-                        <Td>{items.receveur}</Td>
-
-                        <Td>{items.numero}</Td>
-                        <Td>{items.lieu}</Td>
-                        <Td>{items.Status}</Td>
-
-                        {/* <Td>
-                          <Flex justifyContent={"space-around"} w={10}>
-                            <CheckIcon
-                              color={"cyan.600"}
-                              fontSize={30}
-                              mr={5}
-                              cursor={"pointer"}
-                              onClick={() =>
-                                Cancel(CommandeId[index], "VALIDÉE")
-                              }
-                            />
-                            <CloseIcon
-                              color={"red"}
-                              fontSize={30}
-                              cursor={"pointer"}
-                              onClick={() =>
-                                Cancel(CommandeId[index], "ANNULE")
-                              }
-                            />
-                          </Flex>
-                        </Td> */}
                       </Tr>
                     );
                   }
+                  // else{
+                  //   return (
+                  //     <Tr key={items}>
+                  //       <Td>{items.nom}</Td>
+                  //       <Td>
+                  //         <Image
+                  //           alt={"images de produit"}
+                  //           src={items.imageUrl}
+                  //           width={20}
+                  //           height={10}
+                  //         />
+                  //       </Td>
+                  //       <Td>{items.quantite}</Td>
+                  //       <Td>{items.totalPrix}</Td>
+                  //       <Td>{items.jour + " " + items.moment}</Td>
+                  //       <Td>{items.receveur}</Td>
+
+                  //       <Td>{items.numero}</Td>
+                  //       <Td>{items.lieu}</Td>
+                  //       <Td>{items.Status}</Td>
+
+                  //       {/* <Td>
+                  //         <Flex justifyContent={"space-around"} w={10}>
+                  //           <CheckIcon
+                  //             color={"cyan.600"}
+                  //             fontSize={30}
+                  //             mr={5}
+                  //             cursor={"pointer"}
+                  //             onClick={() =>
+                  //               Cancel(CommandeId[index], "VALIDÉE")
+                  //             }
+                  //           />
+                  //           <CloseIcon
+                  //             color={"red"}
+                  //             fontSize={30}
+                  //             cursor={"pointer"}
+                  //             onClick={() =>
+                  //               Cancel(CommandeId[index], "ANNULE")
+                  //             }
+                  //           />
+                  //         </Flex>
+                  //       </Td> */}
+                  //     </Tr>
+                  //   );
+                  // }
                 })}
               </Tbody>
             </Table>
