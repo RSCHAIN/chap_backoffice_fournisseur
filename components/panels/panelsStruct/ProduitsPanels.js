@@ -35,63 +35,60 @@ import {
 import React, { useEffect, useState } from "react";
 import ProductCorps from "../tableProducts/ProductCorps";
 import { database, storage } from "@/Firebase/Connexion";
-import { child, get, getDatabase, increment, push, ref, remove } from "firebase/database";
+import {
+  child,
+  get,
+  getDatabase,
+  increment,
+  push,
+  ref,
+  remove,
+} from "firebase/database";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
 import ActionStructure from "@/components/generale/ActionStructure";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { deleteDoc } from "firebase/firestore";
 
-
-
-
 const ProduitsPanels = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [last, setLast] = useState([]);
-  const [id,setId] = useState([])
+  const [id, setId] = useState([]);
   const router = useRouter();
 
   const [org, setOrg] = useState();
   const [cat, setCat] = useState();
-  const toast = useToast()
-
-
-
-
-
-
+  const toast = useToast();
 
   useEffect(() => {
     const exist = localStorage.getItem("cat");
     const exist2 = localStorage.getItem("org");
     if (exist) {
-     
-
       setCat(JSON.parse(exist));
       setOrg(JSON.parse(exist2));
-    }else{
-      localStorage.clear()
-      router.push("/")
+    } else {
+      localStorage.clear();
+      router.push("/");
     }
     const dbRef = ref(getDatabase());
     get(child(dbRef, cat + "/" + org))
       .then((snapshot) => {
-       setId(Object.keys(snapshot.val()))
+        setId(Object.keys(snapshot.val()));
         if (snapshot.exists()) {
           setLast(snapshot.val());
-        } 
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-  },[setCat,cat,org,router]);
+  }, [setCat, cat, org, router]);
 
   const [image, setImage] = useState();
   const [imageuri, setImageuri] = useState();
 
   const [name, setName] = useState();
   const [prix, setPrix] = useState();
-  const [quantite, setQuantite] = useState('non fourni');
+  const [quantite, setQuantite] = useState("non fourni");
   const [desc, setDesc] = useState();
 
   ///upload image
@@ -107,19 +104,16 @@ const ProduitsPanels = () => {
     setImageuri(downloadURL);
   };
 
-
   //enregistrer data
   function writeData(cat, org, name, image, prix, description, quantite) {
-  
     if (image != null) {
       push(ref(database, cat + "/" + org), {
-        
         nom: name,
         prix: prix,
         description: description,
         quantite: quantite,
         imageUrl: image,
-        organisation: org, 
+        organisation: org,
         etat: "disponible",
         note: "nouveau",
       });
@@ -129,9 +123,8 @@ const ProduitsPanels = () => {
         status: "success",
         duration: 5000,
         isClosable: true,
-      })
-      router.reload()
-      
+      });
+      router.reload();
     } else {
       toast({
         title: "VEUILLEZ RELANCER SVP",
@@ -139,19 +132,13 @@ const ProduitsPanels = () => {
         status: "error",
         duration: 5000,
         isClosable: true,
-      })
-     
+      });
     }
   }
- 
 
-const deleteData=(cat,org,id) =>{
-  remove(ref(database,cat+"/"+org+"/"+id))
-}
-
-
-
-
+  const deleteData = (cat, org, id) => {
+    remove(ref(database, cat + "/" + org + "/" + id));
+  };
 
   return (
     <>
@@ -182,17 +169,20 @@ const deleteData=(cat,org,id) =>{
               <ModalBody>
                 <Text>Image du produit</Text>
                 <Input
-                  
                   type="file"
                   accept="image/*"
-                  onChange={(e) =>{setImage(e.target.files[0]), handleImageUpload(image, cat, org)} }
+                  onChange={(e) => {
+                    setImage(e.target.files[0]),
+                      setImage(e.target.files[0]),
+                      setImage(e.target.files[0]);
+                  }}
                 />
                 <Flex>
                   <Box mr={5}>
                     <FormControl isRequired>
                       <FormLabel>Intitulé</FormLabel>
                       <Input
-value={name}
+                        value={name}
                         isRequired
                         placeholder="intitulé du produit"
                         onChange={(e) => setName(e.target.value)}
@@ -210,7 +200,7 @@ value={name}
                     </FormControl>
                   </Box>
                   <Box>
-                    <FormControl >
+                    <FormControl>
                       <FormLabel>Quantité</FormLabel>
                       <Input
                         value={quantite}
@@ -242,7 +232,7 @@ value={name}
                   colorScheme="blue"
                   mr={3}
                   onClick={() => {
-                     
+                    handleImageUpload(image, cat, org),
                       writeData(cat, org, name, imageuri, prix, desc, quantite);
                   }}
                 >
@@ -252,15 +242,11 @@ value={name}
             </ModalContent>
           </Modal>
         </Box>
-        <Stack w={"100%"}  bg={"#fff"} mt={"2em"}mb={20}>
-          <TableContainer >
-            <Table variant='simple'>
+        <Stack w={"100%"} bg={"#fff"} mt={"2em"} mb={20}>
+          <TableContainer>
+            <Table variant="simple">
               {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-              <Thead
-                bgColor={"#fff"}
-                borderColor={"#e9ecef"}
-             
-              >
+              <Thead bgColor={"#fff"} borderColor={"#e9ecef"}>
                 <Tr>
                   <Th> Nom</Th>
                   <Th>Aperçu </Th>
@@ -273,23 +259,42 @@ value={name}
                 </Tr>
               </Thead>
               <Tbody padding={0} id="tb14">
-                {Object.values(last).map((items,index) => (
+                {Object.values(last).map((items, index) => (
                   <Tr key={items}>
                     <Td>{items.nom}</Td>
                     <Td>
-                      <Image alt={'images de produit'} src={items.imageUrl}  width={40} height={40} />
+                      <Image
+                        alt={"images de produit"}
+                        src={items.imageUrl}
+                        width={40}
+                        height={40}
+                      />
                     </Td>
-                    <Td ><Text width={300} height={20} noOfLines={4} >{items.description}</Text></Td>
+                    <Td>
+                      <Text width={300} height={20} noOfLines={4}>
+                        {items.description}
+                      </Text>
+                    </Td>
                     <Td>{items.prix}</Td>
                     <Td>{items.quantite}</Td>
                     <Td>{items.etat}</Td>
                     <Td>{items.note}</Td>
                     <Td>
                       <Flex justifyContent={"space-around"} w={10}>
-                      <EditIcon  color={"cyan.500"}fontSize={30} cursor={"pointer"} mr={5} href="#modal2"/>
-                    <DeleteIcon color={"red"}fontSize={30} cursor={"pointer"} onClick={()=>deleteData(cat,org,id[index])}/>
+                        <EditIcon
+                          color={"cyan.500"}
+                          fontSize={30}
+                          cursor={"pointer"}
+                          mr={5}
+                          href="#modal2"
+                        />
+                        <DeleteIcon
+                          color={"red"}
+                          fontSize={30}
+                          cursor={"pointer"}
+                          onClick={() => deleteData(cat, org, id[index])}
+                        />
                       </Flex>
-                    
                     </Td>
                   </Tr>
                 ))}
