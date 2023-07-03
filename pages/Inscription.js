@@ -479,8 +479,8 @@ const sendEmail = async (email, subject, message) => {
                   borderRadius={"full"}
                   fontSize={"1.5em"}
                   onClick={() => {
-                    handleImageUpload(image, categorie, organisation)
-                     
+                    handleImageUpload(image, categorie, organisation),
+                     createUSer()
                   }}
                 >
                   Inscription
