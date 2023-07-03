@@ -169,11 +169,10 @@ const CommandesPanels = () => {
             Listes Des Commandes
           </Text>
         </Box>
-        <Stack w={"100%"} minH={"100rem"} bg={"#fff"} mt={"2em"} mb={20}>
-          <TableContainer id="tablec41">
+        <Box w={"100%"} overflowY="auto" maxHeight="500px" bg={"#fff"} mt={"2em"} mb={20}>
             <Table variant="simple" id="table41">
               {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-              <Thead bgColor={"#fff"} borderColor={"#e9ecef"}>
+              <Thead bgColor={"#fff"} position="sticky" borderColor={"#e9ecef"}>
                 <Tr>
                   <Th> Nom</Th>
                   <Th>Image </Th>
@@ -234,59 +233,42 @@ const CommandesPanels = () => {
                       </Tr>
                     );
                   }
-                  // else{
-                  //   return (
-                  //     <Tr key={items}>
-                  //       <Td>{items.nom}</Td>
-                  //       <Td>
-                  //         <Image
-                  //           alt={"images de produit"}
-                  //           src={items.imageUrl}
-                  //           width={20}
-                  //           height={10}
-                  //         />
-                  //       </Td>
-                  //       <Td>{items.quantite}</Td>
-                  //       <Td>{items.totalPrix}</Td>
-                  //       <Td>{items.jour + " " + items.moment}</Td>
-                  //       <Td>{items.receveur}</Td>
+                  else if (items.organisation == org && items.Status == "VALIDÉE" && items.Status == "ANNULÉE") 
+                    
+                  
+                  {
+                    return (
+                      <Tr key={items}>
+                        <Td>{items.nom}</Td>
+                        <Td>
+                          <Image
+                            alt={"images de produit"}
+                            src={items.imageUrl}
+                            width={20}
+                            height={10}
+                          />
+                        </Td>
+                        <Td>{items.quantite}</Td>
+                        <Td>{items.totalPrix}</Td>
+                        <Td>{items.jour + " " + items.moment}</Td>
+                        <Td>{items.receveur}</Td>
 
-                  //       <Td>{items.numero}</Td>
-                  //       <Td>{items.lieu}</Td>
-                  //       <Td>{items.Status}</Td>
+                        <Td>{items.numero}</Td>
+                        <Td>{items.lieu}</Td>
+                        <Td>{items.Status}</Td>
 
-                  //       {/* <Td>
-                  //         <Flex justifyContent={"space-around"} w={10}>
-                  //           <CheckIcon
-                  //             color={"cyan.600"}
-                  //             fontSize={30}
-                  //             mr={5}
-                  //             cursor={"pointer"}
-                  //             onClick={() =>
-                  //               Cancel(CommandeId[index], "VALIDÉE")
-                  //             }
-                  //           />
-                  //           <CloseIcon
-                  //             color={"red"}
-                  //             fontSize={30}
-                  //             cursor={"pointer"}
-                  //             onClick={() =>
-                  //               Cancel(CommandeId[index], "ANNULE")
-                  //             }
-                  //           />
-                  //         </Flex>
-                  //       </Td> */}
-                  //     </Tr>
-                  //   );
-                  // }
+                      
+                      </Tr>
+                    );
+                  }
                 })}
               </Tbody>
             </Table>
-          </TableContainer>
+        
           {/* l'entete de la liste  */}
 
           {/* la liste  */}
-        </Stack>
+        </Box>
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />

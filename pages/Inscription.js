@@ -211,6 +211,7 @@ const sendEmail = async (email, subject, message) => {
                   </option>
                   <option value={"Restauration"}>Restauration</option>
                   <option value={"Esthetique"}>Esthetique</option>
+                  <option value={"Epicerie"}>Epicerie</option>
                 </Select>
               </Stack>
             </Flex>

@@ -109,7 +109,7 @@ const ProduitsPanels = () => {
     if (image != null) {
       push(ref(database, cat + "/" + org), {
         nom: name,
-        prix: prix,
+        prix: parseFloat(prix),
         description: description,
         quantite: quantite,
         imageUrl: image,
@@ -242,8 +242,8 @@ const ProduitsPanels = () => {
             </ModalContent>
           </Modal>
         </Box>
-        <Stack w={"100%"} bg={"#fff"} mt={"2em"} mb={20}>
-          <TableContainer>
+        <Box w={"100%"} overflowY="auto" maxHeight="500px" bg={"#fff"} mt={"2em"} mb={20}>
+          
             <Table variant="simple">
               {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
               <Thead bgColor={"#fff"} borderColor={"#e9ecef"}>
@@ -300,11 +300,11 @@ const ProduitsPanels = () => {
                 ))}
               </Tbody>
             </Table>
-          </TableContainer>
+      
           {/* l'entete de la liste  */}
 
           {/* la liste  */}
-        </Stack>
+        </Box>
       </Flex>
     </>
   );
