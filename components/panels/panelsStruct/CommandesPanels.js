@@ -233,7 +233,7 @@ const CommandesPanels = () => {
                       </Tr>
                     );
                   }
-                  else if (items.organisation == org && items.Status == "VALIDÉE" && items.Status == "ANNULÉE") 
+                  else if (items.organisation == org && items.Status == "VALIDÉE" || items.Status == "ANNULÉE") 
                     
                   
                   {
