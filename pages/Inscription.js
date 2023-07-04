@@ -206,9 +206,7 @@ const sendEmail = async (email, subject, message) => {
                   value={categorie}
                   onChange={(e) => setCategorie(e.target.value)}
                 >
-                 // <option value={"Alimentation"} defaultChecked>
-                 //   Alimentation
-                 // </option>
+                 
                   <option value={"Restauration"} defaultChecked>Restauration</option>
                     <option value={"Salon de Coiffure"}>Salon De Coiffure</option>
                   <option value={"Commerce de méches"}>Commerce de méche</option>
