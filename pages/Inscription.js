@@ -210,6 +210,9 @@ const sendEmail = async (email, subject, message) => {
                     Alimentation
                   </option>
                   <option value={"Restauration"}>Restauration</option>
+                    <option value={"Salon de Coiffure"}>Salon De Coiffure</option>
+                  <option value={"Commerce de méches"}>Commerce de méche</option>
+                     <option value={"Epicerie"}>Epicerie</option>
                   <option value={"Esthetique"}>Esthetique</option>
                   <option value={"Epicerie"}>Epicerie</option>
                 </Select>
