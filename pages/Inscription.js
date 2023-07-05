@@ -209,7 +209,7 @@ const sendEmail = async (email, subject, message) => {
                  
                   <option value={"Restauration"} defaultChecked>Restauration</option>
                     <option value={"Salon de Coiffure"}>Salon De Coiffure</option>
-                  <option value={"Commerce de méches"}>Commerce de méche</option>
+                  <option value={"Commerce de meches"}>Commerce de meches</option>
                      <option value={"Cosmetique"}>Cosmetique</option>
                      <option value={"Fret"}>Fret</option>
                   <option value={"Esthetique"}>Esthetique</option>
