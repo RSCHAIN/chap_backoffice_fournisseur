@@ -45,7 +45,7 @@ const Inscription = () => {
   const [password2, setPassword2] = useState();
   const [siret, setSiret] = useState();
   const [organisation, setOrganisation] = useState();
-  const [categorie, setCategorie] = useState('Alimentation');
+  const [categorie, setCategorie] = useState('Restaurant');
   const [name, setName] = useState();
   const [adresse, setAdresse] = useState();
   const [tva, setTva] = useState();
