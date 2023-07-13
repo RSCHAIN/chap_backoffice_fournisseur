@@ -202,7 +202,7 @@ const sendEmail = async (email, subject, message) => {
                 isRequired
                
                   border={"1px solid black"}
-                  defaultValue={"Alimentation"}
+                  defaultValue={"Restaurant"}
                   value={categorie}
                   onChange={(e) => setCategorie(e.target.value)}
                 >
