@@ -16,6 +16,7 @@ import {
   Text,
   useDisclosure,
   useToast,
+  Textarea,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
@@ -47,6 +48,7 @@ const Inscription = () => {
   const [organisation, setOrganisation] = useState();
   const [categorie, setCategorie] = useState('Restaurant');
   const [name, setName] = useState();
+  const [description, setDescription] = useState("none");
   const [adresse, setAdresse] = useState();
   const [tva, setTva] = useState();
   const [image, setImage] = useState();
@@ -96,6 +98,7 @@ const sendEmail = async (email, subject, message) => {
         siret,
         adresse,
         tva,
+        description,
         status:'non verifié',
         code:randomNumb
       };
@@ -216,6 +219,24 @@ const sendEmail = async (email, subject, message) => {
                  
                   <option value={"Epicerie"}>Epicerie</option>
                 </Select>
+              </Stack>
+            </Flex>
+    <Flex
+              w={"90%"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              flexDirection={"column"}
+            >
+              <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+               
+                <FormLabel fontWeight={"bold"} fontSize={"1.5em"} >Catégorie</FormLabel>
+              <Text mb='8px'>Description :</Text>
+      <Textarea
+       
+        onChange={(e)=>setDescription(e.target.value)}
+        placeholder='Here is a sample placeholder'
+        size='sm'
+      />
               </Stack>
             </Flex>
             {/* les deux inputs  */}
