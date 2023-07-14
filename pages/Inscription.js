@@ -229,8 +229,8 @@ const sendEmail = async (email, subject, message) => {
             >
               <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                
-                <FormLabel fontWeight={"bold"} fontSize={"1.5em"} >Catégorie</FormLabel>
-              <Text mb='8px'>Description :</Text>
+                <FormLabel fontWeight={"bold"} fontSize={"1.5em"} >Description</FormLabel>
+             
       <Textarea
        
         onChange={(e)=>setDescription(e.target.value)}
