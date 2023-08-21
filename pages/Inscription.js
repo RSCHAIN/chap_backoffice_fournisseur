@@ -89,15 +89,15 @@ const sendEmail = async (email, subject, message) => {
       // structure the todo data
       const Users = {
         categorie,
-        imageUrl: uri,
+        // imageUrl: uri,
         name,
         organisation,
         number,
         email,
         password,
-        siret,
+        // siret,
         adresse,
-        tva,
+        // tva,
         description,
         status:'non verifié',
         code:randomNumb
@@ -135,18 +135,18 @@ const sendEmail = async (email, subject, message) => {
   };
 
   ///upload image
-  const handleImageUpload = async (file, cat, org) => {
+  // const handleImageUpload = async (file, cat, org) => {
     // Upload the image to Firebase Storage
-    const imageRef = ref(storage, cat + "/" + org + "/logo/" + file.name);
-    await uploadBytes(imageRef, file);
+    // const imageRef = ref(storage, cat + "/" + org + "/logo/" + file.name);
+    // await uploadBytes(imageRef, file);
 
     // Get the download URL of the uploaded image
-    const downloadURL = await getDownloadURL(imageRef);
+    // const downloadURL = await getDownloadURL(imageRef);
 
     // Do something with the downloadURL, such as storing it in a database
-    setUri(downloadURL);
-     createUSer();
-  };
+    // setUri(downloadURL);
+    //  createUSer();
+  // };
   const { isOpen, onToggle } = useDisclosure()
 
   return (
@@ -285,7 +285,7 @@ const sendEmail = async (email, subject, message) => {
                   ></Input>
                 </Stack>
                 {/* input email */}
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                {/* <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
              
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     SIRET{" "}
@@ -303,8 +303,8 @@ const sendEmail = async (email, subject, message) => {
                     maxLength={30}
                   ></Input>
                  
-                </Stack>
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                </Stack> */}
+                {/* <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     T.V.A
                   </Text>
@@ -319,7 +319,7 @@ const sendEmail = async (email, subject, message) => {
                     type="text"
                     isRequired
                   ></Input>
-                </Stack>
+                </Stack> */}
                 {/* input email */}
 
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
@@ -381,7 +381,7 @@ const sendEmail = async (email, subject, message) => {
                   ></Input>
                 </Stack>
                
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                {/* <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     IMAGE DU MAGASIN
                   </Text>
@@ -398,7 +398,7 @@ const sendEmail = async (email, subject, message) => {
                       setImage(e.target.files[0])
                     }}
                   ></Input>
-                </Stack>
+                </Stack> */}
                 {/* input mot de pass */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
@@ -503,7 +503,7 @@ const sendEmail = async (email, subject, message) => {
                   borderRadius={"full"}
                   fontSize={"1.5em"}
                   onClick={() => {
-                    handleImageUpload(image, categorie, organisation),
+                    // handleImageUpload(image, categorie, organisation),
                      createUSer()
                   }}
                 >
