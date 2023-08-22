@@ -181,7 +181,7 @@ const Connexion = () => {
                     mr={5}
                     onClick={handleClick}
                   >
-                    {show ? <FaEye/> : <FiEyeOff/>}
+                    {show ? <FaEye fontSize={"20px"}/> : <FiEyeOff fontSize={"20px"}/>}
                   </Button>
                 </InputRightElement>
               </InputGroup>
