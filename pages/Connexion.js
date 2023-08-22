@@ -186,37 +186,41 @@ const Connexion = () => {
                 </InputRightElement>
               </InputGroup>
             </Stack>
-               <Link
+            
+          </Flex>
+         
+             <Link
             color={"#0077b6"}
-            textAlign={"end"}
+           ml={["30%","50%","60%","70%","70%"]}
             fontWeight={"bold"}
             mt={"1em"}
-          
+          w={"fit-content"}
             _hover={{ textDecoration: "none" }}
           >
             Mot de passe oublié ?
           </Link>
-          </Flex>
          
           
        
           <Center
             mt={"2em"}
-            w={"100%"}
+            w={"full"}
             h={{ base: "3em" }}
             _hover={{ textDecoration: "none" }}
           >
              
             <Link
-              w={"50%"}
+              // w={"50%"}
               h={{ base: "3em" }}
               _hover={{ textDecoration: "none" }}
             >
               <Button
-                w={"full"}
+                w={"fit-content"}
                 h={"full"}
                 colorScheme="blue"
                 borderRadius={"full"}
+                px={5}
+                py={5}
                 fontSize={"1.5em"}
                 onClick={() => Login()}
               >
