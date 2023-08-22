@@ -25,6 +25,8 @@ import { db } from "@/Firebase/Connexion";
 import { getCookie, hasCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import Logo from "@/components/generale/Logo";
+import {FiEyeOff} from "react-icons/fi"
+import {FaEye} from "react-icons/fa"
 
 const Connexion = () => {
   const [show, setShow] = useState(false);
@@ -38,18 +40,7 @@ const Connexion = () => {
   const router = useRouter();
 
   const Login = async () => {
-    // const q = query(collection(db, "Admin/"), where("email", "==", email));
 
-    // const querySnapshot = await getDocs(q);
-
-    // querySnapshot.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    // if (doc.data().password == pass) {
-    //   console.log(doc.data().password);
-    //   localStorage.setItem("user",JSON.stringify(doc.data()));
-    //   router.reload()
-    // }
-    // });
     const docRef = doc(db, "Admin/" + email);
     const docSnap = await getDoc(docRef);
 
@@ -190,7 +181,7 @@ const Connexion = () => {
                     mr={5}
                     onClick={handleClick}
                   >
-                    {show ? "Afficher" : "Masquer"}
+                    {show ? <FaEye/> : <FiEyeOff/>}
                   </Button>
                 </InputRightElement>
               </InputGroup>
