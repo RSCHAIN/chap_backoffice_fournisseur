@@ -189,6 +189,16 @@ const Connexion = () => {
           </Flex>
          
           
+          <Link
+            color={"#0077b6"}
+            textAlign={"end"}
+            fontWeight={"bold"}
+            mt={"1em"}
+          
+            _hover={{ textDecoration: "none" }}
+          >
+            Mot de passe oublié ?
+          </Link>
           <Center
             mt={"2em"}
             w={"100%"}
@@ -214,15 +224,6 @@ const Connexion = () => {
             </Link>
           </Center>
 
-          <Link
-            color={"#0077b6"}
-            textAlign={"center"}
-            fontWeight={"bold"}
-            mt={"1em"}
-            _hover={{ textDecoration: "none" }}
-          >
-            Mot de passe oublié ?
-          </Link>
          
           <Link
             color={"#0077b6"}
@@ -231,7 +232,7 @@ const Connexion = () => {
             mt={"1em"}
             href="/Inscription"
             _hover={{ textDecoration: "none" }}>
-            Inscription
+            Pas de compte? Créer un compte
           </Link>
       
           
