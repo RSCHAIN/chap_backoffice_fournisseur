@@ -115,7 +115,7 @@ const Connexion = () => {
         <Flex
           width={{ base: "70%", md: "70%", xl: "50%", "2xl": "40%" }}
           height={"fit-conte"}
-          bg={"#dee2e6"}
+          // bg={"#dee2e6"}
           borderRadius={"2em"}
           direction={"column"}
         >
@@ -131,7 +131,7 @@ const Connexion = () => {
               <Logo></Logo>
             </Box>
 
-            <Center w={"full"}>
+            <Center w={"full"} display={["none","none","none","grid","grid"]}>
               <Text color={"#0077b6"} fontWeight={"bold"} fontSize={"2em"}>
                 PAGE DE CONNEXION
               </Text>
