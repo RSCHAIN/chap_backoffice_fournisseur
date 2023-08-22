@@ -462,7 +462,7 @@ const sendEmail = async (email, subject, message) => {
               </Flex>
               {/* input email */}
             </Flex>
-            <Box  w={"fit-content"} alignContent={"center"} >
+            <Box  w={"fit-content"} ml={["10%","10%","10%","30%","30%",]} >
               <Box display={'flex'}width={"fit-content"}  textAlign={'center'} >
                 {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
               <Text mt={"1em"}>En vous inscrivant, vous acceptez nos </Text>
