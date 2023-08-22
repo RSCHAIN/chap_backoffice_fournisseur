@@ -479,23 +479,26 @@ const sendEmail = async (email, subject, message) => {
           
           </Box>
             <Center
-              mt={"2em"}
+              mt={"1em"}
               w={"100%"} 
-              h={{ base: "3em" }}
+              py={2}
+              h={{ base: "2em" }}
               _hover={{ textDecoration: "none" }}
             >
               <Link
                 // w={"50%"}
-                h={{ base: "3em" }}
+                // py={2}
+                h={{ base: "2em" }}
                 _hover={{ textDecoration: "none" }}
               >
                 <Button
                 //  isDisabled={bool}
+               
                   w={"fit-content"}
                   h={"full"}
                   colorScheme="blue"
                   borderRadius={"full"}
-                  fontSize={"1.5em"}
+                  fontSize={"1.25em"}
                   onClick={() => {
                     // handleImageUpload(image, categorie, organisation),
                      createUSer()
