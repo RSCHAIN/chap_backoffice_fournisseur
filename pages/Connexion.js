@@ -186,10 +186,7 @@ const Connexion = () => {
                 </InputRightElement>
               </InputGroup>
             </Stack>
-          </Flex>
-         
-          
-          <Link
+               <Link
             color={"#0077b6"}
             textAlign={"end"}
             fontWeight={"bold"}
@@ -199,6 +196,10 @@ const Connexion = () => {
           >
             Mot de passe oublié ?
           </Link>
+          </Flex>
+         
+          
+       
           <Center
             mt={"2em"}
             w={"100%"}
