@@ -154,7 +154,7 @@ const sendEmail = async (email, subject, message) => {
       <Box
         mt={"-100px"}
         pb={20}
-        bgImage={"2.jpg"}
+        // bgImage={"2.jpg"}
         bgSize={"cover"}
         height={"fit-content"}
       >
