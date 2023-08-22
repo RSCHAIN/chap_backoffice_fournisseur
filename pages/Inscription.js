@@ -25,7 +25,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 import Logo from "@/components/generale/Logo";
-
+import {BsEyeFill,BsEyeSlashFill} from "react-icons/bs"
 
 
 
@@ -221,24 +221,7 @@ const sendEmail = async (email, subject, message) => {
                 </Select>
               </Stack>
             </Flex>
-    <Flex
-              w={"90%"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              flexDirection={"column"}
-            >
-              <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
-               
-                <FormLabel fontWeight={"bold"} fontSize={"1.5em"} >Description</FormLabel>
-             
-      <Textarea
-       
-        onChange={(e)=>setDescription(e.target.value)}
-        placeholder='Here is a sample placeholder'
-        size='sm'
-      />
-              </Stack>
-            </Flex>
+  
             {/* les deux inputs  */}
             <Flex w={"100%"} alignItems={"center"} justifyContent={"center"}>
               <Flex
@@ -264,6 +247,17 @@ const sendEmail = async (email, subject, message) => {
                     isRequired
                   ></Input>
                 </Stack>
+                <Stack direction={"column"} w={{ base: "90%" }}>
+               
+               <FormLabel fontWeight={"bold"} fontSize={"1.5em"} >Description</FormLabel>
+            
+     <Textarea
+      
+       onChange={(e)=>setDescription(e.target.value)}
+       placeholder='Here is a sample placeholder'
+       size='sm'
+     />
+             </Stack>
 
                 {/* input email */}
 
@@ -322,7 +316,7 @@ const sendEmail = async (email, subject, message) => {
                 </Stack> */}
                 {/* input email */}
 
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} >
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     Numero de la structure
                   </Text>
@@ -427,7 +421,7 @@ const sendEmail = async (email, subject, message) => {
                         mr={5}
                         onClick={handleClick}
                       >
-                        {show ? "Afficher" : "Masquer"}
+                        {show ? <BsEyeFill fontSize={"20px"}/> : <BsEyeSlashFill fontSize={"20px"}/>}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
@@ -460,7 +454,7 @@ const sendEmail = async (email, subject, message) => {
                         mr={5}
                         onClick={handleClick}
                       >
-                        {show ? "Afficher" : "Masquer"}
+                        {show ? <BsEyeFill fontSize={"20px"}/> : <BsEyeSlashFill fontSize={"20px"}/>}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
@@ -468,14 +462,11 @@ const sendEmail = async (email, subject, message) => {
               </Flex>
               {/* input email */}
             </Flex>
-            <Box textAlign={'center'} alignContent={"center"} justifyContent={"center"} alignItems={"center"} >
-              <Box display={'flex'}  textAlign={'center'} marginX={"35%"}>
-                <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/>
-              <Text mt={"1em"}>En cochant cette case, vous acceptez nos </Text>
-              
-              </Box>
-       
-            <Link
+            <Box  w={"fit-content"} alignContent={"center"} >
+              <Box display={'flex'}width={"fit-content"}  textAlign={'center'} >
+                {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
+              <Text mt={"1em"}>En vous inscrivant, vous acceptez nos </Text>
+              <Link
               color={"messenger.400"}
               fontWeight={"bold"}
               mt={"1em"}
@@ -483,21 +474,24 @@ const sendEmail = async (email, subject, message) => {
               _hover={{ textDecoration: "none" }}>
               Termes et Conditions
             </Link>
+              </Box>
+       
+          
           </Box>
             <Center
               mt={"2em"}
-              w={"100%"}
+              w={"100%"} 
               h={{ base: "3em" }}
               _hover={{ textDecoration: "none" }}
             >
               <Link
-                w={"50%"}
+                // w={"50%"}
                 h={{ base: "3em" }}
                 _hover={{ textDecoration: "none" }}
               >
                 <Button
                 //  isDisabled={bool}
-                  w={"full"}
+                  w={"fit-content"}
                   h={"full"}
                   colorScheme="blue"
                   borderRadius={"full"}
@@ -520,7 +514,7 @@ const sendEmail = async (email, subject, message) => {
                 mt={"1em"}
                 _hover={{ textDecoration: "none" }}
               >
-                VOUS AVEZ DEJA UN COMPTE?{" "}
+                Vous avez deja un compte?{" "}
               </Text>
               <Link
               href="/Connexion"
