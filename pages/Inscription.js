@@ -230,7 +230,7 @@ const sendEmail = async (email, subject, message) => {
                 justifyContent={"center"}
                 flexDirection={"column"}
               >
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} >
                  
                   <FormLabel fontWeight={"bold"} fontSize={"1.5em"} htmlFor="input1">Nom Du Gérant</FormLabel>
                   
@@ -358,7 +358,7 @@ const sendEmail = async (email, subject, message) => {
                   ></Input>
                 </Stack>
                 {/* input email */}
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     E-mail
                   </Text>
@@ -394,7 +394,7 @@ const sendEmail = async (email, subject, message) => {
                   ></Input>
                 </Stack> */}
                 {/* input mot de pass */}
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     Mot de Passe
                   </Text>
@@ -426,7 +426,7 @@ const sendEmail = async (email, subject, message) => {
                     </InputRightElement>
                   </InputGroup>
                 </Stack>
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     Confirmation du Mot de Passe
                   </Text>
