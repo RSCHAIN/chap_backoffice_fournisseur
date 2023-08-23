@@ -185,7 +185,7 @@ const sendEmail = async (email, subject, message) => {
                 <Text
                   color={"#0077b6"}
                   fontWeight={"bold"}
-                  fontSize={{ base: "1em", sm: "2em" }}
+                  fontSize={["0.5em","0.5em","0.5em","1em","1.5em"]}
                 >
                   BIENVENUE TRES CHERS FOURNISSEURS
                 </Text>
