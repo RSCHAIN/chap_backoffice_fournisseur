@@ -265,7 +265,7 @@ const sendEmail = async (email, subject, message) => {
                 {/* input email */}
 
                 {/* input email */}
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"1;5em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     Société/Organisation{" "}
                   </Text>
