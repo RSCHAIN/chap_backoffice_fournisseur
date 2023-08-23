@@ -174,7 +174,7 @@ const sendEmail = async (email, subject, message) => {
             display={"flex"}
             pb={10}
               w={"100%"}
-              h={"4em"}
+              h={"fit-content"}
               direction={"column"}
               mt={"1em"}
               alignItems={"center"}
