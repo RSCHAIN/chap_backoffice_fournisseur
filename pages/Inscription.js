@@ -173,10 +173,10 @@ const sendEmail = async (email, subject, message) => {
             <Stack
               w={"100%"}
               h={"4em"}
-              direction={"row"}
+              direction={"column"}
               mt={"1em"}
               alignItems={"center"}
-              display={"flex"}
+              
             >
               <Box ml={"1em"}>
                 <Logo></Logo>
