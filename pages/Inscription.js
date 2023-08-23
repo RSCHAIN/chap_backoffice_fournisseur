@@ -518,9 +518,10 @@ const sendEmail = async (email, subject, message) => {
                 color={"#0077b6"}
                 fontWeight={"bold"}
                 mt={"1em"}
+                pr={2}
                 _hover={{ textDecoration: "none" }}
               >
-                Vous avez deja un compte?{" "}
+              Avez vous deja un compte?{" "}
               </Text>
               <Link
               href="/Connexion"
