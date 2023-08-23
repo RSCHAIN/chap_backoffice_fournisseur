@@ -116,17 +116,17 @@ const Connexion = () => {
             h={"4em"}
             direction={"row"}
             mt={"1em"}
+            mb={10}
             alignItems={"center"}
           >
-            <Box ml={"1em"}>
+             <Center w={"full"} display={"grid"}>
+             <Box ml={"1em"}>
               <Logo></Logo>
             </Box>
+          </Center>
+            
 
-            <Center w={"full"} display={["none","none","none","grid","grid"]}>
-              <Text color={"#0077b6"} fontWeight={"bold"} fontSize={"2em"}>
-                PAGE DE CONNEXION
-              </Text>
-            </Center>
+           
           </Stack>
 
           {/* les deux inputs  */}

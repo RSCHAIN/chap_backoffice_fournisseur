@@ -6,8 +6,8 @@ const Logo = () => {
         <>
             <Center
                 
-                height={["4em","4em","4em","8em","8em"]}
-                width={["7em","7em","7em","14em","14em"]}
+                height={["8em","8em","8em","8em","8em"]}
+                width={["14em","14em","14em","20em","20em"]}
                 color={'#fff'} 
             >
                 <Image alt={'logo de rschain'} src={'logo1.png'} />
