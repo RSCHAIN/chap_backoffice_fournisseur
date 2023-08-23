@@ -171,6 +171,7 @@ const sendEmail = async (email, subject, message) => {
           >
             {/* premiere ligne  */}
             <Stack
+            display={"flex"}
               w={"100%"}
               h={"4em"}
               direction={"column"}
