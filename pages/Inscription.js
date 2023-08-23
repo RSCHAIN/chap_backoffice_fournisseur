@@ -265,7 +265,7 @@ const sendEmail = async (email, subject, message) => {
                 {/* input email */}
 
                 {/* input email */}
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     Société/Organisation{" "}
                   </Text>
@@ -429,7 +429,7 @@ const sendEmail = async (email, subject, message) => {
                     </InputRightElement>
                   </InputGroup>
                 </Stack>
-                <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} >
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     Confirmation du Mot de Passe
                   </Text>
