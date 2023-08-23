@@ -23,7 +23,7 @@ export default function CardWithIllustration() {
     //fonction de verification
 
     const HandleVerif = async ()=>{
-        const q = query(collection(db,email),where("code","==",code));
+        const q = query(collection(db,`Admin/${email}`));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc)=>{
             console.log(doc.data())
@@ -75,7 +75,7 @@ export default function CardWithIllustration() {
             bg={useColorModeValue('gray.100', 'gray.600')}
             rounded={'full'}
             border={0}
-            onChange={(e)=>{setEmail(e.target.value.toLowerCase())}}
+            onChange={(e)=>{setEmail(e.target.value.toLowerCase().trim())}}
             _focus={{
               bg: useColorModeValue('gray.200', 'gray.800'),
               outline: 'none',
@@ -85,7 +85,7 @@ export default function CardWithIllustration() {
           <Input
             type={'number'}
             placeholder={'000000'}
-            onChange={(e)=>{setCode(e.target.value.toLowerCase())}}
+            onChange={(e)=>{setCode(e.target.value)}}
             color={useColorModeValue('gray.800', 'gray.200')}
             bg={useColorModeValue('gray.100', 'gray.600')}
             rounded={'full'}

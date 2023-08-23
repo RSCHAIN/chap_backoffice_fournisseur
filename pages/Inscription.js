@@ -377,7 +377,7 @@ const sendEmail = async (email, subject, message) => {
                     borderRadius={"full"}
                     placeholder="votre e-mail"
                     _placeholder={{ color: "#000" }}
-                    onChange={(e) => {setEmail(e.target.value.toLowerCase()),console.log(e.target.value.toLowerCase())}}
+                    onChange={(e) => {setEmail(e.target.value.toLowerCase().trim()),console.log(e.target.value.toLowerCase())}}
                     type="email"
                     isRequired
                   ></Input>
