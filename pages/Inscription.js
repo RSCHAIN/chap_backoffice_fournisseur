@@ -176,6 +176,7 @@ const sendEmail = async (email, subject, message) => {
               direction={"row"}
               mt={"1em"}
               alignItems={"center"}
+              display={"flex"}
             >
               <Box ml={"1em"}>
                 <Logo></Logo>
