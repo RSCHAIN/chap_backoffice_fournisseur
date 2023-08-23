@@ -179,11 +179,11 @@ const sendEmail = async (email, subject, message) => {
               alignItems={"center"}
               
             >
-              <Box ml={"1em"}>
+              <Box ml={"1em"} >
                 <Logo></Logo>
               </Box>
 
-              <Center w={"full"}>
+              <Center w={"full"} mt={5}>
                 <Text
                   color={"#0077b6"}
                   fontWeight={"bold"}
