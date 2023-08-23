@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 import Logo from "@/components/generale/Logo";
 import {BsEyeFill,BsEyeSlashFill} from "react-icons/bs"
+import axios from "axios";
 
 
 
@@ -93,7 +94,7 @@ const sendEmail = async (email, subject, message) => {
         name,
         organisation,
         number,
-        email,
+       email,
         password,
         // siret,
         adresse,
@@ -103,7 +104,7 @@ const sendEmail = async (email, subject, message) => {
         code:randomNumb
       };
       await setDoc(_user, Users)
-        .then(() => {
+        .then(async () => {
           toast({
             title: "INSCRIPTION VALIDEE",
             description: "veuillez vous connecter",
@@ -111,6 +112,9 @@ const sendEmail = async (email, subject, message) => {
             duration: 5000,
             isClosable: true,
           });
+          await axios.post("/api/sendmail",{email:email,message:randomNumb,subject:"CODE DE VERIFICATION"});
+          router.push("/verification");
+          router.reload()
         })
         .catch(() => {
           toast({
@@ -121,7 +125,7 @@ const sendEmail = async (email, subject, message) => {
             isClosable: true,
           });
         });
-      router.push("/Connexion");
+     
     } else {
       console.log("okay la");
       toast({
@@ -373,7 +377,7 @@ const sendEmail = async (email, subject, message) => {
                     borderRadius={"full"}
                     placeholder="votre e-mail"
                     _placeholder={{ color: "#000" }}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {setEmail(e.target.value.toLowerCase()),console.log(e.target.value.toLowerCase())}}
                     type="email"
                     isRequired
                   ></Input>
@@ -469,7 +473,7 @@ const sendEmail = async (email, subject, message) => {
             <Box  w={"fit-content"} ml={["10%","10%","10%","30%","30%",]} >
               <Box display={'flex'}width={"fit-content"}  textAlign={'center'} >
                 {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
-              <Text mt={"1em"}>En vous inscrivant, vous acceptez nos </Text>
+              <Text mt={"1em"} pr={2}>En vous inscrivant, vous acceptez nos </Text>
               <Link
               color={"messenger.400"}
               fontWeight={"bold"}
