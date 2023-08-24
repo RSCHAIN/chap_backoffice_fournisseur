@@ -17,6 +17,7 @@ import {
   useDisclosure,
   useToast,
   Textarea,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
@@ -112,7 +113,7 @@ const sendEmail = async (email, subject, message) => {
             duration: 5000,
             isClosable: true,
           });
-          await axios.post("/api/sendmail",{email:email,message:randomNumb,subject:"CODE DE VERIFICATION"});
+          await axios.post("/api/sendmail",{email:email,message:randomNumb,subject:"code de verification"});
           router.push("/verification");
           router.reload()
         })
@@ -231,13 +232,8 @@ const sendEmail = async (email, subject, message) => {
             </Flex>
   
             {/* les deux inputs  */}
-            <Flex w={"100%"} alignItems={"center"} justifyContent={"center"}>
-              <Flex
-                w={"50%"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                flexDirection={"column"}
-              >
+            <SimpleGrid columns={[1,1,1,2,2]} w={"100%"} alignItems={"center"} justifyContent={"center"}>
+              
                 <Stack direction={"column"} w={{ base: "90%" }} >
                  
                   <FormLabel fontWeight={"bold"} fontSize={["1em","1em","1em","1.25em","1.5em"]} htmlFor="input1">Nom Du Gérant</FormLabel>
@@ -265,7 +261,7 @@ const sendEmail = async (email, subject, message) => {
        placeholder='Here is a sample placeholder'
        size='sm'
      />
-             </Stack>
+                </Stack>
 
                 {/* input email */}
 
@@ -340,15 +336,10 @@ const sendEmail = async (email, subject, message) => {
                     isRequired
                   ></Input>
                 </Stack>
-              </Flex>
+             
               {/* input Nom */}
 
-              <Flex
-                w={"50%"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                flexDirection={"column"}
-              >
+            
                  <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
                  Adresse
@@ -467,9 +458,9 @@ const sendEmail = async (email, subject, message) => {
                     </InputRightElement>
                   </InputGroup>
                 </Stack>
-              </Flex>
+             
               {/* input email */}
-            </Flex>
+            </SimpleGrid>
             <Box  w={"fit-content"} ml={["10%","10%","10%","30%","30%",]} >
               <Box display={'flex'}width={"fit-content"}  textAlign={'center'} >
                 {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
