@@ -11,23 +11,59 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
+  useToast,
 } from '@chakra-ui/react'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+
+import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { BsFillUnlockFill } from 'react-icons/bs'
 
 export default function CardWithIllustration() {
     const [email,setEmail] = useState();
     const [code,setCode] = useState();
-
+    const toast = useToast()
+  const router = useRouter()
     //fonction de verification
 
     const HandleVerif = async ()=>{
-        const q = query(collection(db,`Admin/${email}`));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc)=>{
-            console.log(doc.data())
-        })
+     
+      const docRef = doc(db, "Admin/" + email);
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        if (docSnap.data().code == code) {
+          toast({
+            title: "EMAIL VERIFIE AVEC SUCCES",
+            description: "Nous vous redirigerons vers la page de connexion sous peu",
+            status: "success",
+            duration: 10000,
+            isClosable: true,
+          });
+          
+          await updateDoc(docRef, {status:"VERIFIE"})
+          router.push("/Connexion")
+          router.reload()
+        } else {
+          toast({
+            title: "VERIFIER VOTRE CODE",
+            description: "SI L'ERREUR PERSISTE MERCI DE BIEN VOULOIR NOUS CONTACTER",
+            status: "warning",
+            duration: 10000,
+            isClosable: true,
+          });
+        }
+      } else {
+        toast({
+          title: "ETES-VOUS SURE D'AVOIR UN COMPTE",
+          description: "Si oui, merci de bien vouloir rentrer en contact avec notre service client",
+          status: "warning",
+          duration: 10000,
+          isClosable: true,
+        });
+      }
+
+
     }
 
 
