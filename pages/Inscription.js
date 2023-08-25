@@ -42,10 +42,10 @@ const Inscription = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   //recuperation des champs
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
   const [number, setNumber] = useState();
-  const [password, setPassword] = useState();
-  const [password2, setPassword2] = useState();
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [siret, setSiret] = useState();
   const [organisation, setOrganisation] = useState();
   const [categorie, setCategorie] = useState('Restaurant');
@@ -491,7 +491,7 @@ const sendEmail = async (email, subject, message) => {
                 _hover={{ textDecoration: "none" }}
               >
                 <Button
-                 isDisabled={bool || email.length<15 || password.length<8 || password2.length<8}
+                 isDisabled={bool || email.length<15 || password.length<8 || password2.length<8 }
                
                   w={"fit-content"}
                   h={"full"}
