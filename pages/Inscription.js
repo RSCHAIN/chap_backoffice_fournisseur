@@ -58,7 +58,7 @@ const Inscription = () => {
   const [bool, setBool] = useState(false);
   const toast = useToast();
   const router = useRouter();
-  const TermsCond = "J'assume avoir lu et accepté les";
+  const TermsCond = "Je certifie avoir lu et approuvé les termes et conditions";
 ///envoie de mail pour la verification
 const randomNumb= parseInt(Math.random()*1000000)
 
@@ -128,7 +128,7 @@ const sendEmail = async (email, subject, message) => {
         });
      
     } else {
-      console.log("okay la");
+      // console.log("okay la");
       toast({
         title: "MAUVAISE SAISIE",
         description: "MOT DE PASSE NON IDENTIQUE",
@@ -368,7 +368,7 @@ const sendEmail = async (email, subject, message) => {
                     borderRadius={"full"}
                     placeholder="votre e-mail"
                     _placeholder={{ color: "#000" }}
-                    onChange={(e) => {setEmail(e.target.value.toLowerCase().trim()),console.log(e.target.value.toLowerCase())}}
+                    onChange={(e) => {setEmail(e.target.value.toLowerCase().trim())}}
                     type="email"
                     isRequired
                   ></Input>
@@ -464,15 +464,15 @@ const sendEmail = async (email, subject, message) => {
             <Box  w={"fit-content"} ml={["10%","10%","10%","30%","30%",]} >
               <Box display={'flex'}width={"fit-content"}  textAlign={'center'} >
                 {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
-              <Checkbox mt={"1em"} pr={1} onChange={e=>{setBool(!e.target.checked),console.log(bool)}}>{TermsCond} </Checkbox>
-              <Link
+              <Checkbox mt={"1em"} pr={1} onChange={e=>{setBool(!e.target.checked)}}>{TermsCond}  <Link
               color={"messenger.400"}
               fontWeight={"bold"}
               mt={"1em"}
               href={"/Terms"}
               _hover={{ textDecoration: "none" }}>
               termes et conditions
-            </Link>
+            </Link> </Checkbox>
+            
               </Box>
        
           
