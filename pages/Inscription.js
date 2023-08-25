@@ -58,7 +58,7 @@ const Inscription = () => {
   const [bool, setBool] = useState(false);
   const toast = useToast();
   const router = useRouter();
-  const TermsCond = "Je certifie avoir lu et approuvé les termes et conditions";
+  const TermsCond = "Je certifie avoir lu et approuvé les ";
 ///envoie de mail pour la verification
 const randomNumb= parseInt(Math.random()*1000000)
 
