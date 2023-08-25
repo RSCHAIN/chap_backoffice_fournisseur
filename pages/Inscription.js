@@ -267,10 +267,11 @@ const sendEmail = async (email, subject, message) => {
 
                 {/* input email */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"1.5em"}>
-                  <Text fontWeight={"bold"} fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"} fontSize={["1em","1em","1em","1.25em","1.5em"]}>
                     Société/Organisation{" "}
-                  </Text>
+                  </FormLabel>
                   <Input
+                  isRequired
                     w={"100%"}
                     h={"4em"}
                     bg={"#fff"}
@@ -279,7 +280,7 @@ const sendEmail = async (email, subject, message) => {
                     _placeholder={{ color: "#000" }}
                     onChange={(e) => setOrganisation(e.target.value)}
                     type="text"
-                    isRequired
+                    
                   ></Input>
                 </Stack>
                 {/* input email */}
@@ -321,9 +322,9 @@ const sendEmail = async (email, subject, message) => {
                 {/* input email */}
 
                 <Stack direction={"column"} w={{ base: "90%" }} >
-                  <Text fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
                     Numero de la structure
-                  </Text>
+                  </FormLabel>
                   <Input
                     w={"100%"}
                     h={"4em"}
@@ -341,9 +342,9 @@ const sendEmail = async (email, subject, message) => {
 
             
                  <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
-                  <Text fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
                  Adresse
-                  </Text>
+                  </FormLabel>
                   <Input
                     w={"100%"}
                     h={"4em"}
@@ -358,9 +359,9 @@ const sendEmail = async (email, subject, message) => {
                 </Stack>
                 {/* input email */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
-                  <Text fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
                     E-mail
-                  </Text>
+                  </FormLabel>
                   <Input
                     w={"100%"}
                     h={"4em"}
@@ -394,9 +395,9 @@ const sendEmail = async (email, subject, message) => {
                 </Stack> */}
                 {/* input mot de pass */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
-                  <Text fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
                     Mot de Passe
-                  </Text>
+                  </FormLabel>
                   <InputGroup>
                     <Input
                       w={"100%"}
@@ -426,9 +427,9 @@ const sendEmail = async (email, subject, message) => {
                   </InputGroup>
                 </Stack>
                 <Stack direction={"column"} w={{ base: "90%" }} >
-                  <Text fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
                     Confirmation du Mot de Passe
-                  </Text>
+                  </FormLabel>
                   <InputGroup>
                     <Input
                       w={"100%"}
