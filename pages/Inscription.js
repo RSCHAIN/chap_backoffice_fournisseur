@@ -55,10 +55,10 @@ const Inscription = () => {
   const [tva, setTva] = useState();
   const [image, setImage] = useState();
   const [uri, setUri] = useState();
-  const [bool, setBool] = useState(true);
+  const [bool, setBool] = useState(false);
   const toast = useToast();
   const router = useRouter();
-
+  const TermsCond = "J'assume avoir lu et accepté les";
 ///envoie de mail pour la verification
 const randomNumb= parseInt(Math.random()*1000000)
 
@@ -464,14 +464,14 @@ const sendEmail = async (email, subject, message) => {
             <Box  w={"fit-content"} ml={["10%","10%","10%","30%","30%",]} >
               <Box display={'flex'}width={"fit-content"}  textAlign={'center'} >
                 {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
-              <Text mt={"1em"} pr={2}>En vous inscrivant, vous acceptez nos </Text>
+              <Checkbox mt={"1em"} pr={1} onChange={e=>{setBool(!e.target.checked),console.log(bool)}}>{TermsCond} </Checkbox>
               <Link
               color={"messenger.400"}
               fontWeight={"bold"}
               mt={"1em"}
               href={"/Terms"}
               _hover={{ textDecoration: "none" }}>
-              Termes et Conditions
+              termes et conditions
             </Link>
               </Box>
        
@@ -491,7 +491,7 @@ const sendEmail = async (email, subject, message) => {
                 _hover={{ textDecoration: "none" }}
               >
                 <Button
-                //  isDisabled={bool}
+                 isDisabled={bool || email.length<15 || password.length<8 || password2.length<8}
                
                   w={"fit-content"}
                   h={"full"}
