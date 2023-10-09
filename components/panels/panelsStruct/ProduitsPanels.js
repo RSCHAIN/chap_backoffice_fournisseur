@@ -204,7 +204,7 @@ const ProduitsPanels = () => {
                       <FormLabel>Quantité</FormLabel>
                       <Input
                         value={quantite}
-                        type="number"
+                        type="text"
                         placeholder="Cet champ n'est point obligatoire"
                         onChange={(e) => setQuantite(e.target.value)}
                       />
