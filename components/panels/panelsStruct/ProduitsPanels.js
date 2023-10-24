@@ -184,7 +184,7 @@ const ProduitsPanels = () => {
                       <Input
                         value={name}
                         isRequired
-                        placeholder="intitulé du produit"
+                        placeholder="intitulé"
                         onChange={(e) => setName(e.target.value)}
                       />
                     </FormControl>
@@ -212,10 +212,12 @@ const ProduitsPanels = () => {
                     <FormControl isRequired>
                       <FormLabel>description</FormLabel>
                       <Input
+                        height={"400px"}
+                        width={"300px"}
                         isRequired
                         value={desc}
                         as={Textarea}
-                        placeholder="Description du produit"
+                        placeholder="Description"
                         onChange={(e) => setDesc(e.target.value)}
                       />
                     </FormControl>
