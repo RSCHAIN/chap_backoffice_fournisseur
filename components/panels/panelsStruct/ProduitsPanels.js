@@ -105,14 +105,14 @@ const ProduitsPanels = () => {
   };
 
   //enregistrer data
-  function writeData(cat, org, name, image, prix, description, quantite) {
+  function writeData(cat, org, name,  prix, description, quantite) {
     if (name != null) {
       push(ref(database, cat + "/" + org), {
         nom: name,
         prix: parseFloat(prix),
         description: description,
         quantite: quantite,
-        imageUrl: image,
+       
         organisation: org,
         etat: "disponible",
         note: "nouveau",
@@ -235,7 +235,7 @@ const ProduitsPanels = () => {
                   mr={3}
                   onClick={() => {
                     
-                      writeData(cat, org, name, imageuri, prix, desc, quantite);
+                      writeData(cat, org, name,  prix, desc, quantite);
                   }}
                 >
                   VALIDER
