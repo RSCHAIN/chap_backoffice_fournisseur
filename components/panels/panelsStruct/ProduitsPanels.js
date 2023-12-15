@@ -106,7 +106,7 @@ const ProduitsPanels = () => {
 
   //enregistrer data
   function writeData(cat, org, name, image, prix, description, quantite) {
-    if (image != null) {
+    if (name != null) {
       push(ref(database, cat + "/" + org), {
         nom: name,
         prix: parseFloat(prix),
@@ -234,7 +234,7 @@ const ProduitsPanels = () => {
                   colorScheme="blue"
                   mr={3}
                   onClick={() => {
-                    handleImageUpload(image, cat, org),
+                    
                       writeData(cat, org, name, imageuri, prix, desc, quantite);
                   }}
                 >
