@@ -27,6 +27,7 @@ export default function CardWithIllustration() {
     const [verif,setVerif] = useState(false);
     const toast = useToast()
   const router = useRouter()
+  const etes ="n'êtes"
     //fonction de verification
 
     const HandleVerif = async ()=>{
@@ -81,7 +82,7 @@ export default function CardWithIllustration() {
 
 if (verif) {
   return (
-  <Center mt={10}> <Text mr={2}> Si vous n'êtes pas redirigé,</Text> <Link href='/Connexion' color={"blue"}> veuillez cliquer ici</Link> <Text ml={2}> pour vous connectez</Text></Center>
+  <Center mt={10}> <Text mr={2}> Si vous {etes} pas redirigé,</Text> <Link href='/Connexion' color={"blue"}> veuillez cliquer ici</Link> <Text ml={2}> pour vous connectez</Text></Center>
   )
 }else{
   return (
@@ -90,10 +91,10 @@ if (verif) {
       align={'center'}
       justify={'center'}
       py={12}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
+      bg={'gray.50'}>
       <Stack
         boxShadow={'2xl'}
-        bg={useColorModeValue('white', 'gray.700')}
+        bg={'white'}
         rounded={'xl'}
         p={10}
         spacing={8}
@@ -103,7 +104,7 @@ if (verif) {
           <Heading
             // textTransform={'uppercase'}
             fontSize={'3xl'}
-            color={useColorModeValue('gray.800', 'gray.200')}>
+            color={'gray.800'}>
             Verification de compte
           </Heading>
           <Text fontSize={'lg'} color={'gray.500'}>
@@ -113,13 +114,13 @@ if (verif) {
         <Input
             type={'text'}
             placeholder={'john@doe.net'}
-            color={useColorModeValue('gray.800', 'gray.200')}
-            bg={useColorModeValue('gray.100', 'gray.600')}
+            color={'gray.800'}
+            bg={'gray.100'}
             rounded={'full'}
             border={0}
             onChange={(e)=>{setEmail(e.target.value.toLowerCase().trim())}}
             _focus={{
-              bg: useColorModeValue('gray.200', 'gray.800'),
+              bg:'gray.200',
               outline: 'none',
             }}
           />
@@ -128,12 +129,12 @@ if (verif) {
             type={'number'}
             placeholder={'000000'}
             onChange={(e)=>{setCode(e.target.value)}}
-            color={useColorModeValue('gray.800', 'gray.200')}
-            bg={useColorModeValue('gray.100', 'gray.600')}
+            color={'gray.800'}
+            bg={'gray.100'}
             rounded={'full'}
             border={0}
             _focus={{
-              bg: useColorModeValue('gray.200', 'gray.800'),
+              bg:'gray.200',
               outline: 'none',
             }}
           />

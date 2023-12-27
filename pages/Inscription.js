@@ -161,9 +161,10 @@ const Inscription = () => {
   //  createUSer();
   // };
   const { isOpen, onToggle } = useDisclosure()
+  const etes = "n'êtes"
 if (verif) {
   return (
-    <Center mt={10}> <Text mr={2}> Si vous n'êtes pas redirigé,</Text> <Link href='/verification' color={"blue"}> veuillez cliquer ici</Link> <Text ml={2}> afin de vérifier votre compte</Text></Center>
+    <Center mt={10}> <Text mr={2}> Si vous {etes} pas redirigé,</Text> <Link href='/verification' color={"blue"}> veuillez cliquer ici</Link> <Text ml={2}> afin de vérifier votre compte</Text></Center>
     )
 }else{
   return (
