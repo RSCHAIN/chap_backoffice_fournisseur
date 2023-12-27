@@ -34,6 +34,7 @@ import AdminProfilePanels from "./panels/panelsStruct/AdminProfilePanels";
 import { deleteCookie, getCookie, hasCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { database } from "@/Firebase/Connexion";
+import ReservationPanels from "./panels/panelsStruct/ReservationPanels";
 
 
 const DesktopNav = () => {
@@ -41,6 +42,7 @@ const DesktopNav = () => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState()
   const [org,setOrg]= useState()
+  const [display,setDisplay]= useState("none")
   const [cat,setCat] = useState()
   const [email,setEmail] = useState()
 
@@ -58,6 +60,9 @@ const DesktopNav = () => {
         setOrg(JSON.parse(exist3))
         setUser(JSON.parse(exist4))
         setEmail(JSON.parse(exist))
+        if (JSON.parse(exist2) == "Restaurant") {
+            setDisplay("grid")
+        }
        
        router.push("/Dashboard")
     }else{
@@ -209,6 +214,7 @@ const DesktopNav = () => {
             <Tab _selected={{ color: "blue" }}>Commandes</Tab>
 
             <Tab _selected={{ color: "blue" }}>Demander Livraison</Tab>
+            <Tab _selected={{ color: "blue" }} display={display}>Voir les Reservations</Tab>
             <Tab _selected={{ color: "blue" }}>Profils</Tab>
 
             {/* <Tab _selected={{ color: "blue" }}>Liste Des Magasins</Tab> */}
@@ -244,7 +250,9 @@ const DesktopNav = () => {
                 <Heading>Page Indisponible</Heading>
                </Center>
             </TabPanel>
-
+            <TabPanel w={"100%"} h={"100%"}>
+              <ReservationPanels></ReservationPanels>
+            </TabPanel>
             {/* profile admin  */}
             <TabPanel  >
               <AdminProfilePanels/>

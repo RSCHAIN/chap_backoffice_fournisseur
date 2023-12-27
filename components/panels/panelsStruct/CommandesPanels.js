@@ -104,46 +104,23 @@ const CommandesPanels = () => {
   const [page, setPage] = useState(0);
   const router = useRouter()
   const [org, setOrg] = useState();
+
   const Getall = async () => {
-    //     const q = query(collection(db, "orders"), where("name", "==", "T-shirt blanc"));
-
-    // const querySnapshot = await getDocs(q);
-    // console.log(querySnapshot.docs)
-    // querySnapshot.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    // //   console.log(doc.id, " => ", doc.data());
-    // });*
-
     const starCountRef = ref(database, "Commandes/");
     onValue(starCountRef, (snapshot) => {
       if (snapshot.val() != null && snapshot.val() != undefined) {
         setCommandeListe(snapshot.val());
         setCommandeId(Object.keys(snapshot.val()));
-      
-        
       }
     });
   };
+
   function Cancel(id, state) {
     update(ref(database, "Commandes/" + String(id)), {
       Status: state,
     });
-    // router.reload()
   }
-  // async function Listlivre() {
-  //   console.log("okay");
-  //   const querySnapshot = await getDocs(collection(db, "Admin"));
-  //   setLivreur(querySnapshot);
-  //   querySnapshot.forEach((doc) => {
-  //     // doc.data() is never undefined for query doc snapshots
-  //     console.log(doc.id, " => ", doc.data().name);
-  //     return (
-  //       <>
-  //         <Text></Text>
-  //       </>
-  //     );
-  //   });
-  // }
+  
   const sendmail = async (items) =>{
     await axios.post('/api/sendmail', {
       message:items.description ,
@@ -158,7 +135,7 @@ const CommandesPanels = () => {
   useEffect(() => {
     Getall();
     setOrg(JSON.parse(localStorage.getItem("org")));
-    console.log(CommandeListe.length)
+   
   }, []);
   
   return (
@@ -265,9 +242,7 @@ const CommandesPanels = () => {
               </Tbody>
             </Table>
         
-          {/* l'entete de la liste  */}
-
-          {/* la liste  */}
+         
         </Box>
 
         <Modal isOpen={isOpen} onClose={onClose}>
