@@ -12,6 +12,8 @@ import {
   useColorModeValue,
   createIcon,
   useToast,
+  Center,
+  Link,
 } from '@chakra-ui/react'
 
 import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore'
@@ -22,6 +24,7 @@ import { BsFillUnlockFill } from 'react-icons/bs'
 export default function CardWithIllustration() {
     const [email,setEmail] = useState();
     const [code,setCode] = useState();
+    const [verif,setVerif] = useState(false);
     const toast = useToast()
   const router = useRouter()
     //fonction de verification
@@ -42,8 +45,8 @@ export default function CardWithIllustration() {
           });
           
           await updateDoc(docRef, {status:"VERIFIE"})
-          router.push("/Connexion")
-          router.reload()
+          setVerif(true)
+         
         } else {
           toast({
             title: "VERIFIER VOTRE CODE",
@@ -76,8 +79,11 @@ export default function CardWithIllustration() {
 
 
 
-
-    
+if (verif) {
+  return (
+  <Center mt={10}> <Text mr={2}> Si vous n'êtes pas redirigé,</Text> <Link href='/Connexion' color={"blue"}> veuillez cliquer ici</Link> <Text ml={2}> pour vous connectez</Text></Center>
+  )
+}else{
   return (
     <Flex
       minH={'100vh'}
@@ -146,6 +152,9 @@ export default function CardWithIllustration() {
       </Stack>
     </Flex>
   )
+}
+    
+  
 }
 
 const NotificationIcon = createIcon({

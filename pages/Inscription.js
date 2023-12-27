@@ -26,7 +26,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 import Logo from "@/components/generale/Logo";
-import {BsEyeFill,BsEyeSlashFill} from "react-icons/bs"
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs"
 import axios from "axios";
 
 
@@ -41,6 +41,7 @@ import axios from "axios";
 const Inscription = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const [loader,setLoader] = useState(false)
   //recuperation des champs
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState();
@@ -53,26 +54,29 @@ const Inscription = () => {
   const [description, setDescription] = useState("none");
   const [adresse, setAdresse] = useState();
   const [tva, setTva] = useState();
+  const [ville, setVille] = useState();
+  const [codePostal, setCodePostal] = useState();
   const [image, setImage] = useState();
   const [uri, setUri] = useState();
   const [bool, setBool] = useState(false);
   const toast = useToast();
   const router = useRouter();
   const TermsCond = "Je certifie avoir lu et approuvé les ";
-///envoie de mail pour la verification
-const randomNumb= parseInt(Math.random()*1000000)
+  ///envoie de mail pour la verification
+  const randomNumb = parseInt(Math.random() * 1000000)
+  const [verif,setVerif] = useState(false);
 
-const sendEmail = async (email, subject, message) => {
-  return axios({
-    method: 'post',
-    url: '/api/sendmail',
-    data: {
-      email: email,
-      subject: "VOTRE CODE D'ACCES A L'APPCHAP",
-      message: randomNumb,
-    },
-  });
-};
+  const sendEmail = async (email, subject, message) => {
+    return axios({
+      method: 'post',
+      url: '/api/sendmail',
+      data: {
+        email: email,
+        subject: "VOTRE CODE D'ACCES A L'APPCHAP",
+        message: randomNumb,
+      },
+    });
+  };
 
 
 
@@ -81,6 +85,7 @@ const sendEmail = async (email, subject, message) => {
 
 
   const createUSer = async () => {
+    setLoader(true)
     if (password == password2) {
       //hachage ici
 
@@ -95,17 +100,19 @@ const sendEmail = async (email, subject, message) => {
         name,
         organisation,
         number,
-       email,
+        email,
         password,
         // siret,
         adresse,
         // tva,
+        ville,codePostal,
         description,
-        status:'non verifié',
-        code:randomNumb
+        status: 'non verifié',
+        code: randomNumb
       };
       await setDoc(_user, Users)
         .then(async () => {
+           await axios.post("/api/sendmail", { email: email, message: randomNumb, subject: "code de verification" });
           toast({
             title: "INSCRIPTION VALIDEE",
             description: "veuillez vous connecter",
@@ -113,11 +120,11 @@ const sendEmail = async (email, subject, message) => {
             duration: 5000,
             isClosable: true,
           });
-          await axios.post("/api/sendmail",{email:email,message:randomNumb,subject:"code de verification"});
-          router.push("/verification");
-          router.reload()
+          setLoader(true)
+          setVerif(true)
         })
         .catch(() => {
+          setLoader(false)
           toast({
             title: "VERIFIER LES CHAMPS/VOUS AVEZ UN COMPTE",
             description: "SVP VERIFIER VOS DONNEES ",
@@ -126,8 +133,9 @@ const sendEmail = async (email, subject, message) => {
             isClosable: true,
           });
         });
-     
+
     } else {
+      setLoader(false)
       // console.log("okay la");
       toast({
         title: "MAUVAISE SAISIE",
@@ -141,19 +149,23 @@ const sendEmail = async (email, subject, message) => {
 
   ///upload image
   // const handleImageUpload = async (file, cat, org) => {
-    // Upload the image to Firebase Storage
-    // const imageRef = ref(storage, cat + "/" + org + "/logo/" + file.name);
-    // await uploadBytes(imageRef, file);
+  // Upload the image to Firebase Storage
+  // const imageRef = ref(storage, cat + "/" + org + "/logo/" + file.name);
+  // await uploadBytes(imageRef, file);
 
-    // Get the download URL of the uploaded image
-    // const downloadURL = await getDownloadURL(imageRef);
+  // Get the download URL of the uploaded image
+  // const downloadURL = await getDownloadURL(imageRef);
 
-    // Do something with the downloadURL, such as storing it in a database
-    // setUri(downloadURL);
-    //  createUSer();
+  // Do something with the downloadURL, such as storing it in a database
+  // setUri(downloadURL);
+  //  createUSer();
   // };
   const { isOpen, onToggle } = useDisclosure()
-
+if (verif) {
+  return (
+    <Center mt={10}> <Text mr={2}> Si vous n'êtes pas redirigé,</Text> <Link href='/verification' color={"blue"}> veuillez cliquer ici</Link> <Text ml={2}> afin de vérifier votre compte</Text></Center>
+    )
+}else{
   return (
     <>
       <Box
@@ -163,7 +175,7 @@ const sendEmail = async (email, subject, message) => {
         bgSize={"cover"}
         height={"fit-content"}
       >
-        
+
         {/* le main  */}
         <Center width={"100%"} pb={60} pt={-5}>
           {/* la premier box grise  */}
@@ -176,14 +188,14 @@ const sendEmail = async (email, subject, message) => {
           >
             {/* premiere ligne  */}
             <Stack
-            display={"flex"}
-            pb={10}
+              display={"flex"}
+              pb={10}
               w={"100%"}
               h={"fit-content"}
               direction={"column"}
               mt={"1em"}
               alignItems={"center"}
-              
+
             >
               <Box ml={"1em"} pb={10}>
                 <Logo></Logo>
@@ -193,51 +205,51 @@ const sendEmail = async (email, subject, message) => {
                 <Text
                   color={"#0077b6"}
                   fontWeight={"bold"}
-                  fontSize={["0.8em","0.8em","0.90em","1.5em","2em"]}
-                  
+                  fontSize={["0.8em", "0.8em", "0.90em", "1.5em", "2em"]}
+
                 >
                   Bienvenue très chers fournisseurs
                 </Text>
               </Center>
             </Stack>
             <FormControl isRequired>
-            <Flex
-              w={"90%"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              flexDirection={"column"}
-            >
-              <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
-               
-                <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]} >Catégorie</FormLabel>
-                <Select
-                isRequired
-               
-                  border={"1px solid black"}
-                  defaultValue={"Restaurant"}
-                  value={categorie}
-                  onChange={(e) => setCategorie(e.target.value)}
-                >
-                 
-                  <option value={"Restaurant"} defaultChecked>Restaurant</option>
+              <Flex
+                w={"90%"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                flexDirection={"column"}
+              >
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]} >Catégorie</FormLabel>
+                  <Select
+                    isRequired
+
+                    border={"1px solid black"}
+                    defaultValue={"Restaurant"}
+                    value={categorie}
+                    onChange={(e) => setCategorie(e.target.value)}
+                  >
+
+                    <option value={"Restaurant"} defaultChecked>Restaurant</option>
                     <option value={"Salon de Coiffure"}>Salon De Coiffure</option>
-                  <option value={"Commerce de meches"}>Commerce de meches</option>
-                     <option value={"Cosmetique"}>Cosmetique</option>
-                      <option value={"Textile"}>Textile</option>
-                     <option value={"Fret"}>Fret</option>
-                 
-                  <option value={"Epicerie"}>Epicerie</option>
-                </Select>
-              </Stack>
-            </Flex>
-  
-            {/* les deux inputs  */}
-            <SimpleGrid columns={[1,1,1,2,2]} w={"100%"} alignItems={"center"} justifyContent={"center"}>
-              
+                    <option value={"Commerce de meches"}>Commerce de meches</option>
+                    <option value={"Cosmetique"}>Cosmetique</option>
+                    <option value={"Textile"}>Textile</option>
+                    <option value={"Fret"}>Fret</option>
+
+                    <option value={"Epicerie"}>Epicerie</option>
+                  </Select>
+                </Stack>
+              </Flex>
+
+              {/* les deux inputs  */}
+              <SimpleGrid columns={[1, 1, 1, 2, 2]} w={"100%"} alignItems={"center"} justifyContent={"center"}>
+
                 <Stack direction={"column"} w={{ base: "90%" }} >
-                 
-                  <FormLabel fontWeight={"bold"} fontSize={["1em","1em","1em","1.25em","1.5em"]} htmlFor="input1">Nom Du Gérant</FormLabel>
-                  
+
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]} htmlFor="input1">Nom Du Gérant</FormLabel>
+
                   <Input
                     w={"100%"}
                     h={"4em"}
@@ -252,26 +264,26 @@ const sendEmail = async (email, subject, message) => {
                   ></Input>
                 </Stack>
                 <Stack direction={"column"} w={{ base: "90%" }}>
-               
-               <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]} >Description</FormLabel>
-            
-     <Textarea
-      
-       onChange={(e)=>setDescription(e.target.value)}
-       placeholder='Here is a sample placeholder'
-       size='sm'
-     />
+
+                  <Text fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]} >Description</Text>
+
+                  <Textarea
+
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder='Here is a sample placeholder'
+                    size='sm'
+                  />
                 </Stack>
 
                 {/* input email */}
 
                 {/* input email */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"1.5em"}>
-                  <FormLabel fontWeight={"bold"} fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]}>
                     Société/Organisation{" "}
                   </FormLabel>
                   <Input
-                  isRequired
+                    isRequired
                     w={"100%"}
                     h={"4em"}
                     bg={"#fff"}
@@ -280,49 +292,11 @@ const sendEmail = async (email, subject, message) => {
                     _placeholder={{ color: "#000" }}
                     onChange={(e) => setOrganisation(e.target.value)}
                     type="text"
-                    
+
                   ></Input>
                 </Stack>
-                {/* input email */}
-                {/* <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
-             
-                  <Text fontWeight={"bold"} fontSize={"1.5em"}>
-                    SIRET{" "}
-                  </Text>
-                  <Input
-                  isRequired
-                    w={"100%"}
-                    h={"4em"}
-                    bg={"#fff"}
-                    borderRadius={"full"}
-                    placeholder="Numéro de SIRET"
-                    _placeholder={{ color: "#000" }}
-                    onChange={(e) => setSiret(e.target.value)}
-                    type="text"
-                    maxLength={30}
-                  ></Input>
-                 
-                </Stack> */}
-                {/* <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
-                  <Text fontWeight={"bold"} fontSize={"1.5em"}>
-                    T.V.A
-                  </Text>
-                  <Input
-                    w={"100%"}
-                    h={"4em"}
-                    bg={"#fff"}
-                    borderRadius={"full"}
-                    placeholder="votre numero de TVA"
-                    _placeholder={{ color: "#000" }}
-                    onChange={(e) => setTva(e.target.value)}
-                    type="text"
-                    isRequired
-                  ></Input>
-                </Stack> */}
-                {/* input email */}
-
                 <Stack direction={"column"} w={{ base: "90%" }} >
-                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]}>
                     Numero de la structure
                   </FormLabel>
                   <Input
@@ -337,13 +311,54 @@ const sendEmail = async (email, subject, message) => {
                     isRequired
                   ></Input>
                 </Stack>
-             
-              {/* input Nom */}
+                {/* input email */}
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
 
-            
-                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
-                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
-                 Adresse
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]} htmlFor="InputVille">
+                    Ville{" "}
+                  </FormLabel>
+                  <Input
+                    isRequired
+                    id="InputVille"
+                    w={"100%"}
+                    h={"4em"}
+                    bg={"#fff"}
+                    borderRadius={"full"}
+                    placeholder="Ville"
+                    _placeholder={{ color: "#000" }}
+                    onChange={(e) => setVille(e.target.value)}
+                    type="text"
+                    maxLength={30}
+                  ></Input>
+
+                </Stack>
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]} htmlFor="InputPostal">
+                    Code postal
+                  </FormLabel>
+                  <Input
+                    w={"100%"}
+                    h={"4em"}
+                    id="InputPostal"
+                    bg={"#fff"}
+                    borderRadius={"full"}
+                    placeholder="Code postal"
+                    _placeholder={{ color: "#000" }}
+                    onChange={(e) => setCodePostal(e.target.value)}
+                    type="text"
+                    isRequired
+                  ></Input>
+                </Stack>
+                {/* input email */}
+
+
+
+                {/* input Nom */}
+
+
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]}>
+                    Adresse
                   </FormLabel>
                   <Input
                     w={"100%"}
@@ -359,7 +374,7 @@ const sendEmail = async (email, subject, message) => {
                 </Stack>
                 {/* input email */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
-                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]}>
                     E-mail
                   </FormLabel>
                   <Input
@@ -369,12 +384,12 @@ const sendEmail = async (email, subject, message) => {
                     borderRadius={"full"}
                     placeholder="votre e-mail"
                     _placeholder={{ color: "#000" }}
-                    onChange={(e) => {setEmail(e.target.value.toLowerCase().trim())}}
+                    onChange={(e) => { setEmail(e.target.value.toLowerCase().trim()) }}
                     type="email"
                     isRequired
                   ></Input>
                 </Stack>
-               
+
                 {/* <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     IMAGE DU MAGASIN
@@ -395,7 +410,7 @@ const sendEmail = async (email, subject, message) => {
                 </Stack> */}
                 {/* input mot de pass */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
-                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]}>
                     Mot de Passe
                   </FormLabel>
                   <InputGroup>
@@ -421,13 +436,13 @@ const sendEmail = async (email, subject, message) => {
                         mr={5}
                         onClick={handleClick}
                       >
-                        {show ? <BsEyeFill fontSize={"20px"}/> : <BsEyeSlashFill fontSize={"20px"}/>}
+                        {show ? <BsEyeFill fontSize={"20px"} /> : <BsEyeSlashFill fontSize={"20px"} />}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
                 </Stack>
                 <Stack direction={"column"} w={{ base: "90%" }} >
-                  <FormLabel fontWeight={"bold"}  fontSize={["1em","1em","1em","1.25em","1.5em"]}>
+                  <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]}>
                     Confirmation du Mot de Passe
                   </FormLabel>
                   <InputGroup>
@@ -446,7 +461,7 @@ const sendEmail = async (email, subject, message) => {
 
                     <InputRightElement width="4.5rem">
                       <Button
-                     
+
                         h="1.75rem"
                         w={"fit-content"}
                         size="sm"
@@ -454,88 +469,90 @@ const sendEmail = async (email, subject, message) => {
                         mr={5}
                         onClick={handleClick}
                       >
-                        {show ? <BsEyeFill fontSize={"20px"}/> : <BsEyeSlashFill fontSize={"20px"}/>}
+                        {show ? <BsEyeFill fontSize={"20px"} /> : <BsEyeSlashFill fontSize={"20px"} />}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
                 </Stack>
-             
-              {/* input email */}
-            </SimpleGrid>
-            <Box  w={"fit-content"} ml={["10%","10%","10%","30%","30%",]} >
-              <Box display={'flex'}width={"fit-content"}  textAlign={'center'} >
-                {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
-              <Checkbox mt={"1em"} pr={1} onChange={e=>{setBool(!e.target.checked)}}>{TermsCond}  <Link
-              color={"messenger.400"}
-              fontWeight={"bold"}
-              mt={"1em"}
-              href={"/Terms"}
-              _hover={{ textDecoration: "none" }}>
-              termes et conditions
-            </Link> </Checkbox>
-            
+
+                {/* input email */}
+              </SimpleGrid>
+              <Box w={"fit-content"} ml={["10%", "10%", "10%", "30%", "30%",]} >
+                <Box display={'flex'} width={"fit-content"} textAlign={'center'} >
+                  {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
+                  <Checkbox mt={"1em"} pr={1} onChange={e => { setBool(!e.target.checked) }}>{TermsCond}  <Link
+                    color={"messenger.400"}
+                    fontWeight={"bold"}
+                    mt={"1em"}
+                    href={"/Terms"}
+                    _hover={{ textDecoration: "none" }}>
+                    termes et conditions
+                  </Link> </Checkbox>
+
+                </Box>
+
+
               </Box>
-       
-          
-          </Box>
-            <Center
-              mt={"1em"}
-              w={"100%"} 
-              py={2}
-              h={{ base: "2em" }}
-              _hover={{ textDecoration: "none" }}
-            >
-              <Link
-                // w={"50%"}
-                // py={2}
+              <Center
+                mt={"1em"}
+                w={"100%"}
+                py={2}
                 h={{ base: "2em" }}
                 _hover={{ textDecoration: "none" }}
               >
-                <Button
-                 isDisabled={bool || email.length<15 || password.length<8 || password2.length<8 }
-               
-                  w={"fit-content"}
-                  h={"full"}
-                  colorScheme="blue"
-                  borderRadius={"full"}
-                  fontSize={"1.25em"}
-                  onClick={() => {
-                    // handleImageUpload(image, categorie, organisation),
-                     createUSer()
-                  }}
+                <Link
+                  // w={"50%"}
+                  // py={2}
+                  h={{ base: "2em" }}
+                  _hover={{ textDecoration: "none" }}
                 >
-                  Inscription
-                </Button>
-              </Link>
-            </Center>
+                  <Button
+                    isDisabled={bool || email.length < 15 || password.length < 8 || password2.length < 8}
+
+                    w={"fit-content"}
+                    h={"full"}
+                    colorScheme="blue"
+                    borderRadius={"full"}
+                    fontSize={"1.25em"}
+                    onClick={() => {
+                      // handleImageUpload(image, categorie, organisation),
+                      createUSer()
+                    }}
+                  >
+                    Inscription
+                  </Button>
+                </Link>
+              </Center>
             </FormControl>
             <Center>
-            <Flex alignContent={"center"} textAlign={"center"}>
-              <Text
-                color={"#0077b6"}
-                fontWeight={"bold"}
-                mt={"1em"}
-                pr={2}
-                _hover={{ textDecoration: "none" }}
-              >
-              Avez vous deja un compte?{" "}
-              </Text>
-              <Link
-              href="/Connexion"
-                color={"#0077b6"}
-                fontWeight={"bold"}
-                mt={"1em"}
-                _hover={{ textDecoration: "none",color:'messenger.400' }}
-              >
-                Connectez-vous
-              </Link>
-            </Flex></Center>
-            
+              <Flex alignContent={"center"} textAlign={"center"}>
+                <Text
+                  color={"#0077b6"}
+                  fontWeight={"bold"}
+                  mt={"1em"}
+                  pr={2}
+                  _hover={{ textDecoration: "none" }}
+                >
+                  Avez vous deja un compte?{" "}
+                </Text>
+                <Link
+                  href="/Connexion"
+                  color={"#0077b6"}
+                  fontWeight={"bold"}
+                  mt={"1em"}
+                  _hover={{ textDecoration: "none", color: 'messenger.400' }}
+                >
+                  Connectez-vous
+                </Link>
+              </Flex></Center>
+
           </Flex>
         </Center>
       </Box>
     </>
   );
+}
+  
 };
 
 export default Inscription;
