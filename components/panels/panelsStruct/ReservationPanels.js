@@ -12,8 +12,13 @@ import {
     ModalOverlay,
     Select,
     Stack,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
     Table,
     TableContainer,
+    Tabs,
     Tbody,
     Td,
     Text,
@@ -146,7 +151,17 @@ import {
               Listes Des Reservations
             </Text>
           </Box>
-          <Box w={"100%"} overflowY="auto" maxHeight="500px" bg={"#fff"} mt={"2em"} mb={20}>
+
+          <Tabs>
+  <TabList>
+    <Tab>Reservations en attentes</Tab>
+    <Tab>Reservations validées</Tab>
+    <Tab>Reservations annulées</Tab>
+  </TabList>
+
+  <TabPanels>
+    <TabPanel>
+    <Box w={"100%"} overflowY="auto" maxHeight="500px" bg={"#fff"} mt={"2em"} mb={20}>
               <Table variant="simple" id="table41">
                 {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
                 <Thead bgColor={"#fff"} position="sticky" borderColor={"#e9ecef"}>
@@ -188,7 +203,7 @@ import {
                                 fontSize={30}
                                 mr={5}
                                 cursor={"pointer"} 
-                                onClick= {()=>{Cancel(ReservationId[index], "Validée")}}
+                                onClick= {()=>{Cancel(ReservationId[index], "Validé")}}
                                   
                                 
                               />
@@ -196,10 +211,106 @@ import {
                                 color={"red"}
                                 fontSize={30}
                                 cursor={"pointer"}
-                                onClick= {()=>{Cancel(ReservationId[index], "Annulée")}}
+                                onClick= {()=>{Cancel(ReservationId[index], "Annulé")}}
                               />
                             </Flex>
                           </Td>
+                        </Tr>
+                      );
+                    }
+                   
+                  })}
+                </Tbody>
+              </Table>
+          
+           
+          </Box>
+    </TabPanel>
+    <TabPanel>
+    <Box w={"100%"} overflowY="auto" maxHeight="500px" bg={"#fff"} mt={"2em"} mb={20}>
+              <Table variant="simple" id="table42">
+                {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+                <Thead bgColor={"#fff"} position="sticky" borderColor={"#e9ecef"}>
+                  <Tr>
+                    <Th> E-mail</Th>
+                    <Th>Nom </Th>
+                    <Th>Couverts</Th>
+                    <Th>Jour</Th>
+                    <Th>heure</Th>
+                  
+  
+                    <Th>Numero</Th>
+                  
+                    <Th>Status</Th>
+                  
+                  </Tr>
+                </Thead>
+                <Tbody padding={0} id="tb13">
+                  {Object.values(ReservationListe).map((items, index) => {
+                   
+                    if (items.status == "Validé" && items.magasin == org ) {
+                      return (
+                        <Tr key={items}>
+                          <Td>{items.email}</Td>
+                          
+                          <Td>{items.nom}</Td>
+                          <Td>{items.personnes}</Td>
+                          <Td>{items.journée}</Td>
+                          <Td>{items.heures}</Td>
+  
+                          
+                          <Td>{items.numero}</Td>
+                          <Td>{items.status}</Td>
+  
+                         
+                        </Tr>
+                      );
+                    }
+                   
+                  })}
+                </Tbody>
+              </Table>
+          
+           
+          </Box>
+    </TabPanel>
+    <TabPanel>
+    <Box w={"100%"} overflowY="auto" maxHeight="500px" bg={"#fff"} mt={"2em"} mb={20}>
+              <Table variant="simple" id="table43">
+                {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+                <Thead bgColor={"#fff"} position="sticky" borderColor={"#e9ecef"}>
+                  <Tr>
+                    <Th> E-mail</Th>
+                    <Th>Nom </Th>
+                    <Th>Couverts</Th>
+                    <Th>Jour</Th>
+                    <Th>heure</Th>
+                  
+  
+                    <Th>Numero</Th>
+                  
+                    <Th>Status</Th>
+                    
+                  </Tr>
+                </Thead>
+                <Tbody padding={0} id="tb14">
+                  {Object.values(ReservationListe).map((items, index) => {
+                   
+                    if (items.status == "Annulé" && items.magasin == org ) {
+                      return (
+                        <Tr key={items}>
+                          <Td>{items.email}</Td>
+                          
+                          <Td>{items.nom}</Td>
+                          <Td>{items.personnes}</Td>
+                          <Td>{items.journée}</Td>
+                          <Td>{items.heures}</Td>
+  
+                          
+                          <Td>{items.numero}</Td>
+                          <Td>{items.status}</Td>
+  
+                          
                         </Tr>
                       );
                     }
@@ -225,44 +336,13 @@ import {
           
            
           </Box>
-  
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Attribuer Au Livreur</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                {/* <Select> */}
-                {livreur.forEach((doc) => console.log(doc.id))}
-                {/* </Select> */}
-              </ModalBody>
-  
-              <ModalFooter>
-                <Button bgColor={"cyan.700"} color={"white"}>
-                  Valider
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-  
-          {/* l'entete de la liste  */}
-          {/* <Flex borderBottom={"2px"} borderColor={"#e9ecef"} w={"100%"}>
-              {ListEntete.map((items) => (
-                <EntetItemsCorps key={items.id} items={items}></EntetItemsCorps>
-              ))}
-            </Flex> */}
-  
-          {/* la liste  */}
-          {/* {Object.values(CommandeListe).map((items,key) => (
-              <CommandeCorps
-                key={items.id}
-                items={items}
-                org={org}
-                idex={CommandeId}
-                lol={key}
-              ></CommandeCorps>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
           
-            ))} */}
+  
+      
+        
         </Flex>
       </>
     );
