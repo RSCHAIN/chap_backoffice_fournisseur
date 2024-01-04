@@ -19,7 +19,8 @@ import {
   Tabs,
   Text,
   Image,
-  Heading
+  Heading,
+  Box
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { ChevronDownIcon, EmailIcon, Search2Icon } from "@chakra-ui/icons";
@@ -96,7 +97,7 @@ const DesktopNav = () => {
           <Flex
             alignItems={"center"}
             justifyContent={"space-between"}
-            w={"85.5%"}
+            w={"100%"}
           >
             <Center w={"14.5%"} h={"5em"}>
             <Center
@@ -112,53 +113,24 @@ const DesktopNav = () => {
             </Center>
           </Center>
 
-            {/* <InputGroup w={"20em"} ml={"1em"}>
-              <Input
-                type="search"
-                placeholder="Recherche..."
-                bg={"#dee2e6"}
-                borderRadius={"5px"}
-                _placeholder={{ fontWeight: "bold" }}
-              />
-              <InputRightElement
-                bg={"#0077b6"}
-                color={"#fff"}
-                borderTopRightRadius={"5px"}
-                borderBottomRightRadius={"5px"}
-              >
-                <Search2Icon />
-              </InputRightElement>
-            </InputGroup> */}
+           
 
             {/* icone button's */}
-            <Flex
+            <Flex  ml={"45%"}
               w={"20em"}
               alignItems={"center"}
-              justifyContent={"space-around"}
+              justifyContent={""}
             >
-              <Link href="/Dashboard">
+              <Link href="/Dashboard" mr={10}>
                 <FontAwesomeIcon
                   icon={faHomeLgAlt}
                   color="#6c757d"
                 ></FontAwesomeIcon>
               </Link>
 
-              {/* <Link>
-                <FontAwesomeIcon
-                  icon={faBell}
-                  color="#6c757d"
-                ></FontAwesomeIcon>
-              </Link> */}
+             
               <Flex alignItems={"center"} justifyContent={"center"}>
-                {/* <Link>
-                  <Avatar
-                   
-                    name={user ? user : ""}
-                  
-                    mr={"1em"}
-                    bgColor={'#08566e'}
-                  />
-                </Link> */}
+               
 
                 <Menu>
                   <MenuButton
@@ -174,10 +146,7 @@ const DesktopNav = () => {
                       Deconnexion
                     </MenuItem>
                     
-                    {/* <MenuItem>Create a Copy</MenuItem>
-                                        <MenuItem>Mark as Draft</MenuItem>
-                                        <MenuItem>Delete</MenuItem>
-                                        <MenuItem>Attend a Workshop</MenuItem> */}
+                   
                   </MenuList>
                 </Menu>
               </Flex>
@@ -186,6 +155,7 @@ const DesktopNav = () => {
         </Stack>
 
         <Tabs
+        display={["none","none","none","flex","flex"]}
           // variant="unstyled"
          
          
@@ -208,13 +178,15 @@ const DesktopNav = () => {
             </Tab>
 
             <Tab _selected={{ color: "blue" }} mt={"3em"}>
-              Table des produits
+              Produits
             </Tab>
 
             <Tab _selected={{ color: "blue" }}>Commandes</Tab>
 
-            <Tab _selected={{ color: "blue" }}>Demander Livraison</Tab>
-            <Tab _selected={{ color: "blue" }} display={display}>Voir les Reservations</Tab>
+    
+            <Tab _selected={{ color: "blue" }}> Livraison</Tab>
+           
+            <Tab _selected={{ color: "blue" }} display={display}>  Reservations</Tab>
             <Tab _selected={{ color: "blue" }}>Profils</Tab>
 
             {/* <Tab _selected={{ color: "blue" }}>Liste Des Magasins</Tab> */}
@@ -258,7 +230,9 @@ const DesktopNav = () => {
               <AdminProfilePanels/>
             </TabPanel>
           </TabPanels>
-        </Tabs>
+        </Tabs> 
+        <Box mt={10} display={["flex","flex","flex","none","none"]}>
+        <DashBoardPanels></DashBoardPanels></Box>
       </Stack>
     </>
   );

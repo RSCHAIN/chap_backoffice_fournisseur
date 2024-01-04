@@ -17,6 +17,8 @@ import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/Firebase/Connexion";
 
 import React, { useEffect, useState } from "react";
+import { MdAccountCircle, MdEmail, MdLocationCity, MdLocationOn } from "react-icons/md";
+import { FiPhone } from "react-icons/fi";
 
 const AdminProfilePanels = () => {
   const toast = useToast()
@@ -41,7 +43,7 @@ const AdminProfilePanels = () => {
       const docRef = doc(db, `Admin`,String(user));
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("docsnqp",docSnap.exists())
+        console.log("docsnqp",docSnap.exists()) 
         setAddress(docSnap.data().adresse);
         setName(docSnap.data().name);
         setNumero(docSnap.data().number);
@@ -94,7 +96,7 @@ const AdminProfilePanels = () => {
       .replace('"', "")
       .trim()
       .replace('"', ""));
-    
+    Getall(user)
   },[]);
   if (!etat) {
     Getall(user);
@@ -102,42 +104,29 @@ const AdminProfilePanels = () => {
   
   return (
     <>
-      <Center w={"100%"} h={"75vh"} >
+      <Center w={"100%"} h={"75vh"} mt={-20} >
         <Center
           w={{ base: "100%", lg: "70%" }}
           h={"fit-content"}
           bg={"#f8f9fa"}
           flexDirection={"column"}
           borderRadius={"20px"}
-          py={10}
+          py={5}
         >
-          {/* l'avatar  */}
-          {/* <WrapItem
-                        flexDirection={'column'} mb={'2em'}
-                    >
-                        <Avatar size='2xl' name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />{' '}
-                        <Text
-                            color={'#c9184a'} fontWeight={'bold'}
-                        >Changer la photo</Text>
-                    </WrapItem> */}
-
+         
           {/* les coordornnée  */}
           <Center
             w={"90%"}
             h={"fit-content"}
-            bg={"#ced4da"}
+            // bg={"#ced4da"}
             borderRadius={"10px"}
           >
             {/* container  */}
             <Stack w={"95%"} h={"fit-content"} spacing={10}>
-              <Text fontWeight={700} fontSize={"28px"} textAlign={"center"}>
-                Informations Personnelles
-              </Text>
-
-              <Box pb={5}>
-                {/* 1 */}
-                <Flex justifyContent={"space-around"} h={"2em"} w={"85%"}>
-                  <Text>Nom</Text>
+            <Center display={"grid"}>
+              <MdAccountCircle fontSize={100}/>
+              <Flex ml={2} fontWeight={700} justifyContent={"space-around"} h={"2em"} w={"85%"}>
+                 
                   <Editable
                     onInput={(e) => setName(e.target.value)}
                     value={name}
@@ -147,11 +136,33 @@ const AdminProfilePanels = () => {
                     <EditableInput />
                   </Editable>
                 </Flex>
+            </Center>
 
+              <Box pb={5}>
+                {/* 1 */}
+                <Flex ml={"-132px"} justifyContent={"space-around"} h={"2em"} w={"85%"}>
+                  <Flex>
+                    <Box mr={2} mt={1}>
+                    <MdLocationCity fontSize={20}/>
+                    </Box>
+                    <Editable
+                    onInput={(e) => setOrg(e.target.value)}
+                    value={Org} 
+                  >
+                    <EditablePreview />
+                    {/* <Input as={EditableInput} onChange={(e)=>console.log(e.target.value)}/> */}
+                    <EditableInput />
+                  </Editable>
+                  {/* <Text>Email</Text> */}
+                  </Flex>
+                  </Flex>
                 {/* 2 */}
-                <Flex justifyContent={"space-around"} h={"2em"} w={"85%"}>
-                  <Text>Email</Text>
-                  <Editable
+                <Flex ml={"-90px"} justifyContent={"space-around"} h={"2em"} w={"85%"}>
+                  <Flex>
+                    <Box mr={2} mt={1}>
+                    <MdEmail fontSize={20}/>
+                    </Box>
+                    <Editable
                     onInput={(e) => setEmail(e.target.value)}
                     value={email}
                   >
@@ -159,11 +170,19 @@ const AdminProfilePanels = () => {
                     {/* <Input as={EditableInput} onChange={(e)=>console.log(e.target.value)}/> */}
                     <EditableInput />
                   </Editable>
+                  {/* <Text>Email</Text> */}
+                  </Flex>
+                 
+                 
                 </Flex>
 
                 {/* 3 */}
-                <Flex justifyContent={"space-around"} h={"2em"} w={"85%"}>
-                  <Text>Numéro</Text>
+                <Flex ml={"-130px"} justifyContent={"space-around"} h={"2em"} w={"85%"}>
+                 <Flex>
+                  <Box mr={2}>
+                  <FiPhone fontSize={20}/>
+                  </Box>
+                  {/* <Text>Numéro</Text> */}
                   <Editable
                     onInput={(e) => setNumero(e.target.value)}
                     value={numero}
@@ -172,9 +191,15 @@ const AdminProfilePanels = () => {
                     {/* <Input as={EditableInput} onChange={(e)=>console.log(e.target.value)}/> */}
                     <EditableInput />
                   </Editable>
+                 </Flex>
+                  
+                 
                 </Flex>
-                <Flex justifyContent={"space-around"} h={"2em"} w={"85%"}>
-                  <Text>Adresse</Text>
+                <Flex ml={-3} justifyContent={"space-around"} h={"2em"} w={"85%"} mb={5}>
+                <Flex mr={10}>
+                  <Box mr={2}>
+                  <MdLocationOn fontSize={20}/>
+                  </Box>
                   <Editable
                     onInput={(e) => setAddress(e.target.value)}
                     value={address}
@@ -183,6 +208,9 @@ const AdminProfilePanels = () => {
                     {/* <Input as={EditableInput} onChange={(e)=>console.log(e.target.value)}/> */}
                     <EditableInput />
                   </Editable>
+                  {/* <Text>Adresse</Text> */}
+                 </Flex>
+                
                 </Flex>
               
               </Box>
@@ -191,10 +219,12 @@ const AdminProfilePanels = () => {
 
           <Button
             bgColor="#0a7f97"
-            mt={"1em"}
-            w={"20%"}
-            color={"white"}
-            borderRadius={"full"}
+            mt={".5em"}
+            w={"fit-content"}
+            px={4}
+               py={2}      
+             color={"white"}
+            // borderRadius={"full"}
             onClick={()=>createNew()}
           >
             Enregistrer

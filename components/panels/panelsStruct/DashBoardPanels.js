@@ -1,9 +1,13 @@
-import { Box, Center, Container, Flex, Heading, Link, Stack, Stat, StatArrow, StatHelpText, StatLabel, StatNumber, Text } from '@chakra-ui/react';
+import { Avatar, Box, Button, Center, Container, Flex, Heading, Link, SimpleGrid, Stack, Stat, StatArrow, StatHelpText, StatLabel, StatNumber, Text } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import ProduitsLesPlusVenndus from '../DashBoardPanels/ProduitsLesPlusVenndus';
 import CourbesVentes from '../DashBoardPanels/CoubesVentes';
 import Facture from '../DashBoardPanels/Facture';
+import { MdAccountCircle, MdOutlineCollectionsBookmark, MdShoppingCart } from 'react-icons/md';
+import { TbTruckDelivery } from 'react-icons/tb';
+import { BsBookmark } from 'react-icons/bs';
+import { CheckCircleIcon } from '@chakra-ui/icons';
 
 export function RecapItemsCorp({ items }) {
 
@@ -95,7 +99,7 @@ const DashBoardPanels = () => {
     return (
         <>
 
-            <Flex
+            <Flex display={["none","none","none","none","none"]}
                 w={'100%'} 
                 flexDirection={'column'}
             >
@@ -141,6 +145,39 @@ const DashBoardPanels = () => {
                     </Flex>
                 </Flex>
             </Flex>
+            <Box>
+            <Flex mt={5} >
+                <Avatar  ml={10} size={"xl"}></Avatar>
+            <Center display={"grid"} >
+<Flex ml={5}>
+    <Text fontWeight={700} mr={2}>Commandes :</Text><Text color={"cyan.700"}> 2</Text>
+</Flex>
+<Flex ml={5}>
+    <Text fontWeight={700} mr={2}>Produits : </Text><Text color={"cyan.700"}>2</Text>
+</Flex>
+<Flex ml={5}>
+    <Text fontWeight={700} mr={2}>Reservations (optionnel) :</Text><Text color={"cyan.700"}> 2</Text>
+</Flex>        
+</Center>
+</Flex>
+            <SimpleGrid display={["grid","grid","grid","none","none"]} mt={20} columns={2}spacingX={2} spacingY={5} color={"white"}>
+                <Button leftIcon={<CheckCircleIcon/>} as={Link}        ml={5}href='/Produits' colorScheme='cyan.700' border={"1px solid black"} bgColor={"cyan.700"} width={"180px"} px={4} py={2} borderRadius={"25px"} >
+                     Les produits
+                </Button>
+                <Button leftIcon={<MdShoppingCart/>} as={Link} href='/Commandes' colorScheme='blue' bgColor={"cyan.700"}  border={"1px solid black"} width={"180px"} px={4} py={2} borderRadius={"25px"} >
+                    Les commandes
+                </Button>
+                <Button leftIcon={<TbTruckDelivery/>} as={Link} ml={5} href='/Livraisons' colorScheme='cyan.700' border={"1px solid black"} bgColor={"cyan.700"} width={"180px"} px={4} py={2} borderRadius={"25px"} >
+                    Les livraisons
+                </Button>
+                <Button leftIcon={<BsBookmark/>}as={Link} href='/Reservations' colorScheme='blue' bgColor={"cyan.700"} border={"1px solid black"}  width={"180px"} px={4} py={2} borderRadius={"25px"} >
+                    Les réservations
+                </Button>
+                <Button display={"flex"}  ml={5} as={Link}  href='/Profils' colorScheme='blue' bgColor={"cyan.700"}  border={"1px solid black"} width={"180px"} px={4} py={2} leftIcon={ <MdAccountCircle/>} borderRadius={"25px"} >
+                   Profils
+                </Button>
+            </SimpleGrid>
+            </Box>
         </>
     );
 };
