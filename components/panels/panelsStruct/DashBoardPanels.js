@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Center, Container, Flex, Heading, Link, SimpleGrid, Stack, Stat, StatArrow, StatHelpText, StatLabel, StatNumber, Text } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProduitsLesPlusVenndus from '../DashBoardPanels/ProduitsLesPlusVenndus';
 import CourbesVentes from '../DashBoardPanels/CoubesVentes';
 import Facture from '../DashBoardPanels/Facture';
@@ -95,11 +95,14 @@ const recapItems = [
 ]
 
 const DashBoardPanels = () => {
-
+    const [image,setImage] = useState('')
+    useEffect(()=>{
+        setImage(JSON.parse(localStorage.getItem("imageUrl")))
+    })
     return (
         <>
 
-            <Flex display={["none","none","none","none","none"]}
+            <Flex display={["none","none","none","flex","flex"]}
                 w={'100%'} 
                 flexDirection={'column'}
             >
@@ -145,9 +148,9 @@ const DashBoardPanels = () => {
                     </Flex>
                 </Flex>
             </Flex>
-            <Box>
+            <Box display={["grid","grid","grid","none","none"]}>
             <Flex mt={5} >
-                <Avatar  ml={10} size={"xl"}></Avatar>
+                <Avatar  ml={10} size={"xl"} src={image} ></Avatar>
             <Center display={"grid"} >
 <Flex ml={5}>
     <Text fontWeight={700} mr={2}>Commandes :</Text><Text color={"cyan.700"}> 2</Text>

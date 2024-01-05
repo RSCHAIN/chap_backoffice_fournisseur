@@ -73,6 +73,7 @@ const DesktopNav = () => {
   },[setData,router]);
   const logout = () => {
     localStorage.clear("user")
+    router.reload()
   };
 
   

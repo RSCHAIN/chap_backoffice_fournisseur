@@ -36,7 +36,7 @@ const AdminProfilePanels = () => {
   const [siret, setSiret] = useState("");
   const [Status, setStatus] = useState("");
   const [Tva, setTVA] = useState("");
-  const [etat,setEtat]=useState(window.onload)
+  const [etat,setEtat]=useState(false)
 
   const Getall = async (user) => {
     try {
@@ -56,7 +56,7 @@ const AdminProfilePanels = () => {
         setSiret(docSnap.data().siret);
         setStatus(docSnap.data().status);
         setTVA(docSnap.data().tva);
-        setEtat(!window.onload)
+        setEtat(true)
       }
     } catch (error) {
       throw(error)

@@ -49,6 +49,7 @@ const Connexion = () => {
        if (docSnap.data().status == "VERIFIE") {
         localStorage.setItem("user", JSON.stringify(docSnap.data().email));
         localStorage.setItem("cat", JSON.stringify(docSnap.data().categorie));
+        localStorage.setItem("imageUrl", JSON.stringify(docSnap.data().imageUrl));
         localStorage.setItem(
           "org",
           JSON.stringify(docSnap.data().organisation)
