@@ -65,7 +65,7 @@ const DesktopNav = () => {
             setDisplay("grid")
         }
        
-       router.push("/Dashboard")
+       
     }else{
       router.push("/Connexion")
     }
