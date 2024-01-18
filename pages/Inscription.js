@@ -385,7 +385,7 @@ if (verif) {
                     borderRadius={"full"}
                     placeholder="votre e-mail"
                     _placeholder={{ color: "#000" }}
-                    onChange={(e) => { setEmail(e.target.value.toLowerCase().trim()) }}
+                    onChange={(e) => { setEmail(e.target.value.trim()) }}
                     type="email"
                     isRequired
                   ></Input>

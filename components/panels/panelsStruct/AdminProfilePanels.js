@@ -54,7 +54,7 @@ const AdminProfilePanels = () => {
         setOrg(docSnap.data().organisation);
         setPassword(docSnap.data().password);
         setSiret(docSnap.data().siret);
-        setStatus(docSnap.data().status);
+        setStatus(docSnap.data().status); 
         setTVA(docSnap.data().tva);
         setEtat(true)
       }
