@@ -238,7 +238,7 @@ const CommandesPanels = () => {
                   if (items.status == "En attente" ) {
                     
                     return(
-                      <Waiting items={items} org={org} id={CommandeId[index]}/>
+                      <Waiting key={index} items={items} org={org} id={CommandeId[index]}/>
                     )
                     
                     // return (
