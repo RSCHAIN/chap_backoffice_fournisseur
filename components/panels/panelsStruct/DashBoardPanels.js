@@ -63,32 +63,32 @@ const recapItems = [
     {
         id: 1,
         tittle: 'Total de Ventes',
-        number: `${10000} €`,
-        secondNumber: `${+2.5}%`,
+        number: `${0} €`,
+        secondNumber: `${+0}%`,
         DaysMonth: "Pour Aujoud'hui",
         colorsDecor: '#b5179e'
     },
     {
         id: 2,
         tittle: 'Total de Commandes',
-        number: `${5000} €`,
-        secondNumber: `${+3.0}%`,
+        number: `${0} €`,
+        secondNumber: `${+0}%`,
         DaysMonth: "Pour Aujoud'hui",
         colorsDecor: '#0077b6'
     },
     {
         id: 3,
         tittle: 'Reduction',
-        number: `${860} €`,
-        secondNumber: `${+2.5}%`,
+        number: `${0} €`,
+        secondNumber: `${+0}%`,
         DaysMonth: "Pour Aujoud'hui",
         colorsDecor: '#ffba08'
     },
     {
         id: 4,
         tittle: 'Commandes Annuler',
-        number: `${500} €`,
-        secondNumber: `${+2.5}%`,
+        number: `${0} €`,
+        secondNumber: `${+0}%`,
         DaysMonth: "Pour Aujoud'hui",
         colorsDecor: '#4cc9f0'
     },
@@ -153,13 +153,13 @@ const DashBoardPanels = () => {
                 <Avatar  ml={10} size={"xl"} src={image} ></Avatar>
             <Center display={"grid"} >
 <Flex ml={5}>
-    <Text fontWeight={700} mr={2}>Commandes :</Text><Text color={"cyan.700"}> 2</Text>
+    <Text fontWeight={700} mr={2}>Commandes :</Text><Text color={"cyan.700"}> 0</Text>
 </Flex>
 <Flex ml={5}>
-    <Text fontWeight={700} mr={2}>Produits : </Text><Text color={"cyan.700"}>2</Text>
+    <Text fontWeight={700} mr={2}>Produits : </Text><Text color={"cyan.700"}>0</Text>
 </Flex>
 <Flex ml={5}>
-    <Text fontWeight={700} mr={2}>Reservations (optionnel) :</Text><Text color={"cyan.700"}> 2</Text>
+    <Text fontWeight={700} mr={2}>Reservations (optionnel) :</Text><Text color={"cyan.700"}> 0</Text>
 </Flex>        
 </Center>
 </Flex>

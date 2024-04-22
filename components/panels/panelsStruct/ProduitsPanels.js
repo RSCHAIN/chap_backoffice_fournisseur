@@ -43,12 +43,15 @@ import {
   push,
   ref,
   remove,
+  update,
 } from "firebase/database";
 import { useRouter } from "next/router";
 import { getDownloadURL, ref as sref, uploadBytes } from "firebase/storage";
 import ActionStructure from "@/components/generale/ActionStructure";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { deleteDoc } from "firebase/firestore";
+import EditProduct from "@/components/generale/EditProduct";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 const ProduitsPanels = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -58,6 +61,7 @@ const ProduitsPanels = () => {
 
   const [org, setOrg] = useState();
   const [cat, setCat] = useState();
+  const [finish, setFinish] = useState(false);
   const toast = useToast();
 
   useEffect(() => {
@@ -83,38 +87,46 @@ const ProduitsPanels = () => {
       });
   }, [setCat, cat, org, router]);
 
-  const [image, setImage] = useState();
-  const [imageuri, setImageuri] = useState();
+  const [image, setImage] = useState([]);
+  const [imageuri, setImageuri] = useState([]);
 
   const [name, setName] = useState();
   const [prix, setPrix] = useState();
-  const [quantite, setQuantite] = useState("non fourni");
+  const [loader, setLoader] = useState(false);
+  const [quantite, setQuantite] = useState(0);
   const [desc, setDesc] = useState();
 
   ///upload image
   const handleImageUpload = async (file, cat, org) => {
     // Upload the image to Firebase Storage
-    const imageRef = sref(storage, cat + "/" + org + "/" + file.name);
-    await uploadBytes(imageRef, file);
+    setLoader(true);
+    Object.values(file).slice(0, 3).map(async (details, index) => {
+      const imageRef = sref(storage, cat + "/" + org + "/" + details.name);
+      await uploadBytes(imageRef, details);
 
-    // Get the download URL of the uploaded image
-    const downloadURL = await getDownloadURL(imageRef);
+      // Get the download URL of the uploaded image
+      const downloadURL = await getDownloadURL(imageRef);
 
-    // Do something with the downloadURL, such as storing it in a database
-    setImageuri(downloadURL);
+      // Do something with the downloadURL, such as storing it in a database
+      imageuri.push(downloadURL);
+    })
+    if (imageuri.length > 1) {
+      setFinish(true);
+    }
+
   };
 
   //enregistrer data
-  function writeData(cat, org, name,  prix, description, quantite) {
+  function writeData(cat, org, name, prix, description, quantite) {
     if (name != null) {
       push(ref(database, cat + "/" + org), {
         nom: name,
         prix: parseFloat(prix),
         description: description,
         quantite: quantite,
-       
+        imageUrl: imageuri,
         organisation: org,
-        etat: "disponible",
+        etat: "Disponible",
         note: "nouveau",
       });
       toast({
@@ -140,6 +152,25 @@ const ProduitsPanels = () => {
     remove(ref(database, cat + "/" + org + "/" + id));
   };
 
+  const handleState = (cat, org, id,state) => {
+    update(ref(database, cat + "/" + org + "/" + id), {
+     
+      etat: state,
+    
+    });
+    toast({
+      title: "Mise à jour",
+      description: "INFORMATION MISE À JOUR AVEC SUCCES",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+    router.replace(router.asPath);
+   
+ 
+  };
+
+
   return (
     <>
       <Flex w={"100%"} minH={"100vh"} pb={10} flexDirection={"column"}>
@@ -161,6 +192,7 @@ const ProduitsPanels = () => {
             onClose={onClose}
             isOpen={isOpen}
             motionPreset="scale"
+            size={["lg", "lg", "lg", "xl", "xl"]}
           >
             <ModalOverlay />
             <ModalContent>
@@ -171,12 +203,14 @@ const ProduitsPanels = () => {
                 <Input
                   type="file"
                   accept="image/*"
+
+                  multiple={true}
                   onChange={(e) => {
-                    setImage(e.target.files[0]),
-                      setImage(e.target.files[0]),
-                      setImage(e.target.files[0]);
+                    setImage(e.target.files)
+
                   }}
                 />
+                {image.length > 3 ? <Text color={"red"}>Nous ne prenons que 3 images par produit</Text> : <></>}
                 <Flex>
                   <Box mr={5}>
                     <FormControl isRequired>
@@ -204,15 +238,15 @@ const ProduitsPanels = () => {
                       <FormLabel>Quantité</FormLabel>
                       <Input
                         value={quantite}
-                        type="text"
+                        type="number"
                         placeholder="Cet champ n'est point obligatoire"
-                        onChange={(e) => setQuantite(e.target.value)}
+                        onChange={(e) => setQuantite(e.target.valueAsNumber)}
                       />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel>description</FormLabel>
                       <Input
-                        height={"400px"}
+                        minH={"100px"}
                         width={"300px"}
                         isRequired
                         value={desc}
@@ -230,79 +264,91 @@ const ProduitsPanels = () => {
                 <Button colorScheme="red" mr={3} onClick={onClose}>
                   FERMER
                 </Button>
-                <Button
+                {finish == false ? <Button
+
                   colorScheme="blue"
                   mr={3}
                   onClick={() => {
-                    
-                      writeData(cat, org, name,  prix, desc, quantite);
+                    handleImageUpload(image, cat, org);
                   }}
                 >
-                  VALIDER
-                </Button>
+                  Enregistrer
+                </Button> : <Button
+                  colorScheme="blue"
+                  mr={3}
+                  onClick={() => {
+                    writeData(cat, org, name, prix, desc, quantite);
+                  }}
+                >
+                  Valider
+                </Button>}
+
               </ModalFooter>
             </ModalContent>
           </Modal>
         </Box>
         <Box w={"100%"} overflowY="auto" maxHeight="500px" bg={"#fff"} mt={"2em"} mb={20}>
-          
-            <Table variant="simple">
-              {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-              <Thead bgColor={"#fff"} borderColor={"#e9ecef"}>
-                <Tr>
-                  <Th> Nom</Th>
-                  <Th>Aperçu </Th>
-                  <Th>Description</Th>
-                  <Th isNumeric>Prix</Th>
-                  <Th isNumeric>Quantité</Th>
-                  <Th>Etat</Th>
-                  <Th>Note</Th>
-                  <Th>Actions </Th>
-                </Tr>
-              </Thead>
-              <Tbody padding={0} id="tb14">
-                {Object.values(last).map((items, index) => (
-                  <Tr key={items}>
-                    <Td>{items.nom}</Td>
-                    <Td>
-                      <Image
-                        alt={"images de produit"}
-                        src={items.imageUrl}
-                        width={40}
-                        height={40}
+
+          <Table variant="simple">
+            {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+            <Thead bgColor={"#fff"} borderColor={"#e9ecef"}>
+              <Tr>
+                <Th> Nom</Th>
+                <Th>Aperçu </Th>
+                <Th>Description</Th>
+                <Th isNumeric>Prix</Th>
+                <Th isNumeric>Quantité</Th>
+                <Th>Etat</Th>
+                <Th>Note</Th>
+                <Th>Actions </Th>
+              </Tr>
+            </Thead>
+            <Tbody padding={0} id="tb14">
+              {Object.values(last).map((items, index) => (
+                <Tr key={index}>
+                  <Td>{items.nom}</Td>
+                  <Td>
+                    <Image
+                      alt={"images de produit"}
+                      src={items.imageUrl}
+                      width={40}
+                      height={40}
+                    />
+                  </Td>
+                  <Td>
+                    <Text width={300} height={20} noOfLines={4}>
+                      {items.description}
+                    </Text>
+                  </Td>
+                  <Td>{items.prix}</Td>
+                  <Td>{items.quantite}</Td>
+                  <Td>
+                    <Box display={"grid"} textAlign={"center"}>
+                    {items.etat}
+                    {items.etat == "Disponible" ?<Button colorScheme="red" onClick={()=>handleState(cat,items.organisation,id[index],"Indisponible")}>En rupture</Button> : <Button colorScheme="blue" onClick={()=>handleState(cat,items.organisation,id[index],"Disponible")}>Disponible</Button> }
+                    </Box>
+                  </Td>
+                  <Td>{items.note}</Td>
+                  <Td>
+                    <Flex justifyContent={"space-around"} w={10}>
+                      <EditProduct id={id[index]} cat={cat} desc={items.description}
+                       org={items.organisation} name={items.nom}
+                        prix={items.prix}  quantite={items.quantite}/>
+                        
+                      
+                      <DeleteIcon
+                        color={"red"}
+                        fontSize={30}
+                        cursor={"pointer"}
+                        onClick={() => deleteData(cat, org, id[index])}
                       />
-                    </Td>
-                    <Td>
-                      <Text width={300} height={20} noOfLines={4}>
-                        {items.description}
-                      </Text>
-                    </Td>
-                    <Td>{items.prix}</Td>
-                    <Td>{items.quantite}</Td>
-                    <Td>{items.etat}</Td>
-                    <Td>{items.note}</Td>
-                    <Td>
-                      <Flex justifyContent={"space-around"} w={10}>
-                        <EditIcon
-                          color={"cyan.500"}
-                          fontSize={30}
-                          cursor={"pointer"}
-                          mr={5}
-                          href="#modal2"
-                        />
-                        <DeleteIcon
-                          color={"red"}
-                          fontSize={30}
-                          cursor={"pointer"}
-                          onClick={() => deleteData(cat, org, id[index])}
-                        />
-                      </Flex>
-                    </Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-      
+                    </Flex>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+
           {/* l'entete de la liste  */}
 
           {/* la liste  */}

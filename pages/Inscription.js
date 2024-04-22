@@ -163,9 +163,7 @@ const Inscription = () => {
   const { isOpen, onToggle } = useDisclosure()
   const etes = "n'êtes"
 if (verif) {
-  return (
-    <Center mt={10}> <Text mr={2}> Si vous {etes} pas redirigé,</Text> <Link href='/verification' color={"blue"}> veuillez cliquer ici</Link> <Text ml={2}> afin de vérifier votre compte</Text></Center>
-    )
+ router.push("/verification/")
 }else{
   return (
     <>
@@ -481,7 +479,7 @@ if (verif) {
               <Box w={"fit-content"} ml={["10%", "10%", "10%", "30%", "30%",]} >
                 <Box display={'flex'} width={"fit-content"} textAlign={'center'} >
                   {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
-                  <Checkbox mt={"1em"} pr={1} onChange={e => { setBool(!e.target.checked) }}>{TermsCond}  <Link
+                  <Checkbox mt={"1em"} pr={1} onChange={e => { setBool(e.target.checked) }}>{TermsCond}  <Link
                     color={"messenger.400"}
                     fontWeight={"bold"}
                     mt={"1em"}
@@ -508,14 +506,15 @@ if (verif) {
                   _hover={{ textDecoration: "none" }}
                 >
                   <Button
-                    isDisabled={bool || email.length < 15 || password.length < 8 || password2.length < 8}
-
+                    isDisabled={bool == true || email.length < 15 || password.length < 8 || password2.length < 8}
+                    isLoading={loader}
                     w={"fit-content"}
                     h={"full"}
                     colorScheme="blue"
                     borderRadius={"full"}
                     fontSize={"1.25em"}
                     onClick={() => {
+                     
                       // handleImageUpload(image, categorie, organisation),
                       createUSer()
                     }}

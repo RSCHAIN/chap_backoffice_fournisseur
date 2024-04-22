@@ -74,7 +74,75 @@ const ListEntete = [
     label: "ACTIONS",
   },
 ];
+export function Waiting ({items, org,id}){
+  function Cancel(index) {
+    update(ref(database, "Commandes/" + String(id) + "/cartlist/" + String(index) ), {
+      orderEtat: "Annulée",
+   
+    });
+  }
 
+  function Validate(index) {
+    update(ref(database, "Commandes/" + String(id) + "/cartlist/" + String(index) ), {
+      orderEtat: "Validée",
+   
+    });
+  }
+
+  return (
+    <>
+     {items.cartlist.map((item, index) =>{
+      if (item.orderOrganisation == org) {
+        return (
+          <Tr key={items}>  
+          <Td>{item.orderName
+}</Td>
+          <Td>
+            <Image
+              alt={"images de produit"}
+              src={item.orderImageUrl}
+              width={20}
+              height={10}
+            />  
+          </Td>
+          <Td>{item.orderQte}</Td>
+          <Td>{item.orderPrice * item.orderQte}</Td>
+          <Td>{items.jour }</Td>
+          <Td>{items.email}</Td>
+
+          
+        <Td>{items.lieu}</Td>
+          <Td>{item.orderEtat
+}</Td>
+
+          <Td>
+          {item.orderEtat == "En attente"}
+            <Flex justifyContent={"space-around"} w={10}>
+              <CheckIcon
+                color={"cyan.600"}
+                fontSize={30}
+                mr={5}
+                cursor={"pointer"} 
+                onClick= {()=>{Validate(index)}}
+                  
+                
+              />
+              <CloseIcon
+                color={"red"}
+                fontSize={30}
+                cursor={"pointer"}
+                onClick= {()=>{Cancel(index)}}
+              />
+            </Flex>
+          </Td>
+        </Tr>
+        )
+      }
+     }
+     )}
+    </>
+  );
+}
 
 // le corps des entetes
 export function EntetItemsCorps({ items }) {
@@ -158,8 +226,8 @@ const CommandesPanels = () => {
                   <Th>Jour</Th>
                   <Th>Client</Th>
 
-                  <Th>Numero</Th>
-                  <Th>Lieu</Th>
+                  
+             
                   <Th>Status</Th>
                   <Th>Actions </Th>
                 </Tr>
@@ -167,48 +235,56 @@ const CommandesPanels = () => {
               <Tbody padding={0} id="tb12">
                 {Object.values(CommandeListe).map((items, index) => {
                  
-                  if (items.Status == "En Cours" && items.organisation == org ) {
-                    return (
-                      <Tr key={items}>
-                        <Td>{items.nom}</Td>
-                        <Td>
-                          <Image
-                            alt={"images de produit"}
-                            src={items.imageUrl}
-                            width={20}
-                            height={10}
-                          />
-                        </Td>
-                        <Td>{items.quantite}</Td>
-                        <Td>{items.totalPrix}</Td>
-                        <Td>{items.jour + " " + items.moment}</Td>
-                        <Td>{items.receveur}</Td>
+                  if (items.status == "En attente" ) {
+                    
+                    return(
+                      <Waiting items={items} org={org} id={CommandeId[index]}/>
+                    )
+                    
+                    // return (
+                    //   {items.cartlist.map((item, index) =>(
+                    //     <Tr key={items}>  
+                    //     <Td>{items.nom}</Td>
+                    //     <Td>
+                    //       <Image
+                    //         alt={"images de produit"}
+                    //         src={items.imageUrl}
+                    //         width={20}
+                    //         height={10}
+                    //       />  
+                    //     </Td>
+                    //     <Td>{items.quantite}</Td>
+                    //     <Td>{items.totalPrix}</Td>
+                    //     <Td>{items.jour + " " + items.moment}</Td>
+                    //     <Td>{items.receveur}</Td>
 
-                        <Td>{items.numero}</Td>
-                        <Td>{items.lieu}</Td>
-                        <Td>{items.Status}</Td>
+                    //     <Td>{items.numero}</Td>
+                    //     <Td>{items.lieu}</Td>
+                    //     <Td>{items.status}</Td>
 
-                        <Td>
-                          <Flex justifyContent={"space-around"} w={10}>
-                            <CheckIcon
-                              color={"cyan.600"}
-                              fontSize={30}
-                              mr={5}
-                              cursor={"pointer"} 
-                              onClick= {()=>{Cancel(CommandeId[index], "VALIDÉE"),sendmail(items)}}
+                    //     <Td>
+                    //       <Flex justifyContent={"space-around"} w={10}>
+                    //         <CheckIcon
+                    //           color={"cyan.600"}
+                    //           fontSize={30}
+                    //           mr={5}
+                    //           cursor={"pointer"} 
+                    //           onClick= {()=>{Cancel(CommandeId[index], "VALIDÉE"),sendmail(items)}}
                                 
                               
-                            />
-                            <CloseIcon
-                              color={"red"}
-                              fontSize={30}
-                              cursor={"pointer"}
-                              onClick= {()=>{Cancel(CommandeId[index], "ANNULÉE"),sendmail(items)}}
-                            />
-                          </Flex>
-                        </Td>
-                      </Tr>
-                    );
+                    //         />
+                    //         <CloseIcon
+                    //           color={"red"}
+                    //           fontSize={30}
+                    //           cursor={"pointer"}
+                    //           onClick= {()=>{Cancel(CommandeId[index], "ANNULÉE"),sendmail(items)}}
+                    //         />
+                    //       </Flex>
+                    //     </Td>
+                    //   </Tr>
+                    //   ))}
+                     
+                    // );
                   }
                   else if (items.organisation == org && items.Status == "VALIDÉE" || items.Status == "ANNULÉE") 
                     

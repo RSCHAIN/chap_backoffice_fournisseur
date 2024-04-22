@@ -55,7 +55,7 @@ const Connexion = () => {
           JSON.stringify(docSnap.data().organisation)
         );
         localStorage.setItem("name", JSON.stringify(docSnap.data().name));
-        router.reload();
+        
 
         toast({
           title: "ACCES APPROUVÉ",
@@ -64,6 +64,13 @@ const Connexion = () => {
           duration: 5000,
           isClosable: true,
         });
+        // if (typeof window !== "undefined") {   
+        //   const exist = localStorage.getItem("user");
+        //   if (exist) {
+            
+            router.push("/Dashboard");
+        //   }
+        // }
        }else{
         toast({
           title: "MAIL NON VERIFIE",
@@ -92,13 +99,7 @@ const Connexion = () => {
       });
     }
   };
-  if (typeof window !== "undefined") {   
-    const exist = localStorage.getItem("user");
-    if (exist) {
-      
-      router.push("/Dashboard");
-    }
-  }
+  
   return (
     <>
       {/* le main  */}

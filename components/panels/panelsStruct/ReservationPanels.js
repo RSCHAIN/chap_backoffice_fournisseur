@@ -30,12 +30,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import CommandeCorps from "../tableCommande/CommandeCorps";
-import { collection, query, where, getDocs, and } from "firebase/firestore";
-import { db } from "@/Firebase/Connexion";
+
+
 import { onValue, ref, update } from "firebase/database";
 import { database } from "@/Firebase/Connexion";
-import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+
 import { useRouter } from "next/router";
 import axios from "axios";
 // liste des entetes
@@ -113,10 +112,11 @@ const ReservationPanels = () => {
   const [org, setOrg] = useState();
 
   const Getall = async () => {
-    const starCountRef = ref(database, "Reservation/");
+    const starCountRef = ref(database, "Reservation");
     onValue(starCountRef, (snapshot) => {
       if (snapshot.val() != null && snapshot.val() != undefined) {
         setReservationListe(snapshot.val());
+        console.log("Reservation", snapshot.val());
         setReservationId(Object.keys(snapshot.val()));
       }
     });
@@ -124,7 +124,7 @@ const ReservationPanels = () => {
 
   function Cancel(id, state) {
     update(ref(database, "Reservation/" + String(id)), {
-      status: state,
+      reponseResto: state,
     });
   }
 
@@ -181,7 +181,7 @@ const ReservationPanels = () => {
                   <Tbody padding={0} id="tb13">
                     {Object.values(ReservationListe).map((items, index) => {
 
-                      if (items.status == "En cours" && items.magasin == org) {
+                      if (items.status == "En attente" && items.organisation == org  && items.reponseResto == "") {
                         return (
                           <Tr key={items}>
                             <Td>{items.email}</Td>
@@ -195,14 +195,14 @@ const ReservationPanels = () => {
                             <Td>{items.numero}</Td>
                             <Td>{items.status}</Td>
                             <Td> <Flex display={"grid"}   >
-                              <Button mb={2} colorScheme="red" onClick={() => Cancel(ReservationId[index], "Annulé")}
-                                >Refuser</Button>
-                              <Button colorScheme="green" 
-                                onClick={() => Cancel(ReservationId[index], "Validé")}>Valider</Button>
+                              <Button mb={2} colorScheme="red" onClick={() => Cancel(ReservationId[index], "Refusée")}
+                              >Refuser</Button>
+                              <Button colorScheme="green"
+                                onClick={() => Cancel(ReservationId[index], "Acceptée")}>Valider</Button>
                             </Flex></Td>
 
                           </Tr>
-                        ); 
+                        );
                       }
 
                     })}
@@ -210,7 +210,7 @@ const ReservationPanels = () => {
                 </Table>
                 {Object.values(ReservationListe).map((items, index) => {
 
-                  if (items.status == "En cours" && items.magasin == org) {
+                  if (items.status == "En attente" && items.organisation == org  && items.reponseResto == "") {
                     return (
                       <>
                         <Flex display={["flex", "flex", "flex", "none", "none"]}>
@@ -230,10 +230,10 @@ const ReservationPanels = () => {
                             </Flex>
                           </Box>
                           <Flex mt={5} display={"grid"} pt={2} justifyContent={"space-between"} mb={5} >
-                            <Button colorScheme="red" onClick={() => Cancel(ReservationId[index], "Annulé")}
+                            <Button colorScheme="red" onClick={() => Cancel(ReservationId[index], "Refusée")}
                             >Refuser</Button>
                             <Button colorScheme="green"
-                              onClick={() => Cancel(ReservationId[index], "Validé")}>Valider</Button>
+                              onClick={() => Cancel(ReservationId[index], "Acceptée")}>Valider</Button>
                           </Flex>
                         </Flex>
 
@@ -273,7 +273,7 @@ const ReservationPanels = () => {
                   <Tbody padding={0} id="tb13">
                     {Object.values(ReservationListe).map((items, index) => {
 
-                      if (items.status == "Validé" && items.magasin == org) {
+                      if (items.reponseResto == "Acceptée" && items.organisation == org) {
                         return (
                           <Tr key={items}>
                             <Td>{items.email}</Td>
@@ -285,7 +285,7 @@ const ReservationPanels = () => {
 
 
                             <Td>{items.numero}</Td>
-                            <Td>{items.status}</Td>
+                            <Td>{items.reponseResto}</Td>
 
 
                           </Tr>
@@ -297,7 +297,7 @@ const ReservationPanels = () => {
                 </Table>
                 {Object.values(ReservationListe).map((items, index) => {
 
-                  if (items.status == "Validé" && items.magasin == org) {
+                  if (items.reponseResto == "Acceptée" && items.organisation == org) {
                     return (
                       <>
                         <Flex display={["flex", "flex", "flex", "none", "none"]}>
@@ -357,7 +357,7 @@ const ReservationPanels = () => {
                   <Tbody padding={0} id="tb13">
                     {Object.values(ReservationListe).map((items, index) => {
 
-                      if (items.status == "Annulé" && items.magasin == org) {
+                      if (items.reponseResto == "Refusée" && items.organisation == org) {
                         return (
                           <Tr key={items}>
                             <Td>{items.email}</Td>
@@ -369,7 +369,7 @@ const ReservationPanels = () => {
 
 
                             <Td>{items.numero}</Td>
-                            <Td>{items.status}</Td>
+                            <Td>{items.reponseResto}</Td>
 
 
                           </Tr>
@@ -381,7 +381,7 @@ const ReservationPanels = () => {
                 </Table>
                 {Object.values(ReservationListe).map((items, index) => {
 
-                  if (items.status == "Annulé" && items.magasin == org) {
+                  if (items.reponseResto == "Refusée" && items.organisation == org) {
                     return (
                       <>
                         <Flex display={["flex", "flex", "flex", "none", "none"]}>
@@ -443,14 +443,14 @@ const ReservationPanels = () => {
 
                       <Th>Numero</Th>
 
-                      <Th>Status</Th>
+                      <Th>Status</Th> 
 
                     </Tr>
                   </Thead>
                   <Tbody padding={0} id="tb14">
                     {Object.values(ReservationListe).map((items, index) => {
 
-                      if (items.status == "Annulé" && items.magasin == org) {
+                      if (items.reponseResto == "Refusée" && items.organisation == org) {
                         return (
                           <Tr key={items} display={"none"}>
                             <Td>{items.email}</Td>
@@ -462,7 +462,7 @@ const ReservationPanels = () => {
 
 
                             <Td>{items.numero}</Td>
-                            <Td>{items.status}</Td>
+                            <Td>{items.reponseResto}</Td>
 
 
                           </Tr>
