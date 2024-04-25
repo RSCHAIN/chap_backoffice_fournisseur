@@ -9,9 +9,10 @@ import {
   Link,
   Stack,
   Text,
+  cookieStorageManager,
   useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   collection,
@@ -27,6 +28,7 @@ import { useRouter } from "next/router";
 import Logo from "@/components/generale/Logo";
 import {FiEyeOff} from "react-icons/fi"
 import {FaEye} from "react-icons/fa"
+import Cookies from "js-cookie";
 
 const Connexion = () => {
   const [show, setShow] = useState(false);
@@ -55,8 +57,8 @@ const Connexion = () => {
           JSON.stringify(docSnap.data().organisation)
         );
         localStorage.setItem("name", JSON.stringify(docSnap.data().name));
+        Cookies.set("user", JSON.stringify(docSnap.data().name));
         
-
         toast({
           title: "ACCES APPROUVÉ",
           description: "NOUS VOUS REDIRIGEONS",
@@ -100,6 +102,14 @@ const Connexion = () => {
     }
   };
   
+
+  useEffect(()=>{
+    if (localStorage.getItem("user")) {
+      router.push("/Dashboard");
+    }
+  },[router]);
+
+
   return (
     <>
       {/* le main  */}

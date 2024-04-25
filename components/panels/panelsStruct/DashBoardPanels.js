@@ -170,9 +170,9 @@ const DashBoardPanels = () => {
                 <Button leftIcon={<MdShoppingCart/>} as={Link} href='/Commandes' colorScheme='blue' bgColor={"cyan.700"}  border={"1px solid black"} width={"180px"} px={4} py={2} borderRadius={"25px"} >
                     Les commandes
                 </Button>
-                <Button leftIcon={<TbTruckDelivery/>} as={Link} ml={5} href='/Livraisons' colorScheme='cyan.700' border={"1px solid black"} bgColor={"cyan.700"} width={"180px"} px={4} py={2} borderRadius={"25px"} >
+                {/* <Button leftIcon={<TbTruckDelivery/>} as={Link} ml={5} href='/Livraisons' colorScheme='cyan.700' border={"1px solid black"} bgColor={"cyan.700"} width={"180px"} px={4} py={2} borderRadius={"25px"} >
                     Les livraisons
-                </Button>
+                </Button> */}
                 <Button leftIcon={<BsBookmark/>}as={Link} href='/Reservations' colorScheme='blue' bgColor={"cyan.700"} border={"1px solid black"}  width={"180px"} px={4} py={2} borderRadius={"25px"} >
                     Les réservations
                 </Button>

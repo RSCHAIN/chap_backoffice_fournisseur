@@ -185,7 +185,7 @@ const DesktopNav = () => {
             <Tab _selected={{ color: "blue" }}>Commandes</Tab>
 
     
-            <Tab _selected={{ color: "blue" }}> Livraison</Tab>
+            {/* <Tab _selected={{ color: "blue" }}> Livraison</Tab> */}
            
             <Tab _selected={{ color: "blue" }} display={display}>  Reservations</Tab>
             <Tab _selected={{ color: "blue" }}>Profils</Tab>
@@ -203,7 +203,7 @@ const DesktopNav = () => {
 
             {/* table des produits  */}
             <TabPanel  >
-              <ProduitsPanels></ProduitsPanels>
+              <ProduitsPanels categ={cat}></ProduitsPanels>
             </TabPanel>
 
             {/* commandes  */}
@@ -217,12 +217,12 @@ const DesktopNav = () => {
             </TabPanel> */}
 
             {/* employes  */}
-            <TabPanel w={"100%"} > 
-               {/* <EmployePanels></EmployePanels> */}
+            {/* <TabPanel w={"100%"} > 
+               {/* <EmployePanels></EmployePanels> 
                <Center>
                 <Heading>Page Indisponible</Heading>
                </Center>
-            </TabPanel>
+            </TabPanel> */}
             <TabPanel w={"100%"} h={"100%"}>
               <ReservationPanels></ReservationPanels>
             </TabPanel>

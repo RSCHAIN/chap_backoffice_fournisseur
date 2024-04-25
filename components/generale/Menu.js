@@ -60,7 +60,7 @@ import {
               setDisplay("grid")
           }
          
-         router.push("#")
+         
       }else{
         router.push("/Connexion")
       }
@@ -68,6 +68,7 @@ import {
     },[setData,router]);
     const logout = () => {
       localStorage.clear("user")
+      Cookies.remove("user")
       router.reload()
     };
   
