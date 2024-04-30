@@ -297,7 +297,7 @@ import {
                        </Select>
                       </FormControl>
                       <FormControl>
-                        <FormLabel>Quantité de/d' {sellBy}</FormLabel>
+                        <FormLabel>Quantité de/d{"'"} {sellBy}</FormLabel>
                         <Input
                         
                           // value={quantite}
