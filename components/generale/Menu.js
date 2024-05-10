@@ -68,7 +68,7 @@ import {
     },[setData,router]);
     const logout = () => {
       localStorage.clear("user")
-      Cookies.remove("user")
+      // Cookies.remove("user")
       router.reload()
     };
   
