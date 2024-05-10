@@ -351,7 +351,7 @@ import {
                   </Button>
                   {finish == false ? <Button
                     // isLoading={loader}
-                    isDisabled={loader}
+                    // isDisabled={loader}
                     colorScheme="blue"
                     mr={3}
                     onClick={() => {
