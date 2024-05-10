@@ -92,7 +92,7 @@ import {
   
     const [name, setName] = useState();
     const [prix, setPrix] = useState();
-    const [loader, setLoader] = useState(false);
+    const [loader, setLoader] = useState(true);
     const [quantite, setQuantite] = useState(0);
     const [desc, setDesc] = useState();
   
@@ -155,12 +155,24 @@ import {
     };
   
     const handleState = (cat, org, id,state) => {
-      update(ref(database, cat + "/" + org + "/" + id), {
+      try {
+        update(ref(database, cat + "/" + org + "/" + id), {
+       
+          etat: state,
+        
+        });
+        const dbRef = ref(getDatabase());
+      get(child(dbRef, `course${cat}` + "/" + id)).then((snapshot) => {  update(ref(database, `course${cat}` + "/" + id), {
        
         etat: state,
       
-      });
-      router.reload();
+      })});
+     
+      } catch (error) {
+        
+      }
+      
+      // router.reload();
       toast({
         title: "Mise à jour",
         description: "INFORMATION MISE À JOUR AVEC SUCCES",
@@ -172,6 +184,7 @@ import {
      
    
     };
+  
   
   
     return (
@@ -268,7 +281,7 @@ import {
                     FERMER
                   </Button>
                   {finish == false ? <Button
-  
+                      // isLoading={loader}
                     colorScheme="blue"
                     mr={3}
                     onClick={() => {

@@ -117,6 +117,7 @@ import {
    
 
       if (imageuri.length > 1) {
+        setLoader(false);
         setFinish(true);
       }
     };
@@ -161,12 +162,24 @@ import {
     };
   
     const handleState = (cat, org, id,state) => {
-      update(ref(database, cat + "/" + org + "/" + id), {
+      try {
+        update(ref(database, cat + "/" + org + "/" + id), {
+       
+          etat: state,
+        
+        });
+        const dbRef = ref(getDatabase());
+      get(child(dbRef, `course${cat}` + "/" + id)).then((snapshot) => {  update(ref(database, `course${cat}` + "/" + id), {
        
         etat: state,
       
-      });
-      router.reload();
+      })});
+     
+      } catch (error) {
+        
+      }
+      
+      // router.reload();
       toast({
         title: "Mise à jour",
         description: "INFORMATION MISE À JOUR AVEC SUCCES",
@@ -337,7 +350,7 @@ import {
                     FERMER
                   </Button>
                   {finish == false ? <Button
-                    
+                    // isLoading={loader}
                     colorScheme="blue"
                     mr={3}
                     onClick={() => {

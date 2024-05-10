@@ -43,7 +43,7 @@ const Facture = () => {
                 mt={{ md: '2em', xl: '0em' }}
             >
                 <Flex
-                    w={'90%'} h={{ md: '20em', xl: '30em' }} bg={'#fff'} borderRadius={'10px'}
+                    w={'90%'} h={{ md: 'fit-content', xl: 'fit-content' }} bg={'#fff'} borderRadius={'10px'}
                     boxShadow={' rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'}
                     flexDirection={'column'}
                 >
@@ -69,7 +69,7 @@ const Facture = () => {
                     </Center>
 
                     {/* graphique */}
-                    <Flex
+                    {/* <Flex
                         w={'100%'} h={'85%'}
                         flexDirection={'column'}
                     >
@@ -86,7 +86,7 @@ const Facture = () => {
                                 ))
                             }
                         </Center>
-                    </Flex>
+                    </Flex> */}
 
                 </Flex>
             </Center>
