@@ -59,6 +59,8 @@ const DesktopNav = () => {
 
   const handleUpdateLivraison = async () => {
     const adminRef = doc(db, `Admin/${email}`);
+    sessionStorage.setItem("Livraison",livraison)
+    sessionStorage.setItem("Taxe",taxe)
     if (livraison == "non") {
       await updateDoc(adminRef, {
         taxeLivraison: 0,

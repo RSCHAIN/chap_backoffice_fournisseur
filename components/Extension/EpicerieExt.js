@@ -116,7 +116,7 @@ import {
       })
    
 
-      if (imageuri.length > 1) {
+      if (imageuri.length > 0) {
         setLoader(false);
         setFinish(true);
       }
@@ -138,7 +138,7 @@ import {
           etat: "Disponible",
           note: "nouveau",
           taxe: sessionStorage.getItem("Taxe"),
-          fournisseur: JSON.parse(sessionStorage.getItem("Livraison")) ? org : "CHAP",
+          fournisseur: JSON.parse(sessionStorage.getItem("Livraison")) == "oui" ? org : "CHAP",
 
         });
         toast({
