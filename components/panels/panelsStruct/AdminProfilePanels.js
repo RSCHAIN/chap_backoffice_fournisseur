@@ -89,10 +89,10 @@ const AdminProfilePanels = () => {
           isClosable: true,
         });
       
-        localStorage.clear()
+        sessionStorage.clear()
   }
   useEffect(() => {
-    setUser(String(localStorage.user)
+    setUser(String(sessionStorage.user)
       .replace('"', "")
       .trim()
       .replace('"', ""));

@@ -65,13 +65,13 @@ import {
     const toast = useToast();
   
     useEffect(() => {
-      const exist = localStorage.getItem("cat");
-      const exist2 = localStorage.getItem("org");
+      const exist = sessionStorage.getItem("cat");
+      const exist2 = sessionStorage.getItem("org");
       if (exist) {
         setCat(JSON.parse(exist));
         setOrg(JSON.parse(exist2));
       } else {
-        localStorage.clear();
+        sessionStorage.clear();
         router.push("/");
       }
       const dbRef = ref(getDatabase());

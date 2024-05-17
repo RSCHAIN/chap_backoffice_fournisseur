@@ -18,6 +18,9 @@ import {
   useToast,
   Textarea,
   SimpleGrid,
+  CheckboxGroup,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
@@ -58,13 +61,18 @@ const Inscription = () => {
   const [codePostal, setCodePostal] = useState();
   const [image, setImage] = useState();
   const [uri, setUri] = useState();
-  const [bool, setBool] = useState(false);
+  const [bool, setBool] = useState(true);
   const toast = useToast();
   const router = useRouter();
   const TermsCond = "Je certifie avoir lu et approuvé les ";
   ///envoie de mail pour la verification
   const randomNumb = parseInt(Math.random() * 1000000)
   const [verif,setVerif] = useState(false);
+
+
+
+  const [livraison, setLivraison] = useState("Non");
+  const [taxe, setTaxe] = useState("");
 
   const sendEmail = async (email, subject, message) => {
     return axios({
@@ -105,6 +113,8 @@ const Inscription = () => {
         // siret,
         adresse,
         // tva,
+        transportLivraison: livraison,
+        taxeLivraison:taxe,
         ville,codePostal,
         description,
         status: 'non verifié',
@@ -148,18 +158,18 @@ const Inscription = () => {
   };
 
   ///upload image
-  // const handleImageUpload = async (file, cat, org) => {
+  const handleImageUpload = async (file, cat, org) => {
   // Upload the image to Firebase Storage
-  // const imageRef = ref(storage, cat + "/" + org + "/logo/" + file.name);
-  // await uploadBytes(imageRef, file);
+  const imageRef = ref(storage, cat + "/" + org + "/logo/" + file.name.trim());
+  await uploadBytes(imageRef, file);
 
   // Get the download URL of the uploaded image
-  // const downloadURL = await getDownloadURL(imageRef);
+  const downloadURL = await getDownloadURL(imageRef);
 
   // Do something with the downloadURL, such as storing it in a database
-  // setUri(downloadURL);
-  //  createUSer();
-  // };
+  setUri(downloadURL);
+   createUSer();
+  };
   const { isOpen, onToggle } = useDisclosure()
   const etes = "n'êtes"
 if (verif) {
@@ -389,7 +399,7 @@ if (verif) {
                   ></Input>
                 </Stack>
 
-                {/* <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
                     IMAGE DU MAGASIN
                   </Text>
@@ -406,7 +416,29 @@ if (verif) {
                       setImage(e.target.files[0])
                     }}
                   ></Input>
-                </Stack> */}
+                </Stack>
+
+
+                <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
+                  <Text fontWeight={"bold"} fontSize={"1.5em"}>
+                    Avez vous votre moyen de livraison?
+                  </Text>
+                 <Flex justifyContent={"space-around"} display={{base:"grid",lg:"flex"}}>
+                  <RadioGroup mb={{base:5,lg:0}} width={{base:"100%",lg:"50%"}} onChange={(e)=>{setLivraison(e), e == "non" ? setTaxe(0) : setTaxe(taxe)}} >
+                  <Radio mr={10} colorScheme="blue"  value={"oui"}>
+                     Oui
+                   </Radio>
+                   <Radio colorScheme="red"   value={"non"}>
+                     Non
+                   </Radio> 
+                  </RadioGroup>
+                  {livraison == "oui" ? 
+                  <Input onChange={(e)=>setTaxe(e.target.value)} width={{base:"100%",lg:"50%"}} placeholder="Entrez la valeur"/>
+                  :
+                  <>  </>
+                  } 
+                 </Flex>
+                </Stack>
                 {/* input mot de pass */}
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"1em"}>
                   <FormLabel fontWeight={"bold"} fontSize={["1em", "1em", "1em", "1.25em", "1.5em"]}>
@@ -479,7 +511,7 @@ if (verif) {
               <Box w={"fit-content"} ml={["10%", "10%", "10%", "30%", "30%",]} >
                 <Box display={'flex'} width={"fit-content"} textAlign={'center'} >
                   {/* <Checkbox onDoubleClick={()=>console.log("okay")}  borderColor={"black"} mt={3} mr={5} ml={5}/> */}
-                  <Checkbox mt={"1em"} pr={1} onChange={e => { setBool(e.target.checked) }}>{TermsCond}  <Link
+                  <Checkbox mt={"1em"} pr={1} onChange={e => {setBool(!e.target.checked) }}>{TermsCond}  <Link
                     color={"messenger.400"}
                     fontWeight={"bold"}
                     mt={"1em"}
@@ -506,7 +538,7 @@ if (verif) {
                   _hover={{ textDecoration: "none" }}
                 >
                   <Button
-                    isDisabled={bool == true || email.length < 15 || password.length < 8 || password2.length < 8}
+                    isDisabled={bool == true || email.length < 15 || password.length < 8 || password2.length < 8 }
                     isLoading={loader}
                     w={"fit-content"}
                     h={"full"}
@@ -515,8 +547,8 @@ if (verif) {
                     fontSize={"1.25em"}
                     onClick={() => {
                      
-                      // handleImageUpload(image, categorie, organisation),
-                      createUSer()
+                      handleImageUpload(image, categorie, organisation)
+                      // createUSer()
                     }}
                   >
                     Inscription

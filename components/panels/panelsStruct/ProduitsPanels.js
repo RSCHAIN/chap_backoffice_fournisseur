@@ -64,7 +64,7 @@ const ProduitsPanels = ({categ}) => {
   
 
   useEffect(() => {
-    setCat(localStorage.getItem("cat"));
+    setCat(sessionStorage.getItem("cat"));
  
   }, []);
 

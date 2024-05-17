@@ -51,6 +51,8 @@ const Connexion = () => {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [pass, setPass] = useState("");
+  const [livraison, setLivraison] = useState("");
+  const [taxe, setTaxe] = useState("");
   const [passCnf, setPassCnf] = useState("");
   const toast = useToast();
   const router = useRouter();
@@ -63,14 +65,16 @@ const Connexion = () => {
     if (docSnap.exists()) {
       if (docSnap.data().password == pass) {
         if (docSnap.data().status == "VERIFIE") {
-          localStorage.setItem("user", JSON.stringify(docSnap.data().email) ?? "");
-          localStorage.setItem("cat", JSON.stringify(docSnap.data().categorie) ?? "");
-          localStorage.setItem("imageUrl", JSON.stringify(docSnap.data().imageUrl ?? ""));
-          localStorage.setItem(
+          sessionStorage.setItem("user", JSON.stringify(docSnap.data().email) ?? "");
+          sessionStorage.setItem("cat", JSON.stringify(docSnap.data().categorie) ?? "");
+          sessionStorage.setItem("imageUrl", JSON.stringify(docSnap.data().imageUrl ?? ""));
+          sessionStorage.setItem("Livraison", JSON.stringify(docSnap.data().transportLivraison) ?? "");
+          sessionStorage.setItem("Taxe", JSON.stringify(docSnap.data().taxeLivraison) ?? "");
+          sessionStorage.setItem(
             "org",
             JSON.stringify(docSnap.data().organisation)
           );
-          localStorage.setItem("name", JSON.stringify(docSnap.data().name));
+          sessionStorage.setItem("name", JSON.stringify(docSnap.data().name));
           Cookies.set("user", JSON.stringify(docSnap.data().name));
 
           toast({
@@ -81,7 +85,7 @@ const Connexion = () => {
             isClosable: true,
           });
           // if (typeof window !== "undefined") {   
-          //   const exist = localStorage.getItem("user");
+          //   const exist = sessionStorage.getItem("user");
           //   if (exist) {
 
           router.push("/Dashboard");
@@ -118,7 +122,7 @@ const Connexion = () => {
 
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
+    if (sessionStorage.getItem("user")) {
       router.push("/Dashboard");
     }
   }, [router]);

@@ -97,7 +97,7 @@ const recapItems = [
 const DashBoardPanels = () => {
     const [image,setImage] = useState('')
     useEffect(()=>{
-        setImage(JSON.parse(localStorage.getItem("imageUrl")))
+        setImage(JSON.parse(sessionStorage.getItem("imageUrl")))
     })
     return (
         <>

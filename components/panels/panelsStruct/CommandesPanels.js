@@ -202,7 +202,7 @@ const CommandesPanels = () => {
   }
   useEffect(() => {
     Getall();
-    setOrg(JSON.parse(localStorage.getItem("org")));
+    setOrg(JSON.parse(sessionStorage.getItem("org")));
    
   }, []);
   

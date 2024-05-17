@@ -66,13 +66,13 @@ import {
     const toast = useToast();
   
     useEffect(() => {
-      const exist = localStorage.getItem("cat");
-      const exist2 = localStorage.getItem("org");
+      const exist = sessionStorage.getItem("cat");
+      const exist2 = sessionStorage.getItem("org");
       if (exist) {
         setCat(JSON.parse(exist));
         setOrg(JSON.parse(exist2));
       } else {
-        localStorage.clear();
+        sessionStorage.clear();
         router.push("/");
       }
       const dbRef = ref(getDatabase());
@@ -102,7 +102,7 @@ import {
     ///upload image
     const handleImageUpload = async (file, cat, org) => {
       // Upload the image to Firebase Storage
-      setLoader(true);
+      // setLoader(true);
       toast({title:"Upload des fichiers...", status: "warning",description:"si cela prend du temps, veuillez cliquer à nouveau",duration: 15000})
       Object.values(file).slice(0, 3).map(async (details, index) => {
         const imageRef = sref(storage, cat + "/" + org + "/" + details.name);
@@ -112,7 +112,7 @@ import {
         const downloadURL = await getDownloadURL(imageRef);
   
         // Do something with the downloadURL, such as storing it in a database
-        imageuri.push(downloadURL);
+        imageuri[index]=downloadURL;
       })
    
 
@@ -125,6 +125,7 @@ import {
     //enregistrer data
     function writeData(cat, org, name, prix, description, quantite) {
       if (name != null) {
+        // const livrables =
         push(ref(database, cat + "/" + org), {
           nom: name,
           prix: parseFloat(prix),
@@ -136,6 +137,9 @@ import {
           organisation: org,
           etat: "Disponible",
           note: "nouveau",
+          taxe: sessionStorage.getItem("Taxe"),
+          fournisseur: JSON.parse(sessionStorage.getItem("Livraison")) ? org : "CHAP",
+
         });
         toast({
           title: "SUCCÉS",
@@ -233,7 +237,7 @@ import {
                     }}
                   />
                   {image.length > 3 ? <Text color={"red"}>Nous ne prenons que 3 images par produit</Text> : <></>}
-                  <Flex display={{base:"none", lg:"flex"}}>
+                  <Flex display={{base:"none", lg:"none"}}>
                     <Box mr={5} >
                       <FormControl isRequired>
                         <FormLabel>Intitulé</FormLabel>
@@ -280,7 +284,7 @@ import {
                       <Input type="hidden" value={org} />
                     </Box>
                   </Flex>
-                  <Box  display={{base:"block", lg:"none"}}>
+                  <Box  display={{base:"block", lg:"block"}}>
                   <FormControl isRequired>
                         <FormLabel>Intitulé</FormLabel>
                         <Input

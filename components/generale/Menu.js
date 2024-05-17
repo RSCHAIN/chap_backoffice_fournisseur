@@ -44,10 +44,10 @@ import {
   
   
     useEffect(() => {
-      const exist =  localStorage.getItem("user");
-      const exist2 =  localStorage.getItem("cat");
-      const exist3 =  localStorage.getItem("org");
-      const exist4 =  localStorage.getItem("name");
+      const exist =  sessionStorage.getItem("user");
+      const exist2 =  sessionStorage.getItem("cat");
+      const exist3 =  sessionStorage.getItem("org");
+      const exist4 =  sessionStorage.getItem("name");
       if (exist) {
          setData(JSON.parse(exist))
          const all = JSON.parse(exist)
@@ -67,9 +67,9 @@ import {
       
     },[setData,router]);
     const logout = () => {
-      localStorage.clear("user")
+      sessionStorage.clear("user")
       // Cookies.remove("user")
-      router.reload()
+      router.push("/")
     };
   
     

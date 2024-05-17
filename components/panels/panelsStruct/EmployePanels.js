@@ -92,7 +92,7 @@
 //     } else {
 //       console.log("passse pas");
 //     }
-//     // localStorage.setItem("categories","")
+//     // sessionStorage.setItem("categories","")
 //   };
 
 //   const fetchMag = async () => {
@@ -103,12 +103,12 @@
 //       // console.log(doc.id, " => ", doc.data());
 //       // setMag(doc.data()
 
-//       localStorage.setItem(doc.id, JSON.stringify(doc.data()));
+//       sessionStorage.setItem(doc.id, JSON.stringify(doc.data()));
 //     });
 //   };
 
 //   useEffect(() => {
-//     const exist = localStorage.getItem("org");
+//     const exist = sessionStorage.getItem("org");
 //     Login(JSON.parse(exist));
 //     fetchMag();
 //     if (exist) {

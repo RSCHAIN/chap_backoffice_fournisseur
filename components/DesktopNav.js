@@ -20,7 +20,12 @@ import {
   Text,
   Image,
   Heading,
-  Box
+  Box,
+  CheckboxGroup,
+  Checkbox,
+  RadioGroup,
+  Radio,
+  useToast
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { ChevronDownIcon, EmailIcon, Search2Icon } from "@chakra-ui/icons";
@@ -34,8 +39,9 @@ import EmployePanels from "./panels/panelsStruct/EmployePanels";
 import AdminProfilePanels from "./panels/panelsStruct/AdminProfilePanels";
 import { deleteCookie, getCookie, hasCookie } from "cookies-next";
 import { useRouter } from "next/router";
-import { database } from "@/Firebase/Connexion";
+import { database, db } from "@/Firebase/Connexion";
 import ReservationPanels from "./panels/panelsStruct/ReservationPanels";
+import { doc, updateDoc } from "firebase/firestore";
 
 
 const DesktopNav = () => {
@@ -44,15 +50,42 @@ const DesktopNav = () => {
   const [user, setUser] = useState()
   const [org,setOrg]= useState()
   const [display,setDisplay]= useState("none")
+  const [display2,setDisplay2]= useState("grid")
   const [cat,setCat] = useState()
   const [email,setEmail] = useState()
+  const [livraison,setLivraison] = useState()
+  const [taxe,setTaxe] = useState()
+  const toast = useToast()
+
+  const handleUpdateLivraison = async () => {
+    const adminRef = doc(db, `Admin/${email}`);
+    if (livraison == "non") {
+      await updateDoc(adminRef, {
+        taxeLivraison: 0,
+        transportLivraison:livraison
+      }).then(() =>toast({title: "Option enregistrée", status: "success",duration: 9000,position: "top-right",isClosable:true}));
+    }else{
+      if (parseFloat(taxe) >1) {
+        await updateDoc(adminRef, {
+          taxeLivraison: taxe,
+          transportLivraison:livraison
+        }).then(() =>toast({title: "Option enregistrée", status: "success",duration: 9000,position: "top-right",isClosable:true}));
+      }else{toast({title: "Veuillez verifier vos informations", status: "warning",duration: 9000,position: "top-right",isClosable:true})}
+     
+    }
+   
+
+  };
+
 
 
   useEffect(() => {
-    const exist =  localStorage.getItem("user");
-    const exist2 =  localStorage.getItem("cat");
-    const exist3 =  localStorage.getItem("org");
-    const exist4 =  localStorage.getItem("name");
+    const exist =  sessionStorage.getItem("user");
+    const exist2 =  sessionStorage.getItem("cat");
+    const exist3 =  sessionStorage.getItem("org");
+    const exist4 =  sessionStorage.getItem("name");
+   setLivraison(sessionStorage.getItem("Livraison"))
+   setTaxe(sessionStorage.getItem("Taxe"))
     if (exist) {
        setData(JSON.parse(exist))
        const all = JSON.parse(exist)
@@ -64,6 +97,9 @@ const DesktopNav = () => {
         if (JSON.parse(exist2) == "Restaurant") {
             setDisplay("grid")
         }
+      //   if (JSON.parse(exist2) != "Restaurant" && JSON.parse(exist2) != "Salon de Coiffure"){
+      //     setDisplay2("grid")
+      // }
        
        
     }else{
@@ -72,8 +108,8 @@ const DesktopNav = () => {
     
   },[setData,router]);
   const logout = () => {
-    localStorage.clear("user")
-    router.reload()
+    sessionStorage.clear("user")
+    router.push("/")
   };
 
   
@@ -183,9 +219,9 @@ const DesktopNav = () => {
             </Tab>
 
             <Tab _selected={{ color: "blue" }}>Commandes</Tab>
+            <Tab _selected={{ color: "blue" }} display={display2}>Frais de livraison</Tab>
 
     
-            {/* <Tab _selected={{ color: "blue" }}> Livraison</Tab> */}
            
             <Tab _selected={{ color: "blue" }} display={display}>  Reservations</Tab>
             <Tab _selected={{ color: "blue" }}>Profils</Tab>
@@ -195,7 +231,7 @@ const DesktopNav = () => {
             {/* <Tab _selected={{ color: "blue" }}>Profile Admin</Tab> */}
           </TabList>
 
-          <TabPanels bg={"#e9ecef"} w={{ md: "70%", xl: "83%" }} >
+          <TabPanels className="h-screen"  bg={"#e9ecef"} w={{ md: "70%", xl: "83%" }} >
             {/* dashboard  */}
             <TabPanel >
               <DashBoardPanels></DashBoardPanels>
@@ -205,24 +241,38 @@ const DesktopNav = () => {
             <TabPanel  >
               <ProduitsPanels categ={cat}></ProduitsPanels>
             </TabPanel>
-
+              
             {/* commandes  */}
             <TabPanel  >
               <CommandesPanels></CommandesPanels>
             </TabPanel>
 
-            {/* utilisateurs   */}
-            {/* <TabPanel w={"100%"} h={"100%"}>
-              <UtilisateursPanels></UtilisateursPanels>
-            </TabPanel> */}
-
-            {/* employes  */}
-            {/* <TabPanel w={"100%"} > 
-               {/* <EmployePanels></EmployePanels> 
-               <Center>
-                <Heading>Page Indisponible</Heading>
-               </Center>
-            </TabPanel> */}
+    {/* Frais de livraiosn  */}
+    <TabPanel   >
+              <Center>
+                <Box bgColor={"white"} width={"500px"} boxShadow={"rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"} height={"fit-content"} p={5}>
+                <Flex justifyContent={"space-around"} display={"grid"}>
+                  <Center>
+                  <RadioGroup value={livraison} display={"flex"} mt={5} mb={{base:5,lg:10}}  onChange={(e)=>{setLivraison(e), e == "non" ? setTaxe(0) : setTaxe(taxe)}} >
+                  <Radio mr={10} colorScheme="blue"  value={"oui"}>
+                     Oui
+                   </Radio>
+                   <Radio colorScheme="red"   value={"non"}>
+                     Non
+                   </Radio> 
+                  </RadioGroup>
+                  </Center>
+                  {livraison == "oui" ? 
+                  <Input value={taxe} mb={{base:5,lg:10}} onChange={(e)=>setTaxe(e.target.value)} placeholder="Entrez la valeur"/>
+                  :
+                  <>  </>
+                  } 
+                  <Center><Button colorScheme="green" onClick={()=>handleUpdateLivraison()}>Enregistrer </Button></Center>
+                 </Flex>
+                </Box>
+              </Center>
+            </TabPanel>
+            
             <TabPanel w={"100%"} h={"100%"}>
               <ReservationPanels></ReservationPanels>
             </TabPanel>

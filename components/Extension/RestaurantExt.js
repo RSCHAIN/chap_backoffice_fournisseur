@@ -66,13 +66,13 @@ import {
     const toast = useToast();
   
     useEffect(() => {
-      const exist = localStorage.getItem("cat");
-      const exist2 = localStorage.getItem("org");
+      const exist = sessionStorage.getItem("cat");
+      const exist2 = sessionStorage.getItem("org");
       if (exist) {
         setCat(JSON.parse(exist));
         setOrg(JSON.parse(exist2));
       } else {
-        localStorage.clear();
+        sessionStorage.clear();
         router.push("/");
       }
       const dbRef = ref(getDatabase());
@@ -219,7 +219,7 @@ import {
                 <ModalCloseButton />
                 <ModalBody>
                
-                  <Flex>
+                  <Flex display={{base:"grid",lg:"flex"}}>
                     <Box mr={5}>
                       <FormControl isRequired>
                         <FormLabel>Intitulé</FormLabel>
@@ -243,7 +243,7 @@ import {
                     </Box>
                     <Box>
                       <FormControl>
-                        <FormLabel>Quantité</FormLabel>
+                        <FormLabel>Catégories</FormLabel>
                        <Select onChange={(e)=>setCategorie(e.target.value)}>
                         <option>Entrées</option>
                         <option>Plats</option>
@@ -257,7 +257,7 @@ import {
                         <FormLabel>description</FormLabel>
                         <Input
                           minH={"100px"}
-                          width={"300px"}
+                          width={{base:"full",lg:"300px"}}
                           isRequired
                           value={desc}
                           as={Textarea}
