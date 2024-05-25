@@ -421,7 +421,7 @@ if (verif) {
 
                 <Stack direction={"column"} w={{ base: "90%" }} mt={"2em"}>
                   <Text fontWeight={"bold"} fontSize={"1.5em"}>
-                    Avez vous votre moyen de livraison?
+                    voulez-vous prendre en charge la livraison de vos produits ?
                   </Text>
                  <Flex justifyContent={"space-around"} display={{base:"grid",lg:"flex"}}>
                   <RadioGroup mb={{base:5,lg:0}} width={{base:"100%",lg:"50%"}} onChange={(e)=>{setLivraison(e), e == "non" ? setTaxe(0) : setTaxe(taxe)}} >
@@ -433,7 +433,7 @@ if (verif) {
                    </Radio> 
                   </RadioGroup>
                   {livraison == "oui" ? 
-                  <Input onChange={(e)=>setTaxe(e.target.value)} width={{base:"100%",lg:"50%"}} placeholder="Entrez la valeur"/>
+                  <Input onChange={(e)=>setTaxe(e.target.value)} width={{base:"100%",lg:"50%"}} placeholder="Entrez les frais"/>
                   :
                   <>  </>
                   } 
